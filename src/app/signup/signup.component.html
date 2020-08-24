@@ -1,0 +1,51 @@
+<div class="signup-form">
+    <div class="form-nav">
+        <h2>Signup</h2>
+    </div>
+
+    <form class="signupForm" [formGroup]="signupForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="input-wrapper item-name">
+            <label>First Name</label>
+            <input formControlName="firstname" name="firstname-field" type="text" placeholder="First name" autocomplete="off" required/>
+        </div>
+        <div class="input-wrapper item-name">
+            <label>Last Name</label>
+            <input formControlName="lastname" name="lastname-field" type="text" placeholder="Last name" autocomplete="off" required/>
+        </div>
+        <div class="input-wrapper username">
+            <label>Username</label>
+            <input formControlName="username" name="username-field" type="text" placeholder="Username" autocomplete="new-password" required />
+        </div>
+        <div class="input-wrapper email">
+            <label>Email</label>
+            <input formControlName="email" name="email-field" type="email" placeholder="Email" autocomplete="off" required/>
+        </div>
+        <div class="input-wrapper password">
+            <label>Password</label>
+            <input formControlName="password" name="password-field" placeholder="Password" type="password" autocomplete="new-password" required />
+        </div>
+        <div class="input-wrapper submit-buttons">
+            <button [disabled]="!signupForm.valid" class="signup" type="submit">Signup</button>
+        </div>
+    </form>
+    <div class="fail-message">
+        Email or Username has been taken by someone else. 
+        <div class="close-popup entypo-cancel" (click)="closePopup()"></div>
+    </div>
+    <div class="success-message">
+        You have successfully created a new user.
+    </div>
+</div>
+
+<div *ngIf="this.loading" class="loading-container" (click)="hide()">
+    <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>

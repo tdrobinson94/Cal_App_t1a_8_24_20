@@ -1,0 +1,53 @@
+@import 'variables';
+
+html {
+  height: 100%;
+  width: 100%;
+  background: $background;
+  overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background: white;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, .2);
+      border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(126, 93, 93, 0.7); 
+    }
+}
+body {
+  margin: 0;
+  font-family: $globalFont;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+
+  width: 100%;
+  margin: auto;
+  height: 100%;
+}
+
+.container {
+    width: 100%;
+    margin: auto;
+    height: calc(100% - 53px);
+    font-family: $globalFont;
+    position: relative;
+    top: 0px;
+
+    @media screen and (min-width: $end-small) {
+      top: 50px;
+    }
+    // overflow-x: hidden;
+
+    // @media screen and (min-width: $mid-small) {
+    //   overflow: initial;
+    // }
+    // bottom: 52.9px;
+    // overflow: auto;
+}

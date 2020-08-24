@@ -1,0 +1,43 @@
+<div class="login-form">
+    <div class="form-nav">
+        <h2>Login</h2>
+    </div>
+
+    <form class="signupForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-wrapper username">
+            <label>Username</label>
+            <input formControlName="username" name="username" type="text" placeholder="Username" required/>
+        </div>
+        <div class="input-wrapper password">
+            <label>Password</label>
+            <input formControlName="password" name="password" placeholder="Password" type="password" required/>
+        </div>
+        <div class="input-wrapper submit-buttons">
+            <button [disabled]="!loginForm.valid" class="login" type="submit">Login</button>
+        </div>
+    </form>
+    <div class="fail-message">
+        Username or Password is incorrect.
+        <div class="close-popup entypo-cancel" (click)="closePopup()"></div>
+    </div>
+    <div class="fail-message-2">
+        This username hasn't been registed. Please go to sign up page. <a href="#" routerLink="/signup" (click)="clickLink()">Signup <span class="entypo-right-open-mini"></span></a>
+        <div class="close-popup entypo-cancel" (click)="closePopup()"></div>
+    </div>
+    <div class="success-message">
+        Hi {{userName}}, you have successfully logged into your account.
+    </div>
+</div>
+
+<div *ngIf="this.loading" class="loading-container">
+    <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
