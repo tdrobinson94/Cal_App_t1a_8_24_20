@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   userName = '';
   Email = '';
   loading = false;
+  confirmationMessage = false;
 
   // Gesture Vibration
   gestureVibration = 2;
@@ -68,6 +69,14 @@ export class ProfileComponent implements OnInit {
 
   showUpdateForm() {
     $('.update-form').slideToggle();
+  }
+
+  openConfirmationMessage() {
+    this.confirmationMessage = true;
+  }
+
+  closeConfirmationMessage() {
+    this.confirmationMessage = false;
   }
 
   deleteMyUser() {

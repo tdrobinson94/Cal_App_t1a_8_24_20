@@ -106,13 +106,97 @@
         }
 
         .input-wrapper.delete {
-          button {
+          div.delete {
             background-color: #121212;
             color: #fff;
             padding: 20px 0;
             border: 0;
             font-size: 20px;
             width: 100%;
+            text-align: center;
+
+            &:hover, &:focus {
+              opacity: .5;
+              transition: all .3s ease-in-out;
+            }
+          }
+
+          .confirmation-message {
+            padding: 40px;
+            padding-bottom: 0;
+            background: $background;
+            color: $textdrk;
+            border: 1px solid #252525;
+            border-radius: 10px;
+            z-index: 99999;
+            position: fixed;
+            top: 200%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            transition: all .3s ease-in-out;
+            
+            &.showpopup {
+              top: 50%;
+              animation-duration: .3s;
+              animation-timing-function: ease-in-out;
+              animation-name: rise;
+              transition: all .3s ease-in-out;
+            }
+
+            .input-wrapper {
+              margin-top: 20px;
+            }
+
+            button {
+              background-color: $background;
+              color: $textwht;
+              padding: 20px 0;
+              border: 0;
+              font-size: 20px;
+              width: 50%;
+              transition: all .3s ease-in-out;
+
+              &:disabled {
+                  opacity: .3;
+                  transition: all .3s ease-in-out;
+              }
+
+              &:hover, &:focus {
+                opacity: .5;
+                transition: all .3s ease-in-out;
+              }
+            }
+          }
+          @keyframes rise { 
+              from {
+                top: 200%;
+              }
+              to {
+                top: 50%;
+              }
+          }
+        }
+
+      form {
+        padding: 20px 0;
+        .input-wrapper {
+          width: 100%;
+
+          button {
+            background-color: $background;
+            color: $textwht;
+            padding: 20px 0;
+            border: 0;
+            font-size: 20px;
+            width: 100%;
+            text-align: center;
+            transition: all .3s ease-in-out;
+
+            &:disabled {
+              opacity: .3;
+              transition: all .3s ease-in-out;
+            }
 
             &:hover, &:focus {
               opacity: .5;
@@ -121,20 +205,14 @@
           }
         }
 
-        form {
-            padding: 20px 0;
-            .input-wrapper {
-            width: 100%;
-            }
-
-            label {
-            display: block;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            text-align: left;
-            font-weight: bold;
-            font-size: 15px;
+        label {
+          display: block;
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          text-align: left;
+          font-weight: bold;
+          font-size: 15px;
         }
 
         input {
@@ -178,13 +256,14 @@
               bottom: 54px;
             }
 
-            .update, .delete, .logout {
+            .update, .delete, .logout, div.logout {
                 background-color: $background;
                 color: $textwht;
                 padding: 20px 0;
                 border: 0;
                 font-size: 20px;
-                width: 50%;
+                width: 100%;
+                text-align: center;
                 transition: all .3s ease-in-out;
 
                 &:disabled {
@@ -212,7 +291,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,.7);
+  background: rgba(0,0,0,.9);
   display: flex;
   justify-content: center;
   align-items: center;
