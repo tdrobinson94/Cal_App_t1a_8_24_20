@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CookieService } from 'ngx-cookie-service';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
@@ -52,7 +53,7 @@ export class HammerConfig extends HammerGestureConfig {
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }, UserDataService, AuthGuard, GuestGuard,
+    { provide: LocationStrategy, useClass: HashLocationStrategy }, CookieService, UserDataService, AuthGuard, GuestGuard,
     EventDataService
   ],
   bootstrap: [AppComponent]

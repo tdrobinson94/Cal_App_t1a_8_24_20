@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, config } from 'rxjs';
 
 @Injectable({
@@ -9,10 +10,10 @@ import { Observable, config } from 'rxjs';
 export class EventDataService {
     apiUrl = 'https://react-calendar-backend-api.herokuapp.com';
     user;
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private cookieService: CookieService) { }
 
     getToken() {
-        const token = localStorage.getItem('token');
+        const token = this.cookieService.get('token');
         const config = {
             headers: new HttpHeaders({ Authorization: 'Bearer ' + token })
         };
@@ -29,7 +30,7 @@ export class EventDataService {
     }
 
     getEvents(): Observable<any> {
-        const param = { user_id: localStorage.getItem('userId') };
+        const param = { user_id: this.cookieService.get('userId')};
         return this.http.get(this.apiUrl + '/user/events', { params: param });
     }
 
