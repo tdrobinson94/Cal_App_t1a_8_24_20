@@ -1360,7 +1360,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateItemForm.reset();
     $('.event').removeClass('selected-event');
     $('.num-box').removeClass('event-opened');
-    $('.update-event-form').removeClass('show-update-form').addClass('closed');
+    $('.update-event-form').addClass('closed');
     $('.add-item-button, .add-item-container').show();
   }
 

@@ -393,10 +393,15 @@
                     form {
                         display: none;
 
-                        &.update-event-form, &.closed {
-                            animation-name: shrink-2;
-                            animation-duration: .3s;
-                            animation-timing-function: ease-in-out;
+                        &.closed {
+                            position: fixed;
+                            top: 110% !important;
+                            transition: all .3s ease-in-out;
+
+                            .submit-buttons {
+                                bottom: -110% !important;
+                                transition: all .2s ease-in-out;
+                            }
                         }
                     }
 
