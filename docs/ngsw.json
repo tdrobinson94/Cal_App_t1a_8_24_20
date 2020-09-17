@@ -1,0 +1,84 @@
+{
+  "configVersion": 1,
+  "timestamp": 1600369416506,
+  "index": "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/favicon.ico",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/index.html",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/main.b7307a83a4c1ec37f785.js",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/manifest.webmanifest",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/polyfills.a4021de53358bb0fec14.js",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/runtime.e227d1a0e31cbccbf8ec.js",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/styles.a630d23e7644271b8720.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/default-profile-icon.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-128x128.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-144x144.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-152x152.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-192x192.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-384x384.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-512x512.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-72x72.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-96x96.png",
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/loader.gif"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/default-profile-icon.png": "e733869f213c29f4bbe9a8008194e3ffe87423c2",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/icons/loader.gif": "4d391bb6ccdc84a78202fcb6e5009aa857b3d1b7",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/index.html": "f026d9c8f402ae04766db8ab9da53a48a8887abb",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/main.b7307a83a4c1ec37f785.js": "ad2b7f9efc7ce7a57cf5470eb178713a804f335d",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/manifest.webmanifest": "15f1b34ce2a48774a03b37782c4cd3e962ffca21",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/polyfills.a4021de53358bb0fec14.js": "b47435a9ef2a4829f2f9dfd35599bde3614981b1",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/runtime.e227d1a0e31cbccbf8ec.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/styles.a630d23e7644271b8720.css": "3d3deb49c4fdad8a3811c92c2688b075852c0fdd"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
