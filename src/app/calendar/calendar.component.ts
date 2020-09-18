@@ -729,7 +729,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
           console.log('no scroll');
         } else {
-          window.navigator.vibrate(this.gestureVibration);
+          // window.navigator.vibrate(this.gestureVibration);
           $('.day-box').removeClass('double-click swipe-right swipe-left');
           $('.main-info-section').removeClass('normal-scrolling');
           $('.main-info-section').removeClass('animate-events-one animate-events-two');
