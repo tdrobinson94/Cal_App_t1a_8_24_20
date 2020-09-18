@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit {
           console.log('user is not logged in');
           $('.fail-message').addClass('show-fail');
           this.loading = false;
+
+          setTimeout(() => {
+            $('.fail-message').removeClass('show-fail');
+          }, 700);
         }
       });
   }

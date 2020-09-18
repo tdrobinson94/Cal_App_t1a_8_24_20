@@ -56,9 +56,53 @@
 
     form {
         padding: 20px;
-        padding-bottom: 110px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 64px;
+        bottom: 120px;
+
+        @media screen and (min-width: $end-small) {
+          top: 114px;
+        }
+
+        img {
+          display: block;
+          margin: auto;
+          max-width: 65px;
+        }
+
         .input-wrapper {
           width: 100%;
+
+          &.username, &.password, &.email, &.item-name {
+            width: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            padding: 0 20px;
+          }
+
+          &.password {
+            bottom: 0;
+          }
+
+          &.username {
+            bottom: 70px;
+          }
+
+          &.email {
+            bottom: 140px;
+          }
+
+          &.item-name {
+            &:nth-child(2) {
+              bottom: 280px;
+            }
+            &:nth-child(3) {
+              bottom: 210px;
+            }
+          }
         }
 
         label {
@@ -76,7 +120,6 @@
           padding: 10px 0;
           border: 0;
           border-bottom: 1px solid #252525;
-          margin: 10px 0;
           -webkit-box-sizing: border-box;
           -moz-box-sizing: border-box;
           box-sizing: border-box;
@@ -132,21 +175,25 @@
     }
 
     .success-message, .fail-message {
-      display: none;
-    }
-    .show-success, .show-fail {
-      display: block;
+      padding: 40px;
+      background: $background;
+      color: $textdrk;
+      border: 1px solid #252525;
+      border-radius: 10px;
+      z-index: 99999;
       position: fixed;
-      top: 50%;
+      top: 200%;
       left: 50%;
       transform: translate(-50%, -50%);
-      padding: 40px;
-      background: red;
-      color: #fff;
-
-      @media screen and (max-width: $end-small) {
-        width: 80%;
-      }
+      width: 75%;
+      transition: all .3s ease-in-out;
+    }
+    .show-success, .show-fail {
+      top: 50%;
+      animation-duration: .3s;
+      animation-timing-function: ease-in-out;
+      animation-name: rise;
+      transition: all .3s ease-in-out;
 
       .close-popup {
         position: absolute;
