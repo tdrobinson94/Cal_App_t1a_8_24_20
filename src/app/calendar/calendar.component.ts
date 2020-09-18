@@ -7,6 +7,7 @@ import _ from 'lodash';
 import * as moment from 'moment';
 import 'hammerjs';
 import { toExcelDate } from 'js-excel-date-convert';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-calendar',
@@ -15,7 +16,7 @@ import { toExcelDate } from 'js-excel-date-convert';
 })
 export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor(private dataService: EventDataService) { }
+  constructor(private dataService: EventDataService, private cookieService: CookieService) { }
 
   // Date variables
   clock = new Date();
@@ -987,7 +988,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       // Set the time to variables and concat the values to a proper time input format
       const eCurrentTime = eHours + ':' + eMinutes;
       const eEndTime = eEndTimeHours + ':' + eEndTimeMinutes;
-      const userID = localStorage.getItem('userId');
+      const userID = this.cookieService.get('userId');
 
       // Update the form with the time values defined above
 
@@ -1100,7 +1101,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     const currentTime = hours.toString() + ':' + minutes.toString();
     const endTime = (extraHour) + ':' + minutes;
 
-    const userID = localStorage.getItem('userId');
+    const userID = this.cookieService.get('userId');
 
     this.addItemForm = new FormGroup({
       user_id: new FormControl(userID),
@@ -1361,6 +1362,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.event').removeClass('selected-event');
     $('.num-box').removeClass('event-opened');
     $('.update-event-form').addClass('closed');
+    // Delay for the Close animation
+    setTimeout(() => {
+      $('.update-event-form').removeClass('show-update-form');
+    }, 300);
     $('.add-item-button, .add-item-container').show();
   }
 
