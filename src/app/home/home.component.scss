@@ -1,4 +1,46 @@
-.home-div {
+@import '..//..//variables';
+
+.home-container {
     height: calc(100% - 54px);
-    border: 1px solid black;
+
+    img {
+        display: block;
+        margin: auto;
+        // max-width: 65px;
+    }
+    h1 {
+        color: $textdrk;
+        text-align: center;
+    }
+
+    .home-buttons {
+        position: fixed;
+        bottom: 50%;
+        transform: translateY(100%);
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+
+        a, span {
+            color: $textdrk;
+        }
+
+        a {
+            margin: 10px 0;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            background: red;
+            border-radius: 10px;
+
+            span {
+                margin-right: 10px;
+            }
+        }
+    }
 }
