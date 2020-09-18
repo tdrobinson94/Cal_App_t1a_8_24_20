@@ -56,9 +56,39 @@
 
     form {
         padding: 20px;
-        padding-bottom: 110px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 64px;
+        bottom: 120px;
+
+        @media screen and (min-width: $end-small) {
+          top: 114px;
+        }
+
+        img {
+          display: block;
+          margin: auto;
+        }
+
         .input-wrapper {
           width: 100%;
+
+          &.username, &.password {
+            width: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            padding: 0 20px;
+          }
+
+          &.password {
+            bottom: 0;
+          }
+
+          &.username {
+            bottom: 85px;
+          }
         }
 
         label {
