@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
 
           setTimeout(() => {
             $('.fail-message').removeClass('show-fail');
-          }, 700);
+          }, 3000);
         }
       });
   }
