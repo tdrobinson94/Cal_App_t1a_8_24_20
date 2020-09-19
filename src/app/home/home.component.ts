@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     $('html, body').animate({ scrollTop: $(window).height() }, 400);
     setTimeout(() => {
       $('.video').get(0).play();
-    }, 600);
+    }, 1400);
   }
 
   onSwipeDown(e) {
@@ -43,19 +43,20 @@ export class HomeComponent implements OnInit {
   }
 
   onMouseWheel(e) {
-    e.preventDefault();
     if (e.deltaY < 0 && $(window).scrollTop() > ($(window).height() - 54)) {
       $('html, body').animate({ scrollTop: 0 }, 400);
       $('.video').get(0).pause();
-      $('.home-buttons').removeClass('hide');
-      e.preventDefault();
-    } else if (e.deltaY > 0 && $(window).scrollTop() === 0) {
-      e.preventDefault();
-      $('.home-buttons').addClass('hide');
+    } else if (e.deltaY > 0 && $(window).scrollTop() < 0) {
       $('html, body').animate({ scrollTop: $(window).height() }, 400);
       setTimeout(() => {
         $('.video').get(0).play();
-      }, 600);
+      }, 1400);
+    }
+
+    if ($(window).scrollTop() <= 10) {
+      $('.home-buttons').removeClass('hide');
+    } else {
+      $('.home-buttons').addClass('hide');
     }
   }
 
