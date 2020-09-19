@@ -46,12 +46,12 @@
         bottom: 15%;
         z-index: 999;
         opacity: 1;
-        transition: opacity .3s ease-in-out;
+        transition: opacity 1.4s ease-in-out;
 
         &.hide {
             opacity: 0;
             z-index: 0;
-            transition: all .3s ease-in-out;
+            transition: all .4s ease-in-out;
         }
 
         a, span {
@@ -101,9 +101,9 @@
         }
 
         @keyframes bounce-3 {
-            0%   { transform: translate(-50%, 0); }
-            50%  { transform: translate(-50%, 2px); }
-            100% { transform: translate(-50%, 0); }
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(2px); }
+            100% { transform: translateY(0); }
         }
     }
 }
