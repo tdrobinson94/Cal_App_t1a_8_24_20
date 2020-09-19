@@ -13,13 +13,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     $('.video').get(0).pause();
-    $('html, body').animate({ scrollTop: 0 }, 600);
+    $('html, body').animate({ scrollTop: 0 }, 400);
     $('.home-buttons').removeClass('hide');
+    $('.video').get(0).muted = true;
   }
 
   scrolltoVideo() {
     $('.home-buttons').addClass('hide');
-    $('html, body').animate({ scrollTop: $(window).height() }, 500);
+    $('html, body').animate({ scrollTop: $(window).height() }, 400);
     setTimeout(() => {
       $('.video').get(0).play();
     }, 600);
@@ -29,10 +30,8 @@ export class HomeComponent implements OnInit {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
       || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
         $('.video').get(0).pause();
-        $('html, body').animate({ scrollTop: 0 }, 600);
-        setTimeout(() => {
-          $('.home-buttons').removeClass('hide');
-        }, 600);
+        $('html, body').animate({ scrollTop: 0 }, 400);
+        $('.home-buttons').removeClass('hide');
       }
   }
 
@@ -44,16 +43,19 @@ export class HomeComponent implements OnInit {
   }
 
   onMouseWheel(e) {
+    e.preventDefault();
     if (e.deltaY < 0 && $(window).scrollTop() > ($(window).height() - 54)) {
-      $('html, body').animate({ scrollTop: 0 }, 600);
+      $('html, body').animate({ scrollTop: 0 }, 400);
       $('.video').get(0).pause();
-      setTimeout(() => {
-        $('.home-buttons').removeClass('hide');
-      }, 600);
+      $('.home-buttons').removeClass('hide');
       e.preventDefault();
     } else if (e.deltaY > 0 && $(window).scrollTop() === 0) {
       e.preventDefault();
-      // this.scrolltoVideo();
+      $('.home-buttons').addClass('hide');
+      $('html, body').animate({ scrollTop: $(window).height() }, 400);
+      setTimeout(() => {
+        $('.video').get(0).play();
+      }, 600);
     }
   }
 
