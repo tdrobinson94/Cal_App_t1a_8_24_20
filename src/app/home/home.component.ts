@@ -28,19 +28,33 @@ export class HomeComponent implements OnInit {
   onSwipeDown(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
       || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-        console.log('Swipe Down');
         $('.video').get(0).pause();
         $('html, body').animate({ scrollTop: 0 }, 600);
-        $('.home-buttons').removeClass('hide');
+        setTimeout(() => {
+          $('.home-buttons').removeClass('hide');
+        }, 600);
       }
   }
 
   onSwipeUp(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
       || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-        console.log('Swipe Up');
         this.scrolltoVideo();
       }
+  }
+
+  onMouseWheel(e) {
+    if (e.deltaY < 0 && $(window).scrollTop() > ($(window).height() - 54)) {
+      $('html, body').animate({ scrollTop: 0 }, 600);
+      $('.video').get(0).pause();
+      setTimeout(() => {
+        $('.home-buttons').removeClass('hide');
+      }, 600);
+      e.preventDefault();
+    } else if (e.deltaY > 0 && $(window).scrollTop() === 0) {
+      e.preventDefault();
+      // this.scrolltoVideo();
+    }
   }
 
 }
