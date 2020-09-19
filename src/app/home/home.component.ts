@@ -12,7 +12,9 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    $('html, body').animate({ scrollTop: 0 }, 500);
+    $('.video').get(0).pause();
+    $('html, body').animate({ scrollTop: 0 }, 600);
+    $('.home-buttons').removeClass('hide');
   }
 
   scrolltoVideo() {
@@ -20,7 +22,7 @@ export class HomeComponent implements OnInit {
     $('html, body').animate({ scrollTop: $(window).height() }, 500);
     setTimeout(() => {
       $('.video').get(0).play();
-    }, 550);
+    }, 600);
   }
 
   onSwipeDown(e) {
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit {
       || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
         console.log('Swipe Down');
         $('.video').get(0).pause();
-        $('html, body').animate({ scrollTop: 0 }, 500);
+        $('html, body').animate({ scrollTop: 0 }, 600);
         $('.home-buttons').removeClass('hide');
       }
   }
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
       || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
         console.log('Swipe Up');
+        this.scrolltoVideo();
       }
   }
 
