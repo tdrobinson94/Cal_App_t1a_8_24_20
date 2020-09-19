@@ -1,16 +1,18 @@
 
-<div class="home-container">
-    <img src="./assets/icons/icon-144x144.png" alt="" />
-
-    <h1>My Calendar App</h1>
+<div class="home-container" (swipedown)="onSwipeDown($event)" (swipeup)="onSwipeUp($event)">
+    <div class="intro">
+        <img src="./assets/icons/icon-144x144.png" alt="" />
+        
+        <h1>My Calendar App</h1>
+    </div>
 
     <div class="home-buttons">
         <a href="#" routerLink="/login"><span class="material-icons">login</span>Login</a>
         <span>or</span>
         <a href="#" routerLink="/signup"><span class="material-icons">create</span>Signup</a>
 
-        <!-- <button class="scroll">Check it out.</button> -->
+        <button class="scroll-button" (click)="scrolltoVideo()">Click here to check it out</button>
     </div>
 
-    <!-- <video src="./assets/videos/Testing_App01.mp4" loop muted autoplay></video> -->
+    <video class="video" src="./assets/videos/Testing_App02.mp4" loop muted controls></video>
 </div>

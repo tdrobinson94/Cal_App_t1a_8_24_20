@@ -1,18 +1,23 @@
 @import '..//..//variables';
 
 .home-container {
-    height: calc(100% - 54px);
+    height: calc(100%);
     // position: relative;
     // overflow: hidden;
     // width: 100%;
     // // height: 100vh;
     // // background: url(https://designsupply-web.com/samplecontent/vender/codepen/20181014.png) no-repeat center center/cover;
 
+    .intro {
+        height: 100%;
+    }
+
     video {
         min-width: 100%;
         height: 100%;
         z-index: 1;
         background: #000;
+        margin-bottom: 54px;
 
         @media screen and (min-width: $end-small) {
             display: none;
@@ -30,12 +35,24 @@
     }
 
     .home-buttons {
-        // transform: translateY(50%);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 20px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 15%;
+        z-index: 999;
+        opacity: 1;
+        transition: opacity .3s ease-in-out;
+
+        &.hide {
+            opacity: 0;
+            z-index: 0;
+            transition: all .3s ease-in-out;
+        }
 
         a, span {
             color: $textdrk;
@@ -52,6 +69,30 @@
 
             span {
                 margin-right: 10px;
+            }
+        }
+
+        .scroll-button {
+            position: relative;
+            background: transparent;
+            color: $textdrk;
+            border: none;
+            font-size: 14px;
+            margin: 10px;
+            outline: none;
+            display: inline;
+
+            @media screen and (min-width: $end-small) {
+                display: none;
+            }
+
+            &:after {
+                content: '▾';
+                position: absolute;
+                font-size: 18px;
+                bottom: -20px;
+                left: 50%;
+                transform: translateX(-50%);
             }
         }
     }
