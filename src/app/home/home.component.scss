@@ -99,9 +99,9 @@
         }
 
         @keyframes bounce-3 {
-            0%   { transform: translateY(0); }
-            50%  { transform: translateY(2px); }
-            100% { transform: translateY(0); }
+            0%   { transform: translate(-50%, 0); left: 50%;}
+            50%  { transform: translate(-50%, 2px); left: 50%;}
+            100% { transform: translate(-50%, 0); left: 50%;}
         }
     }
 }

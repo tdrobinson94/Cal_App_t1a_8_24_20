@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'test-cal', component: TestCalendarComponent, canActivate: [AuthGuard] },
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent, canActivate: [GuestGuard] }
 ];
 
 @NgModule({
