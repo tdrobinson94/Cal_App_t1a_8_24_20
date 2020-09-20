@@ -6,7 +6,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "scope": "./",
-  "start_url": "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/",
+  "start_url": "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/#/calendar",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
