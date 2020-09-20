@@ -6,14 +6,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "scope": "./",
-  "start_url": [
-    "./",
-    "./#/calendar",
-    "./#/profile",
-    "./#/settings",
-    "./#/login",
-    "./#/signup"
-  ],
+  "start_url": "./#/calendar",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
