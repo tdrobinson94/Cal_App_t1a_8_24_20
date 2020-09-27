@@ -242,11 +242,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         } else {
           if ((dayIndex - monthDays) < 10) {
-            day.find('.date-value').html(currentYear + '-' + standardMonth + '-' + standardDayIndex);
+            day.find('.date-value').html(currentYear + '-' + nextMonth + '-' + standardDayIndex);
             day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color');
             day.find('.excel-date').html(excelDate);
           } else {
-            day.find('.date-value').html(currentYear + '-' + standardMonth + '-' + newDayIndex);
+            day.find('.date-value').html(currentYear + '-' + nextMonth + '-' + newDayIndex);
             day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color');
             day.find('.excel-date').html(excelDate);
           }
