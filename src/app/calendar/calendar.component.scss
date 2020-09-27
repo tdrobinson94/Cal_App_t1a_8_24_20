@@ -157,7 +157,7 @@
     .calendar-container {
 
         width: 100%;
-        height: calc(100% - 134px);
+        height: calc(100% - 140px);
         padding: 5px 0;
         position: relative;
         top: 74px;
@@ -468,8 +468,8 @@
                     }
 
                     @media screen and (min-height: 600px) {
-                        transform: translateY(-49%);
-                        height: 59%;
+                        transform: translateY(-42%);
+                        height: 70%;
                     }
 
                     @media screen and (min-height: 600px) and (max-width: $end-small) {
@@ -1123,7 +1123,7 @@
         // box-shadow: 1px 1px 10px #333333;
 
         @media screen and (min-width: $end-small) {
-            bottom: 60.9px;
+            bottom: 65.9px;
         }
 
         &:active {
