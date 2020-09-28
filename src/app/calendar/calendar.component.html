@@ -105,7 +105,7 @@
                         <div class="input-wrapper frequency-update">
                             <label>Select Frequency</label>
                             <select formControlName="frequency" required (change)="frequencyChange($event)">
-                                <option value="0">Once</option>
+                                <option value="2">Once</option>
                                 <option value="1">Daily</option>
                                 <option value="7">Weekly</option>
                                 <option value="14">Bi-weekly</option>
@@ -190,6 +190,7 @@
             <div class="input-wrapper item-type">
                 <label>Select Type</label>
                 <select formControlName="item_type" required>
+                    <option value="" disabled selected hidden>Choose Type</option>
                     <option value="1">Event</option>
                     <!-- <option value="2">Reminder</option>
                     <option value="3">Task</option>
@@ -201,7 +202,8 @@
             <div class="input-wrapper frequency">
                 <label>Select Frequency</label>
                 <select formControlName="frequency" required (change)="frequencyChange($event)">
-                    <option value="0">Once</option>
+                    <option value="" disabled selected hidden>Choose Frequency</option>
+                    <option value="2">Once</option>
                     <option value="1">Daily</option>
                     <option value="7">Weekly</option>
                     <option value="14">Bi-weekly</option>

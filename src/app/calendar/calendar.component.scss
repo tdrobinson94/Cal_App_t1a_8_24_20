@@ -34,7 +34,7 @@
             .selector {
                 display: inline;
                 margin-left: 10px;
-                background-color: transparent;
+                background-color: $primary;
                 border: none;
                 outline: none;
                 font-size: 25px;
@@ -770,7 +770,7 @@
                                         input {
                                             color: #fff;
                                             font-size: 25px;
-                                            background: transparent;
+                                            background: $background;
                                             border: 0;
                                             outline: 0;
                                             font-family: "Noto Sans", sans-serif;
@@ -779,7 +779,7 @@
                                         &:before {
                                             color: $textdrk;
                                             position: absolute;
-                                            content: "▾  swipe to close ▾";
+                                            content: "▾ swipe to close ▾";
                                             top: 1px;
                                             left: 50%;
                                             transform: translateX(-50%);
@@ -867,7 +867,7 @@
                                     box-sizing: border-box;
                                     font-size: 15px;
                                     transition: all .3s ease-in-out;
-                                    background: transparent;
+                                    background: $background;
                                     color: $textdrk;
 
                                     &:focus, &:active {
@@ -1229,7 +1229,7 @@
                 input {
                     color: #fff;
                     font-size: 25px;
-                    background: transparent;
+                    background: $background;
                     border: 0;
                     outline: 0;
                     font-family: "Noto Sans", sans-serif;
@@ -1238,7 +1238,7 @@
                 &:before {
                     color: $textdrk;
                     position: absolute;
-                    content: "▾  swipe to close ▾";
+                    content: "▾ swipe to close ▾";
                     top: 1px;
                     left: 50%;
                     transform: translateX(-50%);
@@ -1333,7 +1333,7 @@
             box-sizing: border-box;
             font-size: 15px;
             transition: all .3s ease-in-out;
-            background: transparent;
+            background: $background;
             color: $textdrk;
 
             &:focus, &:active {

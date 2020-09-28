@@ -990,6 +990,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       const eEndTime = eEndTimeHours + ':' + eEndTimeMinutes;
       const userID = this.cookieService.get('userId');
 
+      if (e.currentTarget.childNodes[3].innerHTML.trim() == 2) {
+        $('.date-input-end-update').hide();
+      } else {
+        $('.date-input-end-update').show();
+      }
+
       // Update the form with the time values defined above
 
       if (eCurrentTime === '00:00' && eEndTime === '23:59') {
@@ -1103,11 +1109,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const userID = this.cookieService.get('userId');
 
+    $('.date-input-end').show();
     this.addItemForm = new FormGroup({
       user_id: new FormControl(userID),
       group_id: new FormControl(''),
-      item_type: new FormControl(1),
-      frequency: new FormControl(0),
+      item_type: new FormControl(''),
+      frequency: new FormControl(''),
       title: new FormControl(''),
       description: new FormControl(''),
       start_date: new FormControl(day),
@@ -1204,7 +1211,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   frequencyChange(e) {
     console.log(this.addItemForm.value.frequency);
-    if (this.addItemForm.value.frequency == 0) {
+    if (this.addItemForm.value.frequency == 2) {
+      $('.date-input-end, .date-input-end-update').hide();
       this.addItemForm = new FormGroup({
         user_id: new FormControl(this.addItemForm.value.user_id),
         group_id: new FormControl(''),
@@ -1238,6 +1246,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       let i = 1;
       const groupID = i;
+      $('.date-input-end, .date-input-end-update').show();
       this.addItemForm = new FormGroup({
         user_id: new FormControl(this.addItemForm.value.user_id),
         group_id: new FormControl(groupID),
@@ -1267,8 +1276,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         all_day: new FormControl(this.updateItemForm.value.all_day),
         location: new FormControl(this.updateItemForm.value.location),
       });
-
-      console.log(groupID);
     }
   }
 
