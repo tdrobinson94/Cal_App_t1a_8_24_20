@@ -151,9 +151,9 @@
                         </div>
                         
                         <div class="input-wrapper submit-buttons">
-                            <button class="submit-form" type="submit" [disabled]="!updateItemForm.valid" (click)="updateEvent()">Update</button>
+                            <button class="submit-form" type="submit" [disabled]="!updateItemForm.valid" (click)="updateEvent()" value="update">Update</button>
 
-                            <button class="delete-event" (click)="deleteEvent($event)">Delete</button>
+                            <button class="delete-event" (click)="deleteEvent($event)" value="delete">Delete</button>
                         </div>
                         
                     </form>
@@ -249,7 +249,7 @@
             </div>
 
             <div class="input-wrapper submit-buttons">
-                <button class="submit-form" type="submit" [disabled]="!addItemForm.valid">Add</button>
+                <button class="submit-form" type="submit" [disabled]="!addItemForm.valid" value="add">Add</button>
             </div>
         </form>
     </div>
