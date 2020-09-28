@@ -878,27 +878,31 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         const eventlist = [];
         const weeks = $(document).find('.weeks').children();
 
-        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-          const day = $(weeks[dayIndex - 1]);
+        for (i = 0; i < response.length; i++) {
+          eventlist[i] = {
+            eventid: response[i].id.toString(),
+            eventtitle: response[i].title,
+            eventstart_date: response[i].start_date.substring(0, 10),
+            eventend_date: response[i].end_date.substring(0, 10),
+            eventdesc: response[i].description,
+            eventlocation: response[i].location,
+            eventfrequency: response[i].frequency,
+            eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
+            eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
+            eventcreatedAt: moment(response[i].created_at).format(),
+            itemtype: response[i].item_type.toString()
+          };
+          this.loading = false;
+        }
+        this.events = eventlist;
 
-          day.find('.event-count').empty().hide();
+        for (i = 0; i < this.events.length; i++) {
+          for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+            const day = $(weeks[dayIndex - 1]);
 
-          for (i = 0; i < response.length; i++) {
-            eventlist[i] = {
-              eventid: response[i].id.toString(),
-              eventtitle: response[i].title,
-              eventstart_date: response[i].start_date.substring(0, 10),
-              eventend_date: response[i].end_date.substring(0, 10),
-              eventdesc: response[i].description,
-              eventlocation: response[i].location,
-              eventfrequency: response[i].frequency,
-              eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
-              eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
-              eventcreatedAt: moment(response[i].created_at).format(),
-              itemtype: response[i].item_type.toString()
-            };
+            day.find('.event-count').empty().hide();
 
-            if (day.find('.date-value').html() === eventlist[i].eventstart_date ) {
+            if (day.find('.date-value').html() === this.events[i].eventstart_date) {
               setTimeout(() => {
                 day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible');
                 day.find('.event[startDate="' + day.find('.date-value').html() + '"]').parent().addClass('visible-parent');
@@ -909,8 +913,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               $('.main-info-section').show();
             }
           }
-          this.events = eventlist;
-          this.loading = false;
         }
       });
   }
