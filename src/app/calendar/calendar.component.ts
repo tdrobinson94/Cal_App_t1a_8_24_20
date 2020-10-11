@@ -874,8 +874,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataService.getEvents()
       .subscribe((response) => {
         let i;
-        let dayIndex;
         const eventlist = [];
+        let dayIndex;
         const weeks = $(document).find('.weeks').children();
 
         for (i = 0; i < response.length; i++) {
