@@ -58,6 +58,10 @@ export class LayoutComponent implements OnInit {
     }
   }
 
+  clickFooterLink() {
+    window.navigator.vibrate(this.gestureVibration);
+  }
+
   clickLogo() {
     window.navigator.vibrate(this.gestureVibration);
     if ($(window).width() < 800) {

@@ -34,13 +34,13 @@
         <p>Angular Calendar App &copy; 2020</p>
         <ul>
             <li class="logo-icon"><a href="#" routerLink="/"><img src="./assets/icons/icon-72x72.png" alt="" /></a></li>
-            <li *ngIf="!dataService.loggedIn()"><a href="#" routerLink="/signup"><span class="material-icons">create</span></a></li>
-            <li *ngIf="!dataService.loggedIn()"><a href="#" routerLink="/login"><span class="material-icons">login</span></a></li>
+            <li *ngIf="!dataService.loggedIn()"><a href="#" routerLink="/signup" (click)="clickFooterLink()"><span class="material-icons">create</span></a></li>
+            <li *ngIf="!dataService.loggedIn()"><a href="#" routerLink="/login" (click)="clickFooterLink()"><span class="material-icons">login</span></a></li>
             <!-- <li *ngIf="dataService.loggedIn()"><a href="#" routerLink="/test-cal" (click)="clickLink()">Test Cal</a></li> -->
-            <li *ngIf="dataService.loggedIn()"><a href="#" routerLink="/settings"><span class="material-icons settings">settings</span></a></li>
+            <li *ngIf="dataService.loggedIn()"><a href="#" routerLink="/settings" (click)="clickFooterLink()"><span class="material-icons settings">settings</span></a></li>
 
             <li *ngIf="dataService.loggedIn()" class="profile-link"><a href="#"
-            routerLink="/profile"><span>{{firstInitial}}{{lastInitial}}</span></a></li>
+            routerLink="/profile" (click)="clickFooterLink()"><span>{{firstInitial}}{{lastInitial}}</span></a></li>
             <!-- <li *ngIf="dataService.loggedIn()"><a href="#" routerLink="/login"><span class="material-icons">lock</span></a></li> -->
         </ul>
     </div>
