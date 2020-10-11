@@ -85,7 +85,7 @@
                     <form class="update-event-form" [formGroup]="updateItemForm">
                         <div class="form-nav-bar" (swipedown)="onSwipeDownForm($event)">
                             <h2 class="form-title">
-                                <input type="text" placeholder="Title or name" formControlName="title" maxlength="32" required>
+                                <input type="text" placeholder="Title or name" formControlName="title" maxlength="32" autocomplete="off" required>
                             </h2>
                             <div class="close-form" (click)="closeEventUpdateForm()">
                                 <span class="material-icons">clear</span>
@@ -172,7 +172,7 @@
         <form class="add-item-form" [formGroup]="addItemForm" (ngSubmit)="submitEvent()">
             <div class="form-nav-bar" (swipedown)="onSwipeDownForm($event)">
                 <h2 class="form-title">
-                    <input type="text" placeholder="Title" formControlName="title" maxlength="32" name="title" autocomplete="new-password" required>
+                    <input type="text" placeholder="Title" formControlName="title" maxlength="32" name="title" autocomplete="off" required>
                 </h2>
                 <div class="close-form" (click)="closeForm()">
                     <span class="material-icons">clear</span>
