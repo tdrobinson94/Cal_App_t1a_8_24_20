@@ -184,7 +184,7 @@
         .row {
 
             width: 100%;
-            height: 16%;
+            height: 16.1%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -192,28 +192,13 @@
             padding: 1px 0;
             overflow: hidden;
 
-            // &:nth-child(1) {
-            //     margin-top: 5px;
-            // }
-
-            // &:nth-child(6) {
-            //     margin-bottom: 5px;
-            // }
-
-            @media screen and (min-width: $end-small) {
-                height: 19.2%;
-            }
-
-            @media screen and (max-height: $end-small) and (min-width: $end-small) {
-                height: 21.2%;
-            }
-
             .day-box {
 
                 width: 14.2%;
                 height: 100%;
                 transition: height .3s ease-in-out !important;
                 position: relative;
+                border: 1px solid transparent;
 
                 button.close-day {
                     display: none;
@@ -447,29 +432,25 @@
                     width: 100%;
                     max-width: 800px;
                     z-index: 99;
-                    transition: height, width 0.3s ease-in-out !important;
+                    transition: width 0.3s ease-in-out !important;
                     border: none;
+                    border-radius: 0;
                     animation-name: grow;
                     animation-duration: .3s;
                     animation-timing-function: ease-in-out;
-                    border-radius: 0;
-
-                    transition: all 0.3s ease-in-out;
-                    -moz-transition: all .3s ease-in-out;
-                    -webkit-transition: all .3s ease-in-out;
-                    -o-transition: all .3s ease-in-out;
 
                     @media screen and (min-width: $end-small) {
-                        top: 50%;
-                        transform: translate(0,-49%);
+                        top: 28%;
+                        // transform: translate(0,-49%);
                         height: 50%;
                         border: 1px solid #333333;
                         border-radius: 5px;
+                        box-shadow: 5px 5px 40px black;
                     }
 
                     @media screen and (min-height: 600px) {
-                        transform: translateY(-42%);
-                        height: 70%;
+                        // transform: translateY(-42%);
+                        // height: 70%;
                     }
 
                     @media screen and (min-height: 600px) and (max-width: $end-small) {
@@ -685,7 +666,7 @@
 
                                     &.delete-event {
                                         animation-name: appear;
-                                        animation-duration: .3s;
+                                        animation-duration: .2s;
                                         animation-timing-function: ease-in-out;transition: all .3s ease-in-out;
 
                                         &.hidden {
@@ -708,7 +689,7 @@
 
                             &.show-update-form {
                                 display: block;
-                                position: fixed;
+                                position: absolute;
                                 top: 74px;
                                 width: 100%;
                                 bottom: 110px;
@@ -716,7 +697,7 @@
                                 background: $background;
                                 padding: 0;
                                 animation-name: grow-2;
-                                animation-duration: .3s;
+                                animation-duration: .2s;
                                 animation-timing-function: ease-in-out;
                                 overscroll-behavior: none;
 
@@ -732,7 +713,7 @@
                                     height: calc(99% - 0px);
                                     width: 50%;
                                     animation-name: slide-left;
-                                    animation-duration: .3s;
+                                    animation-duration: .2s;
                                     animation-timing-function: ease-in-out;
                                 }
 
@@ -946,25 +927,25 @@
 
                 &.swipe-right {
                     animation-name: swipeRight;
-                    animation-duration: .3s;
+                    animation-duration: .2s;
                     animation-timing-function: ease-in-out;
                 }
 
                 &.swipe-left {
                     animation-name: swipeLeft;
-                    animation-duration: .3s;
+                    animation-duration: .2s;
                     animation-timing-function: ease-in-out;
                 }
 
                 &.bounce-right {
                     animation-name: bounceRight;
-                    animation-duration: .3s;
+                    animation-duration: .2s;
                     animation-timing-function: ease-in-out;
                 }
 
                 &.bounce-left {
                     animation-name: bounceLeft;
-                    animation-duration: .3s;
+                    animation-duration: .2s;
                     animation-timing-function: ease-in-out;
                 }
 
@@ -1040,12 +1021,12 @@
 
     .cal-swipe-right {
         animation-name: calSwipeRight;
-        animation-duration: .3s;
+        animation-duration: .2s;
         animation-timing-function: ease-in-out;
     }
     .cal-swipe-left {
         animation-name: calSwipeLeft;
-        animation-duration: .3s;
+        animation-duration: .2s;
         animation-timing-function: ease-in-out;
     }
 
@@ -1166,6 +1147,7 @@
                 border: 1px solid #333333;
                 border-radius: 5px;
                 animation: none;
+                box-shadow: 5px 5px 40px black;
             }
 
             @media screen and (min-height: 600px) and (min-width: $end-small) {
