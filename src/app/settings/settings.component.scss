@@ -181,6 +181,11 @@
   flex-direction: column-reverse;
   transition: all .3s ease-in-out;
 
+  @media screen and (min-width: $end-small) {
+    top: calc(64px + 54px);
+    bottom: 54px;
+  }
+
     div.loading-text {
         color: $textdrk;
         font-size: 20px;
