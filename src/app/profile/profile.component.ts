@@ -30,7 +30,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    $('html, body').animate({ scrollTop: 0 }, 500);
     this.dataService.getUser()
       .subscribe((response) => {
         let res = Object.values(response);
