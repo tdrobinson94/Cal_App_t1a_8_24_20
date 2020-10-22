@@ -176,14 +176,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
       || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.prev, .next').hide();
-      // $('.close-day').addClass('mobile-hide');
-      $('.num-date').removeClass('mobile-hide-helpers');
-      $('.form-title').removeClass('mobile-hide-helpers');
+      $('.close-day, .close-form').addClass('mobile');
     } else {
       $('.prev, .next').show();
-      // $('.close-day').removeClass('mobile-hide');
-      $('.num-date').addClass('mobile-hide-helpers');
-      $('.form-title').addClass('mobile-hide-helpers');
+      $('.close-day, .close-form').removeClass('mobile');
     }
 
     // On first load init calendar

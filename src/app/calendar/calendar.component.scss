@@ -483,6 +483,14 @@
                         &:active {
                             color: $primary;
                         }
+
+                        &.mobile {
+                            top: 10px;
+
+                            span {
+                                font-size: 35px;
+                            }
+                        }
                     }
 
                     .mobile-hide {
@@ -776,6 +784,14 @@
 
                                         &:active {
                                             color: $textdrk;
+                                        }
+
+                                        &.mobile {
+                                            top: 10px;
+                
+                                            span {
+                                                font-size: 35px;
+                                            }
                                         }
                                     }
                                 }
