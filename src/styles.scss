@@ -5,6 +5,7 @@ html {
   width: 100%;
   background: $background;
   overflow-x: hidden;
+  -webkit-text-size-adjust: none;
 
     &::-webkit-scrollbar {
       width: 4px;
