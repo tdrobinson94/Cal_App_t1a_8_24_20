@@ -438,7 +438,7 @@
                     width: 100%;
                     max-width: 800px;
                     z-index: 99;
-                    transition: width 0.3s ease-in-out !important;
+                    transition: height, width 0.3s ease-in-out !important;
                     border: none;
                     border-radius: 0;
                     animation-name: grow;
@@ -948,12 +948,14 @@
                 }
 
                 &.swipe-right {
+                    transition: none !important;
                     animation-name: swipeRight;
                     animation-duration: .2s;
                     animation-timing-function: ease-in-out;
                 }
 
                 &.swipe-left {
+                    transition: none !important;
                     animation-name: swipeLeft;
                     animation-duration: .2s;
                     animation-timing-function: ease-in-out;
