@@ -1235,6 +1235,14 @@
                 &:active {
                     color: $textdrk;
                 }
+
+                &.mobile {
+                    top: 10px;
+
+                    span {
+                        font-size: 35px;
+                    }
+                }
             }
         }
 
