@@ -383,6 +383,12 @@
                             top: 110% !important;
                             transition: all .3s ease-in-out;
 
+                            @media screen and (min-width: $end-small) {
+                                top: 0 !important;
+                                right: -110% !important;
+                                transition: all .3s ease-in-out;
+                            }
+
                             .submit-buttons {
                                 bottom: -110% !important;
                                 transition: all .2s ease-in-out;
@@ -690,7 +696,7 @@
                             &.show-update-form {
                                 display: block;
                                 position: absolute;
-                                top: 74px;
+                                top: 0;
                                 width: 100%;
                                 bottom: 110px;
                                 overflow: auto;
@@ -1151,8 +1157,7 @@
             }
 
             @media screen and (min-height: 600px) and (min-width: $end-small) {
-                transform: translate(50%, 68%);
-                height: 60%;
+                transform: translate(50%, 69%);
             }
         }
 
