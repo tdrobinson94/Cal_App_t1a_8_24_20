@@ -356,6 +356,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.add-item-button, .add-item-container').show();
     $('.add-item-form').removeClass('show-form');
     $('.num-box').removeClass('first-day last-day current-day');
+    $('.main-info-section, .event-count').hide();
+    $('.event').removeClass('visible');
+    $('.event-container').removeClass('visible-parent');
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
