@@ -359,11 +359,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.main-info-section, .event-count').hide();
     $('.event').removeClass('visible');
     $('.event-container').removeClass('visible-parent');
+
+    this.loading = true;
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
     
-    this.loading = true;
+    setTimeout(() => {
+      this.showEvents();
+    }, 100);
   }
 
   prevClick() {
@@ -382,22 +386,17 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
       this.changeCal();
-      setTimeout(() => {
-        this.showEvents();
-      }, 100);
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 200);
   }
 
   currentClick() {
     // window.navigator.vibrate(this.gestureVibration);
+    console.log($('.month-selector').innerHTML);
     $('.calendar-wrapper').removeClass('cal-swipe-left cal-swipe-right');
     $(document).find('#month').val(this.currentMonth).change();
     $(document).find('#year').val(this.currentYear).change();
     this.changeCal();
-    setTimeout(() => {
-      this.showEvents();
-    }, 100);
   }
 
   nextClick() {
@@ -416,9 +415,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
       this.changeCal();
-      setTimeout(() => {
-        this.showEvents();
-      }, 100);
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 200);
   }
@@ -881,6 +877,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getEvents() {
+    this.loading = true;
     this.dataService.getEvents()
       .subscribe((response) => {
         let i;
@@ -913,23 +910,25 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
 
-    for (i = 0; i < this.events.length; i++) {
-      for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-        const day = $(weeks[dayIndex - 1]);
-
-        day.find('.event-count').empty().hide();
-
-        if (day.find('.date-value').html() === this.events[i].eventstart_date) {
-          setTimeout(() => {
-            day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible');
-            day.find('.event[startDate="' + day.find('.date-value').html() + '"]').parent().addClass('visible-parent');
-            this.eachDayEventsCount();
+    if (this.events) {
+      for (i = 0; i < this.events.length; i++) {
+        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+          const day = $(weeks[dayIndex - 1]);
+  
+          day.find('.event-count').empty().hide();
+  
+          if (day.find('.date-value').html() === this.events[i].eventstart_date) {
+            setTimeout(() => {
+              day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible');
+              day.find('.event[startDate="' + day.find('.date-value').html() + '"]').parent().addClass('visible-parent');
+              this.eachDayEventsCount();
+              $('.main-info-section').show();
+            }, 100);
+            this.loading = false;
+          } else {
             $('.main-info-section').show();
-          }, 100);
-          this.loading = false;
-        } else {
-          $('.main-info-section').show();
-          this.loading = false;
+            this.loading = false;
+          }
         }
       }
     }
