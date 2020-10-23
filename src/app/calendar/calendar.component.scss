@@ -76,6 +76,7 @@
                     display: flex;
                     align-items: center;
                     outline: 0;
+                    cursor: pointer;
 
                     &:first-child {
                         margin-left: 0;
@@ -98,6 +99,15 @@
                         top: 50%;
                         left: 50%;
                         transform: translate(-50%, -42%);
+                    }
+
+                    &.current {
+                        span {
+                            padding: 2px;
+                            border: 3px solid white;
+                            border-radius: 5px;
+                            font-size: 18px !important;
+                        }
                     }
 
 
@@ -513,6 +523,7 @@
                         opacity: .5;
                         padding: 0;
                         z-index: 999;
+                        cursor: pointer;
 
                         @media screen and (min-width: $mid-small) {
                             display: flex;
@@ -1087,7 +1098,8 @@
         z-index: 9999;
         transition: all .3s ease-in-out;
         display: flex;
-        // box-shadow: 1px 1px 10px #333333;
+        box-shadow: 2px 5px 15px black;
+        cursor: pointer;
 
         @media screen and (min-width: $end-small) {
             bottom: 65.9px;
