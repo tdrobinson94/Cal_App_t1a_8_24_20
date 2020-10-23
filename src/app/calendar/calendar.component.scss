@@ -986,11 +986,11 @@
 
                 @keyframes swipeLeft {
                     from {
-                        left: 100%;
+                        right: -100%;
                     }
 
                     to {
-                        left: 0;
+                        right: 0;
                     }
                 }
 
@@ -1010,15 +1010,15 @@
                 
                 @keyframes bounceLeft {
                     0% {
-                        left: 0;
+                        right: 0;
                     }
 
                     50% {
-                        left: -15%;
+                        right: 15%;
                     }
 
                     100% {
-                        left: 0;
+                        right: 0;
                     }
                 }
 
