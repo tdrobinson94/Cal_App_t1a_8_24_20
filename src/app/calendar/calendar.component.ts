@@ -184,6 +184,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // On first load init calendar
     this.changeCal();
+
+    // Initial loading of the events
+    setTimeout(() => {
+      this.getEvents();
+    }, 100);
   }
 
   // Find the start day of the selected Month and Year and render each day number into the calendar table
@@ -354,9 +359,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
-    setTimeout(() => {
-      this.getEvents();
-    }, 100);
   }
 
   prevClick() {
@@ -375,6 +377,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
       this.changeCal();
+      setTimeout(() => {
+        this.showEvents();
+      }, 100);
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 200);
   }
@@ -385,6 +390,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $(document).find('#month').val(this.currentMonth).change();
     $(document).find('#year').val(this.currentYear).change();
     this.changeCal();
+    setTimeout(() => {
+      this.showEvents();
+    }, 100);
   }
 
   nextClick() {
@@ -403,6 +411,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
       this.changeCal();
+      setTimeout(() => {
+        this.showEvents();
+      }, 100);
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 200);
   }
@@ -720,7 +731,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
-        // this.getEvents();
+        this.showEvents();
       } else {
         if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
           console.log('no scroll');
@@ -871,7 +882,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((response) => {
         let i;
         const eventlist = [];
-        let dayIndex;
         const weeks = $(document).find('.weeks').children();
 
         for (i = 0; i < response.length; i++) {
@@ -892,26 +902,38 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.events = eventlist;
 
-        for (i = 0; i < this.events.length; i++) {
-          for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-            const day = $(weeks[dayIndex - 1]);
-
-            day.find('.event-count').empty().hide();
-
-            if (day.find('.date-value').html() === this.events[i].eventstart_date) {
-              setTimeout(() => {
-                day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible');
-                day.find('.event[startDate="' + day.find('.date-value').html() + '"]').parent().addClass('visible-parent');
-                this.eachDayEventsCount();
-                $('.main-info-section').show();
-              }, 100);
-            } else {
-              $('.main-info-section').show();
-            }
-          }
-        }
+        this.showEvents();
         this.loading = false;
       });
+  }
+
+  showEvents() {
+    $('.main-info-section, .event-count').hide();
+    $('.event').removeClass('visible');
+    $('.event-container').removeClass('visible-parent');
+
+    let i;
+    let dayIndex;
+    const weeks = $(document).find('.weeks').children();
+
+    for (i = 0; i < this.events.length; i++) {
+      for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+        const day = $(weeks[dayIndex - 1]);
+
+        day.find('.event-count').empty().hide();
+
+        if (day.find('.date-value').html() === this.events[i].eventstart_date) {
+          setTimeout(() => {
+            day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible');
+            day.find('.event[startDate="' + day.find('.date-value').html() + '"]').parent().addClass('visible-parent');
+            this.eachDayEventsCount();
+            $('.main-info-section').show();
+          }, 100);
+        } else {
+          $('.main-info-section').show();
+        }
+      }
+    }
   }
 
   // Click on an Event
