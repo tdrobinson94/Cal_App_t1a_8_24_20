@@ -1118,6 +1118,7 @@
         
         @media screen and (min-width: $end-small) {
             animation: none;
+            bottom: 65.9px;
         }
 
         &::-webkit-scrollbar {
@@ -1253,20 +1254,35 @@
             display: none;
             &.form-nav-bar {
                 display: block;
+                
+                @media screen and (min-width: $end-small) {
+                    width: 100%;
+                }
             }
         }
 
         .animate-events-two {
             display: block;
+
+            @media screen and (min-width: $end-small) {
+                display: flex;
+                flex-wrap: wrap;
+            }
         }
 
         .input-wrapper {
             margin: 0 4%;
 
+            @media screen and (min-width: $end-small) {
+                display: inline-block;
+                width: 42%;
+            }
+
             &.invisible {
                 visibility: hidden;
                 height: 0;
                 width: 0;
+                display: none;
             }
         }
 
@@ -1306,19 +1322,27 @@
             }
         }
 
-        .time-all-day {
-            &::after {
-                display: block;
-                content: "";
-                clear: both;
-            }
-            input {
-                float: right;
-                width: auto;
-            }
-            label {
+        .time-input {
+            .time-all-day {
+                display: flex;
+                align-items: center;
                 width: auto;
                 float: right;
+
+                &::after {
+                    display: block;
+                    content: "";
+                    clear: both;
+                }
+                input {
+                    float: right;
+                    width: auto;
+                    margin-right: 5px;
+                }
+                label {
+                    width: auto;
+                    float: right;
+                }
             }
         }
 

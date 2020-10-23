@@ -222,15 +222,14 @@
                 <label>End Date</label>
                 <input type="date" formControlName="end_date" required />
             </div>
-
-            <div class="input-wrapper time-all-day">
-                <input id="all-day" type="checkbox" (change)="allDaySelected($event)" formControlName="all_day" /><label
-                    for="all-day">All day</label>
-            </div>
             
             <div class="input-wrapper time-input" [ngClass]="{invisible: allDay}">
                 <label class="time-label">Start Time</label>
                 <input type="time" formControlName="start_time" (change)="onStartTimeChange($event)" required />
+                <div class="time-all-day">
+                    <input id="all-day" type="checkbox" (change)="allDaySelected($event)" formControlName="all_day" /><label
+                        for="all-day">All day</label>
+                </div>
             </div>
             
             <div class="input-wrapper time-input-end" [ngClass]="{invisible: allDay}">
