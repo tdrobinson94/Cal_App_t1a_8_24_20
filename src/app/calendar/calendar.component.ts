@@ -90,7 +90,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   allDay = false;
 
   // Hide loading indicator
-  loading = false;
+  loading = true;
 
   getEventsFinished = false;
 
@@ -362,6 +362,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
+    
+    this.loading = true;
   }
 
   prevClick() {
@@ -879,8 +881,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getEvents() {
-    $('.main-info-section, .event-count').hide();
-    this.loading = true;
     this.dataService.getEvents()
       .subscribe((response) => {
         let i;
@@ -901,20 +901,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             eventcreatedAt: moment(response[i].created_at).format(),
             itemtype: response[i].item_type.toString()
           };
-          this.loading = false;
         }
         this.events = eventlist;
 
         this.showEvents();
-        this.loading = false;
       });
   }
 
   showEvents() {
-    $('.main-info-section, .event-count').hide();
-    $('.event').removeClass('visible');
-    $('.event-container').removeClass('visible-parent');
-
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
@@ -932,8 +926,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             this.eachDayEventsCount();
             $('.main-info-section').show();
           }, 100);
+          this.loading = false;
         } else {
           $('.main-info-section').show();
+          this.loading = false;
         }
       }
     }
