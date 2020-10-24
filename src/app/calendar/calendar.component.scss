@@ -963,23 +963,15 @@
                 &.swipe-right {
                     transition: none !important;
                     animation-name: swipeRight;
-                    animation-duration: .1s;
+                    animation-duration: .2s;
                     animation-timing-function: ease-in;
-
-                    @media screen and (min-width: $end-small) {
-                        animation-duration: .2s;
-                    }
                 }
 
                 &.swipe-left {
                     transition: none !important;
                     animation-name: swipeLeft;
-                    animation-duration: .1s;
+                    animation-duration: .2s;
                     animation-timing-function: ease-in;
-
-                    @media screen and (min-width: $end-small) {
-                        animation-duration: .2s;
-                    }
                 }
 
                 &.bounce-right {
@@ -1066,21 +1058,13 @@
 
     .cal-swipe-right {
         animation-name: calSwipeRight;
-        animation-duration: .1s;
+        animation-duration: .2s;
         animation-timing-function: ease-in;
-
-        @media screen and (min-width: $end-small) {
-            animation-duration: .2s;
-        }
     }
     .cal-swipe-left {
         animation-name: calSwipeLeft;
-        animation-duration: .1s;
+        animation-duration: .2s;
         animation-timing-function: ease-in;
-
-        @media screen and (min-width: $end-small) {
-            animation-duration: .2s;
-        }
     }
 
     @keyframes calSwipeLeft {
