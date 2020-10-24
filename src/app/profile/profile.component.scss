@@ -61,6 +61,11 @@
         color: $textdrk;
         height: calc(100% - 130px);
         overflow: auto;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: start;
         
         &::-webkit-scrollbar {
             width: 2px;
@@ -81,6 +86,7 @@
           justify-content: center;
           align-items: center;
           margin: 10px;
+          width: 100%;
 
           img {
             width: 25%;
@@ -93,7 +99,15 @@
         .input-wrapper.update, .input-wrapper.delete {
             padding: 20px 20px 0;
             text-align: left;
-            // color: $textwht;
+            width: calc(100% - 40px);
+            
+            @media screen and (min-width: $end-small) {
+              max-width: 400px;
+              margin: 10px auto;
+              height: auto;
+              border: 1px solid white;
+              border-radius: 5px;
+            }
 
             label {
                 display: block;
@@ -114,6 +128,7 @@
             font-size: 20px;
             width: 100%;
             text-align: center;
+            cursor: pointer;
 
             &:hover, &:focus {
               opacity: .5;
@@ -126,14 +141,15 @@
             padding-bottom: 0;
             background: $background;
             color: $textdrk;
-            border: 1px solid #252525;
-            border-radius: 10px;
+            border: 1px solid $textdrk;
+            border-radius: 5px;
             z-index: 99999;
             position: fixed;
             top: 200%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 75%;
+            max-width: 320px;
             transition: all .3s ease-in-out;
             
             &.showpopup {
@@ -156,6 +172,7 @@
               font-size: 20px;
               width: 50%;
               transition: all .3s ease-in-out;
+              cursor: pointer;
 
               &:disabled {
                   opacity: .3;
@@ -192,6 +209,7 @@
             width: 100%;
             text-align: center;
             transition: all .3s ease-in-out;
+            cursor: pointer;
 
             &:disabled {
               opacity: .3;
