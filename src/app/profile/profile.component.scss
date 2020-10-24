@@ -65,7 +65,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        align-items: start;
+        align-items: flex-start;
         
         &::-webkit-scrollbar {
             width: 2px;

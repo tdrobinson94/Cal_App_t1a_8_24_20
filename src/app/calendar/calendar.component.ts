@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { EventDataService } from '../services/eventdata.service';
 import { MONTHS } from './months.constant';
+import { GPU } from 'gpu.js';
 import $ from 'jquery';
 import _ from 'lodash';
 import * as moment from 'moment';
