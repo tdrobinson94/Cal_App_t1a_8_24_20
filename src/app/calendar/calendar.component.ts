@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { EventDataService } from '../services/eventdata.service';
 import { MONTHS } from './months.constant';
-import { GPU } from 'gpu.js';
 import $ from 'jquery';
 import _ from 'lodash';
 import * as moment from 'moment';
@@ -361,7 +360,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.event').removeClass('visible');
     $('.event-container').removeClass('visible-parent');
 
-    this.loading = true;
+    // this.loading = true;
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
@@ -895,6 +894,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             eventcreatedAt: moment(response[i].created_at).format(),
             itemtype: response[i].item_type.toString()
           };
+
         }
         this.events = eventlist;
 
@@ -907,6 +907,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
+
+    for(dayIndex = 0; dayIndex <= 42; dayIndex++) {
+
+    }
 
     if (this.events) {
       for (i = 0; i < this.events.length; i++) {

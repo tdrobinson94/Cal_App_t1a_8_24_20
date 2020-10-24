@@ -429,7 +429,7 @@
                     transition: all .3s ease-in-out;
                     animation-name: shrink-1;
                     animation-duration: .3s;
-                    animation-timing-function: ease-in-out;
+                    animation-timing-function: ease-in;
 
                     .num-date {
                         font-weight: bold;
@@ -693,7 +693,8 @@
                                     &.delete-event {
                                         animation-name: appear;
                                         animation-duration: .2s;
-                                        animation-timing-function: ease-in-out;transition: all .3s ease-in-out;
+                                        animation-timing-function: ease-in;
+                                        transition: all .3s ease-in;
 
                                         &.hidden {
                                             visibility: hidden;
@@ -962,27 +963,35 @@
                 &.swipe-right {
                     transition: none !important;
                     animation-name: swipeRight;
-                    animation-duration: .2s;
-                    animation-timing-function: ease-in-out;
+                    animation-duration: .1s;
+                    animation-timing-function: ease-in;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-duration: .2s;
+                    }
                 }
 
                 &.swipe-left {
                     transition: none !important;
                     animation-name: swipeLeft;
-                    animation-duration: .2s;
-                    animation-timing-function: ease-in-out;
+                    animation-duration: .1s;
+                    animation-timing-function: ease-in;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-duration: .2s;
+                    }
                 }
 
                 &.bounce-right {
                     animation-name: bounceRight;
                     animation-duration: .2s;
-                    animation-timing-function: ease-in-out;
+                    animation-timing-function: ease-in;
                 }
 
                 &.bounce-left {
                     animation-name: bounceLeft;
                     animation-duration: .2s;
-                    animation-timing-function: ease-in-out;
+                    animation-timing-function: ease-in;
                 }
 
                 @keyframes swipeRight {
@@ -1057,13 +1066,21 @@
 
     .cal-swipe-right {
         animation-name: calSwipeRight;
-        animation-duration: .2s;
-        animation-timing-function: ease-in-out;
+        animation-duration: .1s;
+        animation-timing-function: ease-in;
+
+        @media screen and (min-width: $end-small) {
+            animation-duration: .2s;
+        }
     }
     .cal-swipe-left {
         animation-name: calSwipeLeft;
-        animation-duration: .2s;
-        animation-timing-function: ease-in-out;
+        animation-duration: .1s;
+        animation-timing-function: ease-in;
+
+        @media screen and (min-width: $end-small) {
+            animation-duration: .2s;
+        }
     }
 
     @keyframes calSwipeLeft {
@@ -1427,7 +1444,7 @@
             margin: 0 3px;
             display: inline-block;
             animation-duration: .7s;
-            animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in;
             animation-iteration-count: infinite;
             animation-name: bouncy;
 
