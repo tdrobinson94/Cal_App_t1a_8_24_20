@@ -907,7 +907,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
 
-    if (this.events) {
+    if (this.events > 0) {
       for (i = 0; i < this.events.length; i++) {
         for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
           const day = $(weeks[dayIndex - 1]);
@@ -928,6 +928,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       }
+    } else {
+      this.loading = false;
     }
   }
 
