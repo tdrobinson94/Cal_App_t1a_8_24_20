@@ -175,21 +175,7 @@
 
         @media screen and (min-width: $end-small) {
             height: calc(100% - 188px);
-            overflow: auto;
-
-            &::-webkit-scrollbar {
-                width: 2px;
-            }
-            &::-webkit-scrollbar-track {
-                background: white;
-            }
-            &::-webkit-scrollbar-thumb {
-                background: rgba(0, 0, 0, .2);
-                border-radius: 50px;
-            }
-            &::-webkit-scrollbar-thumb:hover {
-                background: rgba(126, 93, 93, 0.7); 
-            }
+            overflow: hidden;
         }
 
         .row {

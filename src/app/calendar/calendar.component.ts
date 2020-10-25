@@ -90,7 +90,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   allDay = false;
 
   // Hide loading indicator
-  loading = true;
+  loading = false;
 
   getEventsFinished = false;
 
@@ -360,14 +360,18 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.event').removeClass('visible');
     $('.event-container').removeClass('visible-parent');
 
-    // this.loading = true;
+    this.loading = true;
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
     
-    setTimeout(() => {
-      this.showEvents();
-    }, 100);
+    if (this.events !== undefined) {
+      setTimeout(() => {
+        this.showEvents();
+      }, 100);
+    } else {
+      this.loading = false;
+    }
   }
 
   prevClick() {
@@ -873,7 +877,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getEvents() {
-    this.loading = true;
     this.dataService.getEvents()
       .subscribe((response) => {
         let i;
@@ -899,7 +902,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.events = eventlist;
 
         this.showEvents();
-        this.loading = false;
       });
   }
 
@@ -908,13 +910,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
 
-    for(dayIndex = 0; dayIndex <= 42; dayIndex++) {
-
-    }
-
     if (this.events) {
-      for (i = 0; i < this.events.length; i++) {
-        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+      for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+        for (i = 0; i < this.events.length; i++) {
           const day = $(weeks[dayIndex - 1]);
   
           day.find('.event-count').empty().hide();
