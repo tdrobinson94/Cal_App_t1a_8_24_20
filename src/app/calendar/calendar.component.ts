@@ -947,8 +947,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterEvents();
 
     if (this.singleMonthEvents.length) {
-      for (i = 0; i < this.singleMonthEvents.length; i++) {
-        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+      for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+        for (i = 0; i < this.singleMonthEvents.length; i++) {
           const day = $(weeks[dayIndex - 1]);
   
           day.find('.event-count').empty().hide();
