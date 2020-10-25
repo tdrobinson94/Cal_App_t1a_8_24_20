@@ -149,7 +149,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // Every 10 sec get update the date automatically and if day changes
+    // Every 10 sec update the date automatically and if the day changes
     // update the calendar as well as the current day number and day of week
     setInterval(() => {
       this.clock = new Date();
@@ -877,6 +877,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getEvents() {
+    this.loading = true;
     this.dataService.getEvents()
       .subscribe((response) => {
         let i;
