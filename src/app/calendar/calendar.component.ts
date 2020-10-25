@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import 'hammerjs';
 import { toExcelDate } from 'js-excel-date-convert';
 import { CookieService } from 'ngx-cookie-service';
+import { unescapeIdentifier } from '@angular/compiler';
 
 @Component({
   selector: 'app-calendar',
@@ -45,6 +46,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   getEachMonthDays: any;
 
   events: any;
+  singleMonthEvents: any;
   eachEvent: any;
 
   groupID: any = 0;
@@ -906,19 +908,53 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  filterEvents() {
+    let i;
+    const singleMonthEvents = [];
+
+    const lastDay = moment($('.last-day-box').find('.date-value').html()).add(15, 'days');
+    const firstDay = moment($('.first-day-box').find('.date-value').html()).subtract(7, 'days');
+
+    for (i = 0; i < this.events.length; i++) {
+      let forecast_date = moment(this.events[i].eventstart_date);
+      if (forecast_date.isBefore(lastDay) && forecast_date.isAfter(firstDay)) {
+        singleMonthEvents[i] = {
+          eventid: this.events[i].eventid,
+          eventtitle: this.events[i].eventtitle,
+          eventstart_date: this.events[i].eventstart_date,
+          eventend_date: this.events[i].eventend_date,
+          eventdesc: this.events[i].eventdesc,
+          eventlocation: this.events[i].eventlocation,
+          eventfrequency: this.events[i].eventfrequency,
+          eventstart_time: moment(this.events[i].eventstart_time, 'HH:mm:ss').format('h:mm A'),
+          eventend_time: moment(this.events[i].eventend_time, 'HH:mm:ss').format('h:mm A'),
+          eventcreatedAt: moment(this.events[i].eventcreated_at).format(),
+          itemtype: this.events[i].itemtype
+        }
+      }
+    } 
+
+    this.singleMonthEvents = singleMonthEvents.filter(event => event);
+
+    console.log(this.singleMonthEvents);
+  }
+
   showEvents() {
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
 
-    if (this.events) {
+
+    this.filterEvents();
+
+    if (this.singleMonthEvents.length) {
       for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-        for (i = 0; i < this.events.length; i++) {
+        for (i = 0; i < this.singleMonthEvents.length; i++) {
           const day = $(weeks[dayIndex - 1]);
   
           day.find('.event-count').empty().hide();
   
-          if (day.find('.date-value').html() === this.events[i].eventstart_date) {
+          if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
             setTimeout(() => {
               day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible');
               day.find('.event[startDate="' + day.find('.date-value').html() + '"]').parent().addClass('visible-parent');
@@ -932,7 +968,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       }
-    } 
+    } else {
+      this.loading = false;
+    }
   }
 
   // Click on an Event
