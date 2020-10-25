@@ -912,7 +912,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let i;
     const singleMonthEvents = [];
 
-    const lastDay = moment($('.last-day-box').find('.date-value').html()).add(15, 'days');
+    const lastDay = moment($('.last-day-box').find('.date-value').html()).add(13, 'days');
     const firstDay = moment($('.first-day-box').find('.date-value').html()).subtract(7, 'days');
 
     for (i = 0; i < this.events.length; i++) {
@@ -944,12 +944,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
 
-
     this.filterEvents();
 
     if (this.singleMonthEvents.length) {
-      for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-        for (i = 0; i < this.singleMonthEvents.length; i++) {
+      for (i = 0; i < this.singleMonthEvents.length; i++) {
+        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
           const day = $(weeks[dayIndex - 1]);
   
           day.find('.event-count').empty().hide();
