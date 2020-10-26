@@ -799,20 +799,20 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           this.prevClick();
           setTimeout(() => {
             $('.day-box').removeClass('clicked-day');
-            $('.last-day').parent().addClass('clicked-day double-click swipe-left');
+            $('.last-day').parent().addClass('clicked-day double-click swipe-right');
             $('.double-click').find('.main-info-section').addClass('animate-events-one');
           }, 300);
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
           }, 400);
         } else if ($(e.currentTarget).prev().length === 0) {
-          $(e.currentTarget).parent().prev().children().eq(6).addClass('clicked-day double-click swipe-left');
+          $(e.currentTarget).parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
           }, 400);
         } else {
-          $(e.currentTarget).prev().addClass('clicked-day double-click swipe-left');
+          $(e.currentTarget).prev().addClass('clicked-day double-click swipe-right');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -822,7 +822,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.prevClick();
         setTimeout(() => {
           $('.day-box').removeClass('clicked-day');
-          $('.last-day').parent().addClass('clicked-day double-click swipe-left');
+          $('.last-day').parent().addClass('clicked-day double-click swipe-right');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
         }, 300);
         setTimeout(() => {
@@ -841,20 +841,20 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           this.nextClick();
           setTimeout(() => {
             $('.day-box').removeClass('clicked-day');
-            $('.first-day').parent().addClass('clicked-day double-click swipe-right');
+            $('.first-day').parent().addClass('clicked-day double-click swipe-left');
             $('.double-click').find('.main-info-section').addClass('animate-events-one');
           }, 300);
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
           }, 400);
         } else if ($(e.currentTarget).next().length === 0) {
-          $(e.currentTarget).parent().next().children().eq(0).addClass('clicked-day double-click swipe-right');
+          $(e.currentTarget).parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
           }, 400);
         } else {
-          $(e.currentTarget).next().addClass('clicked-day double-click swipe-right');
+          $(e.currentTarget).next().addClass('clicked-day double-click swipe-left');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -864,7 +864,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.nextClick();
         setTimeout(() => {
           $('.day-box').removeClass('clicked-day');
-          $('.first-day').parent().addClass('clicked-day double-click swipe-right');
+          $('.first-day').parent().addClass('clicked-day double-click swipe-left');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
         }, 300);
         setTimeout(() => {
