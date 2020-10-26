@@ -1032,7 +1032,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     // If an event has been clicked twice
     else if ($(e.currentTarget).hasClass('selected-event')) {
       $('.form-nav-bar h2').removeClass('auto-hide');
-      $('.add-item-button, .add-item-container').hide();
+      $('.add-item-button, .add-item-container, .prev-day, .next-day').hide();
       $('.num-box').addClass('event-opened');
       setTimeout(() => {
         $('.update-event-form').addClass('show-update-form').removeClass('closed');
@@ -1470,7 +1470,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       $('.update-event-form').removeClass('show-update-form');
     }, 300);
-    $('.add-item-button, .add-item-container').show();
+    $('.add-item-button, .add-item-container, .prev-day, .next-day').show();
   }
 
 
