@@ -457,7 +457,7 @@
                     }
 
                     @media screen and (min-height: 600px) and (max-width: $end-small) {
-                        height: 80%;
+                        height: 83%;
                         transform: none;
                     }
 
@@ -495,7 +495,7 @@
                     }
 
                     .next-day, .prev-day {
-                        display: none;
+                        display: block;
                         position: absolute;
                         top: 45%;
                         color: $textdrk;
@@ -598,6 +598,15 @@
                             padding: 5px 0;
                             @media screen and (max-width: $end-small) {
                                 padding-bottom: 15px;
+                            }
+                        }
+
+                        .event-container {
+                            width: 90%;
+                            margin: auto;
+
+                            @media screen and (min-width: $end-small) {
+                                width: 100%;
                             }
                         }
 
