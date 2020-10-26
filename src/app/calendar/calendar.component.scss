@@ -1151,20 +1151,15 @@
 
     .add-item-container {
         position: fixed;
-        bottom: 60.9px;
-        right: 12px;
-        height: 50px;
-        width: 50px;
+        bottom: 70px;
+        right: 20px;
+        height: 35px;
+        width: 35px;
         z-index: 99;
         border-radius: 100%;
         color: transparent;
         overflow: hidden;
         transition: all 0.3s ease-in-out;
-        
-        @media screen and (min-width: $end-small) {
-            animation: none;
-            bottom: 65.9px;
-        }
 
         &::-webkit-scrollbar {
             width: 2px;
@@ -1182,9 +1177,7 @@
 
         @media screen and (min-width: $end-small) {
             right: 50% !important;
-            bottom: 60.9px;
-            width: 50px;
-            height: 53px;
+            bottom: 75px;
             transform: translateX(50%);
             overflow: hidden;
             border-radius: 100%;
@@ -1319,7 +1312,6 @@
             margin: 0 4%;
 
             @media screen and (min-width: $end-small) {
-                display: inline-block;
                 width: 42%;
             }
 
@@ -1367,11 +1359,11 @@
             }
         }
 
-        .time-input {
-            .time-all-day {
-                display: flex;
+        .input-wrapper {
+            &.time-all-day {
+                display: block;
                 align-items: center;
-                width: auto;
+                width: 100%;
                 float: right;
 
                 &::after {
