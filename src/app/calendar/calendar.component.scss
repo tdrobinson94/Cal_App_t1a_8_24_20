@@ -705,13 +705,13 @@
                                 position: absolute;
                                 top: 0;
                                 width: 100%;
-                                bottom: 20px;
+                                bottom: 54px;
                                 overflow: auto;
                                 background: $background;
                                 padding: 0;
-                                // animation-name: grow-2;
-                                // animation-duration: .2s;
-                                // animation-timing-function: ease-in-out;
+                                animation-name: grow-2;
+                                animation-duration: .2s;
+                                animation-timing-function: ease-in-out;
                                 overscroll-behavior: none;
 
                                 transition: all 0.3s ease-in-out;
