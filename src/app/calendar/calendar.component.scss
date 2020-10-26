@@ -511,6 +511,10 @@
                         z-index: 999;
                         cursor: pointer;
 
+                        &.hide {
+                            display: none;
+                        }
+
                         @media screen and (min-width: $mid-small) {
                             display: flex;
                         }
