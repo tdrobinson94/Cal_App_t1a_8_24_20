@@ -286,6 +286,14 @@
                         @media screen and (max-height: 600px) {
                             height: calc(100% - 130px);
                         }
+    
+                        @media screen and (min-height: 800px) and (max-width: $end-small) {
+                            height: calc(100% - 58px);
+                        }
+    
+                        @media screen and (min-height: 900px) and (max-width: $end-small) {
+                            height: calc(100% - 65px);
+                        }
 
                         .event {
 
@@ -456,8 +464,33 @@
                         // height: 70%;
                     }
 
+                    @media screen and (min-height: 400px) and (max-width: $end-small) {
+                        height: 73%;
+                        transform: none;
+                    }
+
+                    @media screen and (min-height: 500px) and (max-width: $end-small) {
+                        height: 76%;
+                        transform: none;
+                    }
+
                     @media screen and (min-height: 600px) and (max-width: $end-small) {
-                        height: 83%;
+                        height: 80%;
+                        transform: none;
+                    }
+
+                    @media screen and (min-height: 700px) and (max-width: $end-small) {
+                        height: 82%;
+                        transform: none;
+                    }
+
+                    @media screen and (min-height: 800px) and (max-width: $end-small) {
+                        height: 84%;
+                        transform: none;
+                    }
+
+                    @media screen and (min-height: 900px) and (max-width: $end-small) {
+                        height: 87%;
                         transform: none;
                     }
 

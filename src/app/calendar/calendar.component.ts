@@ -1010,6 +1010,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.loading = false;
     }
+
+    // Enable scrolling if the last event isn't viewable anymore
+    if ($('.day-box').hasClass('double-click')) {
+      setTimeout(() => {
+        if ($('.double-click .visible-parent').last().position() !== undefined) {
+          if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
+            $('.double-click .main-info-section').addClass('normal-scrolling');
+          } else {
+            $('.double-click .main-info-section').removeClass('normal-scrolling');
+          }
+        }
+      }, 10);
+    }
   }
 
   // Click on an Event
