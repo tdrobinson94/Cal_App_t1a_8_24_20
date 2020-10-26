@@ -823,7 +823,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         setTimeout(() => {
           $('.day-box').removeClass('clicked-day');
           $('.last-day').parent().addClass('clicked-day double-click swipe-left');
+          $('.double-click').find('.main-info-section').addClass('animate-events-one');
         }, 300);
+        setTimeout(() => {
+          $('.double-click').find('.main-info-section').addClass('animate-events-two');
+        }, 400);
       }
     } else if ($(e.target).hasClass('next-day-icon')) {
       $('.visible').removeClass('selected-event');
@@ -861,7 +865,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         setTimeout(() => {
           $('.day-box').removeClass('clicked-day');
           $('.first-day').parent().addClass('clicked-day double-click swipe-right');
+          $('.double-click').find('.main-info-section').addClass('animate-events-one');
         }, 300);
+        setTimeout(() => {
+          $('.double-click').find('.main-info-section').addClass('animate-events-two');
+        }, 400);
       }
     } else if ($(e.target).hasClass('close-day-icon')) {
       // window.navigator.vibrate(this.gestureVibration);
