@@ -1064,6 +1064,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Enable scrolling if the last event isn't viewable anymore
     if ($('.day-box').hasClass('double-click')) {
+      setTimeout(() => {
         if ($('.double-click .visible-parent').last().position() !== undefined) {
           if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
             $('.double-click .main-info-section').addClass('normal-scrolling');
@@ -1071,6 +1072,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             $('.double-click .main-info-section').removeClass('normal-scrolling');
           }
         }
+      },50)
     }
   }
 
@@ -1542,7 +1544,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy() {
-    
+    // this.dataService.getEvents().subscribe().unsubscribe();
   }
 
 }
