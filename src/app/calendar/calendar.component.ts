@@ -153,6 +153,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     // Every 10 sec update the date automatically and if the day changes
     // update the calendar as well as the current day number and day of week
+    let dayBox = $('.day-box');
+    let currentDayBox = dayBox.find('.current-day');
     setInterval(() => {
       this.clock = new Date();
       if (this.currentDay !== this.clock.getDate()) {
@@ -161,15 +163,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.currentMonth = this.clock.getMonth();
         this.currentYear = this.clock.getFullYear();
 
-        if ($('.day-box').find('.current-day').parent().next().length === 0) {
+        if (currentDayBox.parent().next().length === 0) {
           setTimeout(() => {
-            $('.day-box').find('.current-day').parent().parent().next().find('.num-box').eq(0).addClass('current-day');
-            $('.day-box').find('.current-day').eq(0).removeClass('current-day');
+            currentDayBox.parent().parent().next().find('.num-box').eq(0).addClass('current-day');
+            currentDayBox.eq(0).removeClass('current-day');
           }, 200);
         } else {
             setTimeout(() => {
-              $('.day-box').find('.current-day').parent().next().find('.num-box').addClass('current-day');
-              $('.day-box').find('.current-day').eq(0).removeClass('current-day');
+              currentDayBox.parent().next().find('.num-box').addClass('current-day');
+              currentDayBox.eq(0).removeClass('current-day');
             }, 200);
         }
       }
@@ -206,52 +208,48 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     _.range(1, 43).forEach((dayIndex, i) => {
       // Get the index of each box in the first row of the calendar table
       const day = $(weeks[startOfMonth + dayIndex - 1]);
-
+      let numBox = day.find('.num-box');
+      let dateValue = day.find('.date-value');
+      let numDate = day.find('.num-date');
       // if current month and year find the current day and style it
       if (this.clock.getDate() === dayIndex && this.clock.getMonth() ==
       $('#month').val() && this.clock.getFullYear() == $('#year').val()) {
-        day.find('.num-box').addClass('current-day');
-        day.find('.num-box').parent().addClass('clicked-day day-background-color selected-day').removeClass('dead-month-color next-month-days prev-month-days');
+        numBox.addClass('current-day');
+        numBox.parent().addClass('clicked-day day-background-color selected-day').removeClass('dead-month-color next-month-days prev-month-days');
       }
       // If not current month then find 1st day and style it
       else {
         day.find('.day-box').children().removeClass('current-day');
-        day.find('.num-date').parent().parent().removeClass('dead-month-color day-background-color next-month-days prev-month-days');
+        numDate.parent().parent().removeClass('dead-month-color day-background-color next-month-days prev-month-days');
       }
-
+      // Add the numbers and dates to each box
       if (dayIndex > monthDays) {
         // If calendar hits Dec set next month to Jan of next year
         if (nextMonth === 13) {
           nextMonth = 1;
           currentYear = Number(currentYear) + 1;
         }
-
         // If calendar hits any month thats not december
         const standardMonth = '0' + nextMonth;
         const newDayIndex = (dayIndex - monthDays);
         const standardDayIndex = '0' + newDayIndex;
-        const excelDate = toExcelDate(new Date(currentYear, Number(standardMonth), Number(newDayIndex))).toString();
-
+        // Add day number and date to each box
         if (nextMonth < 10) {
 
           if ((newDayIndex) < 10) {
-            day.find('.date-value').html(currentYear + '-' + standardMonth + '-' + standardDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + standardMonth + '-' + standardDayIndex);
+            numDate.html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
           } else {
-            day.find('.date-value').html(currentYear + '-' + standardMonth + '-' + newDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + standardMonth + '-' + newDayIndex);
+            numDate.html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');    
           }
         } else {
           if ((dayIndex - monthDays) < 10) {
-            day.find('.date-value').html(currentYear + '-' + nextMonth + '-' + standardDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + nextMonth + '-' + standardDayIndex);
+            numDate.html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
           } else {
-            day.find('.date-value').html(currentYear + '-' + nextMonth + '-' + newDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + nextMonth + '-' + newDayIndex);
+            numDate.html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
           }
         }
       } else {
@@ -259,50 +257,42 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         const standardNewMonth = '0' + thisMonth;
         const newDays = dayIndex;
         const standardNewDays = '0' + dayIndex;
-
-        const excelDate = toExcelDate(new Date(currentYear, Number(standardNewMonth), Number(newDays))).toString();
-        
+        // Add day number and date to each box
         if (thisMonth < 10) {
           if (dayIndex < 10) {
-            day.find('.date-value').html(currentYear + '-' + standardNewMonth + '-' + standardNewDays);
-            day.find('.num-date').html('&nbsp' + newDays + '&nbsp');
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + standardNewMonth + '-' + standardNewDays);
+            numDate.html('&nbsp' + newDays + '&nbsp');
           } else {
-            day.find('.date-value').html(currentYear + '-' + standardNewMonth + '-' + newDays);
-            day.find('.num-date').html(newDays);
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + standardNewMonth + '-' + newDays);
+            numDate.html(newDays);
           }
         } else {
           if (dayIndex < 10) {
-            day.find('.date-value').html(currentYear + '-' + thisMonth + '-' + standardNewDays);
-            day.find('.num-date').html('&nbsp' + newDays + '&nbsp');
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + thisMonth + '-' + standardNewDays);
+            numDate.html('&nbsp' + newDays + '&nbsp');
           } else {
-            day.find('.date-value').html(currentYear + '-' + thisMonth + '-' + newDays);
-            day.find('.num-date').html(newDays);
-            day.find('.excel-date').html(excelDate);
+            dateValue.html(currentYear + '-' + thisMonth + '-' + newDays);
+            numDate.html(newDays);
           }
         }
       }
-
       // Find the 1 day of each month and add Class first-day
-      if (day.find('.num-date').html() === '&nbsp;' + '1' + '&nbsp;') {
-        day.find('.num-date').parent().addClass('first-day');
-        day.find('.num-date').parent().parent().addClass('first-day-box');
+      if (numDate.html() === '&nbsp;' + '1' + '&nbsp;') {
+        numDate.parent().addClass('first-day');
+        numDate.parent().parent().addClass('first-day-box');
       } else {
-        day.find('.num-date').parent().removeClass('first-day');
-        day.find('.num-date').parent().parent().removeClass('first-day-box');
+        numDate.parent().removeClass('first-day');
+        numDate.parent().parent().removeClass('first-day-box');
       }
-
-      if (Number(day.find('.num-date').html()) === monthDays) {
-        day.find('.num-date').parent().addClass('last-day');
-        day.find('.num-date').parent().parent().addClass('last-day-box');
+      // Find the last day of the month and mark that box
+      if (Number(numDate.html()) === monthDays) {
+        numDate.parent().addClass('last-day');
+        numDate.parent().parent().addClass('last-day-box');
       } else {
-        day.find('.num-date').parent().removeClass('last-day');
-        day.find('.num-date').parent().parent().removeClass('last-day-box');
+        numDate.parent().removeClass('last-day');
+        numDate.parent().parent().removeClass('last-day-box');
       }
     });
-
   }
 
   renderPrevMonthDays() {
@@ -962,6 +952,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     const singleMonthEvents = [];
     let prevDays = $('.prev-month-days').length;
     let nextDays = $('.next-month-days').length;
+    const lastDayBox = $('.last-day-box').find('.date-value').html();
+    const firstDayBox = $('.first-day-box').find('.date-value').html();
 
     if (prevDays === 0) {
       prevDays = prevDays + 1;
@@ -971,8 +963,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       nextDays = nextDays + 1;
     }
 
-    const lastDay = moment($('.last-day-box').find('.date-value').html()).add(nextDays, 'days');
-    const firstDay = moment($('.first-day-box').find('.date-value').html()).subtract(prevDays, 'days');
+    const lastDay = moment(lastDayBox).add(nextDays, 'days');
+    const firstDay = moment(firstDayBox).subtract(prevDays, 'days');
 
     for (i = 0; i < this.events.length; i++) {
       let forecast_date = moment(this.events[i].eventstart_date);
