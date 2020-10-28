@@ -392,7 +392,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.changeCal();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
-    }, 250);
+    }, 200);
   }
 
   currentClick() {
@@ -605,6 +605,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   onSwipeRight(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.double-click').removeClass('bounce-right');
       if (!$('.day-box').hasClass('double-click')) {
         this.prevClick();
       } else {
