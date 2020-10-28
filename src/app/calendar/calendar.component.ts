@@ -391,8 +391,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
       this.changeCal();
-    }, 100);
-    setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 250);
   }
@@ -430,8 +428,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
       this.changeCal();
-    }, 100);
-    setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 200);
   }
