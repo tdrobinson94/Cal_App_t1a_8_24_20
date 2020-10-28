@@ -370,7 +370,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.events !== undefined) {
       setTimeout(() => {
         this.showEvents();
-      }, 100);
+      }, 20);
     } else {
       this.loading = false;
     }
@@ -391,18 +391,20 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
       this.changeCal();
+    }, 100);
+    setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
-    }, 200);
+    }, 250);
   }
 
   currentClick() {
-    // if Current month is in view just update to current day, else Change the month to current month
+    // if Current month is in view just update to current day, else Change the month to current
     if (Number($('.month-selector').val()) === this.currentMonth && Number($('.year-selector').val()) === this.currentYear) {
       $('.day-box').removeClass('double-click clicked-day');
 
       setTimeout(() => {
         $('.current-day').parent().addClass('clicked-day');
-      }, 100);
+      }, 50);
     } else {
       $('.calendar-wrapper').removeClass('cal-swipe-left cal-swipe-right');
       $(document).find('#month').val(this.currentMonth).change();
@@ -424,9 +426,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         $(document).find('#month').val(Number($(document).find('#month').val()) + 1).change();
       }
     }
+    
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
       this.changeCal();
+    }, 100);
+    setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 200);
   }
