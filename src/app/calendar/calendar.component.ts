@@ -362,7 +362,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.event').removeClass('visible');
     $('.event-container').removeClass('visible-parent');
 
-    this.loading = true;
+    this.loading = false;
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
@@ -943,8 +943,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
         }
         this.events = eventlist;
-
-        this.showEvents();
+        setTimeout(() => {
+          this.showEvents();
+        }, 100);
       });
   }
 
@@ -994,12 +995,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           day.find('.event-count').empty().hide();
   
           if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
-            setTimeout(() => {
-              day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible').parent().addClass('visible-parent');
+              let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+              event.addClass('visible').parent().addClass('visible-parent');
               this.eachDayEventsCount();
               $('.main-info-section').show();
               this.loading = false;
-            }, 200);
           } else {
             $('.main-info-section').show();
             this.loading = false;
