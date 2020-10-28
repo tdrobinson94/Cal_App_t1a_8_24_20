@@ -355,6 +355,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.events !== undefined) {
       setTimeout(() => {
         this.showEvents();
+
+        //show popup background because we are in day view
+        if ($('.day-box').hasClass('double-click')) {
+          $('.popup-background').show();
+        } else {
+          $('.popup-background').hide();
+        }
       }, 20);
     } else {
       this.loading = false;
@@ -385,6 +392,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   currentClick() {
     let year = $(document).find('#year');
     let month = $(document).find('#month');
+
+    $('.popup-background').hide();
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
       $('.day-box').removeClass('double-click clicked-day');
@@ -415,7 +424,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         month.val(Number(month.val()) + 1).change();
       }
     }
-    
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
       this.changeCal();
@@ -765,6 +773,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
           console.log('no scroll');
         } else {
+          $('.popup-background').hide();
           $('.day-box').removeClass('double-click swipe-right swipe-left');
           $('.main-info-section').removeClass('normal-scrolling');
           $('.main-info-section').removeClass('animate-events-one animate-events-two');
@@ -792,6 +801,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.visible').removeClass('selected-event');
       $('.update-event-form').removeClass('show-update-form');
       $('.num-box').removeClass('event-opened');
+      //show popup background because we are in day view
+      $('.popup-background').show();
       if (!$(e.currentTarget).prev().hasClass('dead-month-color')) {
         $('.day-box').removeClass('clicked-day double-click swipe-right swipe-left');
         $('.main-info-section').removeClass('animate-events-one animate-events-two');
@@ -833,6 +844,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.visible').removeClass('selected-event');
       $('.update-event-form').removeClass('show-update-form');
       $('.num-box').removeClass('event-opened');
+      //show popup background because we are in day view
+      $('.popup-background').show();
       // window.navigator.vibrate(this.gestureVibration);
       if (!$(e.currentTarget).next().hasClass('dead-month-color')) {
         $('.day-box').removeClass('clicked-day double-click swipe-right swipe-left');
@@ -872,7 +885,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 400);
       }
     } else if ($(e.target).hasClass('close-day-icon')) {
-      // window.navigator.vibrate(this.gestureVibration);
+      $('.popup-background').hide();
       $('.day-box').removeClass('double-click swipe-right swipe-left');
       $('.main-info-section').removeClass('normal-scrolling');
       $('.main-info-section').removeClass('animate-events-one animate-events-two');
@@ -884,6 +897,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.day-box').removeClass('clicked-day double-click');
       $(e.currentTarget).addClass('clicked-day');
     } else if ($(e.currentTarget).hasClass('clicked-day')) {
+      //show popup background because we are in day view
+      $('.popup-background').show();
       $(e.currentTarget).addClass('double-click');
       $('.double-click .num-date').removeClass('auto-hide');
       $(e.currentTarget).find('.main-info-section').addClass('animate-events-one');
@@ -1187,6 +1202,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openForm() {
+    //show popup background because we are in day view
+    $('.popup-background').show();
     $('.form-nav-bar h2').removeClass('auto-hide');
     $('.add-item-container').animate({ scrollTop: 0 }, 400);
     this.openform = true;
@@ -1441,6 +1458,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeForm() {
     // window.navigator.vibrate(this.gestureVibration);
+    if (!$('.day-box').hasClass('double-click')) {
+      $('.popup-background').hide();
+    }
     this.addItemForm.reset();
     this.openform = false;
     $('.form-nav-bar, .add-item-form').removeClass('animate-events-one animate-events-two');
@@ -1451,6 +1471,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   submitEvent() {
     // window.navigator.vibrate(this.gestureVibration);
+    if (!$('.day-box').hasClass('double-click')) {
+      $('.popup-background').hide();
+    }
     this.loading = true;
     console.log(this.addItemForm.value);
 

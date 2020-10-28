@@ -178,6 +178,18 @@
             overflow: hidden;
         }
 
+        .popup-background {
+            display: none;
+            background: rgba(0,0,0,.5);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+        }
+
         .row {
 
             width: 100%;
