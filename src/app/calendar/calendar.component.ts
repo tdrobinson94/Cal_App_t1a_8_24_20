@@ -1457,7 +1457,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   closeForm() {
-    // window.navigator.vibrate(this.gestureVibration);
     if (!$('.day-box').hasClass('double-click')) {
       $('.popup-background').hide();
     }
@@ -1470,10 +1469,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submitEvent() {
-    // window.navigator.vibrate(this.gestureVibration);
-    if (!$('.day-box').hasClass('double-click')) {
-      $('.popup-background').hide();
-    }
     this.loading = true;
     console.log(this.addItemForm.value);
 
