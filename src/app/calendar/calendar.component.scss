@@ -448,10 +448,10 @@
 
                 &.double-click {
                     background: $background;
-                    position: fixed;
-                    top: 74px;
-                    bottom: 53px;
-                    height: calc(100% - 54px);
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    height: 100%;
                     width: 100%;
                     max-width: 800px;
                     z-index: 99;
@@ -469,41 +469,6 @@
                         border: 1px solid darkgray;
                         border-radius: 5px;
                         box-shadow: 5px 5px 40px black;
-                    }
-
-                    @media screen and (min-height: 600px) {
-                        // transform: translateY(-42%);
-                        // height: 70%;
-                    }
-
-                    @media screen and (min-height: 400px) and (max-width: $end-small) {
-                        height: 73%;
-                        transform: none;
-                    }
-
-                    @media screen and (min-height: 500px) and (max-width: $end-small) {
-                        height: 76%;
-                        transform: none;
-                    }
-
-                    @media screen and (min-height: 600px) and (max-width: $end-small) {
-                        height: 81%;
-                        transform: none;
-                    }
-
-                    @media screen and (min-height: 700px) and (max-width: $end-small) {
-                        height: 82%;
-                        transform: none;
-                    }
-
-                    @media screen and (min-height: 800px) and (max-width: $end-small) {
-                        height: 84%;
-                        transform: none;
-                    }
-
-                    @media screen and (min-height: 900px) and (max-width: $end-small) {
-                        height: 87%;
-                        transform: none;
                     }
 
                     button.close-day {
@@ -1162,7 +1127,7 @@
 
 
     .add-item-container {
-        position: fixed;
+        position: absolute;
         bottom: 70px;
         right: 20px;
         height: 35px;
@@ -1197,11 +1162,11 @@
         }
 
         &.show-form {
-            height: calc(100% - 183px);
+            height: calc(100% - 135px);
             width: 100%;
             background: $background;
             right: 0px;
-            bottom: 49px;
+            bottom: 0;
             z-index: 99999;
             border-radius: 0;
             color: $textdrk;
@@ -1400,17 +1365,12 @@
         }
 
         .submit-buttons {
-            position: fixed;
+            position: sticky;
             justify-content: center;
-            bottom: 55px;
+            bottom: 0;
             background: $background;
             width: 100%;
             margin: 0;
-
-            @media screen and (min-width: $end-small) {
-                position: sticky;
-                bottom: 0;
-            }
 
             .submit-form {
                 background-color: $background;
