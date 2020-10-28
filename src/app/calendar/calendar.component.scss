@@ -449,25 +449,24 @@
                 &.double-click {
                     background: $background;
                     position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    height: 100%;
-                    width: 100%;
+                    top: 5%;
+                    bottom: 5%;
+                    height: 90%;
+                    width: 90%;
+                    border-radius: 15px;
                     max-width: 800px;
                     z-index: 99;
                     transition: height, width 0.3s ease-in-out !important;
-                    border: none;
-                    border-radius: 0;
+                    border: 1px solid $textdrk;
                     animation-name: grow;
                     animation-duration: .3s;
                     animation-timing-function: ease-in-out;
+                    box-shadow: 5px 5px 40px black;
 
                     @media screen and (min-width: $end-small) {
                         top: 20%;
                         height: 60%;
-                        border: 1px solid $textdrk;
                         border-radius: 5px;
-                        box-shadow: 5px 5px 40px black;
                     }
 
                     button.close-day {
