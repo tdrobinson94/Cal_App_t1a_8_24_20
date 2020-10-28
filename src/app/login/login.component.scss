@@ -185,6 +185,11 @@
   flex-direction: column-reverse;
   transition: all .3s ease-in-out;
 
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
   @media screen and (min-width: $end-small) {
     top: calc(64px + 54px);
     bottom: 54px;
