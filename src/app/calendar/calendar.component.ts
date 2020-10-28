@@ -377,7 +377,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   prevClick() {
-    // window.navigator.vibrate(this.gestureVibration);
     if ($(document).find('#year').val() < (this.currentYear - 5)) {
       $(document).find('#year').val(this.currentYear - 5).change();
       $(document).find('#month').val(0).change();
@@ -397,15 +396,23 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   currentClick() {
-    // window.navigator.vibrate(this.gestureVibration);
-    $('.calendar-wrapper').removeClass('cal-swipe-left cal-swipe-right');
-    $(document).find('#month').val(this.currentMonth).change();
-    $(document).find('#year').val(this.currentYear).change();
-    this.changeCal();
+    // if Current month is in view just update to current day, else Change the month to current month
+    if (Number($('.month-selector').val()) === this.currentMonth && Number($('.year-selector').val()) === this.currentYear) {
+      $('.day-box').removeClass('double-click clicked-day');
+
+      setTimeout(() => {
+        $('.current-day').parent().addClass('clicked-day');
+      }, 100);
+    } else {
+      $('.calendar-wrapper').removeClass('cal-swipe-left cal-swipe-right');
+      $(document).find('#month').val(this.currentMonth).change();
+      $(document).find('#year').val(this.currentYear).change();
+
+      this.changeCal();
+    }
   }
 
   nextClick() {
-    // window.navigator.vibrate(this.gestureVibration);
     if ($(document).find('#year').val() > (this.currentYear + 5) && $(document).find('#month').val() == 11) {
       $(document).find('#year').val(this.currentYear + 5).change();
       $(document).find('#month').val(11).change();
@@ -976,8 +983,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } 
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
-
-    console.log(this.singleMonthEvents.length);
   }
 
   showEvents() {
