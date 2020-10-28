@@ -211,12 +211,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.clock.getDate() === dayIndex && this.clock.getMonth() ==
       $('#month').val() && this.clock.getFullYear() == $('#year').val()) {
         day.find('.num-box').addClass('current-day');
-        day.find('.num-box').parent().addClass('clicked-day day-background-color selected-day').removeClass('dead-month-color');
+        day.find('.num-box').parent().addClass('clicked-day day-background-color selected-day').removeClass('dead-month-color next-month-days prev-month-days');
       }
       // If not current month then find 1st day and style it
       else {
         day.find('.day-box').children().removeClass('current-day');
-        day.find('.num-date').parent().parent().removeClass('dead-month-color day-background-color');
+        day.find('.num-date').parent().parent().removeClass('dead-month-color day-background-color next-month-days prev-month-days');
       }
 
       if (dayIndex > monthDays) {
@@ -236,21 +236,21 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
           if ((newDayIndex) < 10) {
             day.find('.date-value').html(currentYear + '-' + standardMonth + '-' + standardDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color');
+            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
             day.find('.excel-date').html(excelDate);
           } else {
             day.find('.date-value').html(currentYear + '-' + standardMonth + '-' + newDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color');
+            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
             day.find('.excel-date').html(excelDate);
           }
         } else {
           if ((dayIndex - monthDays) < 10) {
             day.find('.date-value').html(currentYear + '-' + nextMonth + '-' + standardDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color');
+            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
             day.find('.excel-date').html(excelDate);
           } else {
             day.find('.date-value').html(currentYear + '-' + nextMonth + '-' + newDayIndex);
-            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color');
+            day.find('.num-date').html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
             day.find('.excel-date').html(excelDate);
           }
         }
@@ -336,7 +336,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           day.find('.excel-date').html(excelDate);
         }
 
-        day.find('.num-date').parent().parent().addClass('dead-month-color');
+        day.find('.num-date').parent().parent().addClass('dead-month-color prev-month-days');
         day.find('.num-box').parent().removeClass('day-background-color');
       }
     });
@@ -952,8 +952,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let i;
     const singleMonthEvents = [];
 
-    const lastDay = moment($('.last-day-box').find('.date-value').html()).add(13, 'days');
-    const firstDay = moment($('.first-day-box').find('.date-value').html()).subtract(7, 'days');
+    const lastDay = moment($('.last-day-box').find('.date-value').html()).add($('.next-month-days').length, 'days');
+    const firstDay = moment($('.first-day-box').find('.date-value').html()).subtract($('.prev-month-days').length, 'days');
 
     for (i = 0; i < this.events.length; i++) {
       let forecast_date = moment(this.events[i].eventstart_date);
@@ -976,7 +976,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
 
-    console.log(this.singleMonthEvents);
+    console.log(this.singleMonthEvents.length);
   }
 
   showEvents() {
@@ -995,12 +995,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   
           if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
             setTimeout(() => {
-              day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible');
-              day.find('.event[startDate="' + day.find('.date-value').html() + '"]').parent().addClass('visible-parent');
+              day.find('.event[startDate="' + day.find('.date-value').html() + '"]').addClass('visible').parent().addClass('visible-parent');
               this.eachDayEventsCount();
               $('.main-info-section').show();
               this.loading = false;
-            }, 100);
+            }, 200);
           } else {
             $('.main-info-section').show();
             this.loading = false;
