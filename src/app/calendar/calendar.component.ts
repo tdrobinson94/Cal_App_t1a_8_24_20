@@ -619,6 +619,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.double-click').removeClass('bounce-right');
       if (!$('.day-box').hasClass('double-click')) {
         this.prevClick();
+      } else if ($(e.target).hasClass('loading-container')) {
+        // Do nothing
+        console.log('loading-container');
       } else {
         if ($(e.target).hasClass('main-info-section')) {
           if (!$(e.target).parent().prev().hasClass('dead-month-color')) {
