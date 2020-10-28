@@ -897,13 +897,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $(e.currentTarget).find('.main-info-section').addClass('animate-events-one');
       setTimeout(() => {
         $('.double-click').find('.main-info-section').addClass('animate-events-two');
-
-        if ($('.double-click .visible-parent').last().position() !== undefined) {
-          if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-            $('.double-click .main-info-section').addClass('normal-scrolling');
-          }
-        } 
       }, 400);
+      if ($('.double-click .visible-parent').last().position() !== undefined) {
+        if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
+          $('.double-click .main-info-section').addClass('normal-scrolling');
+        }
+      } 
 
       setTimeout(() => {
         $('.double-click .num-date').addClass('auto-hide');
@@ -1018,7 +1017,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Enable scrolling if the last event isn't viewable anymore
     if ($('.day-box').hasClass('double-click')) {
-      setTimeout(() => {
         if ($('.double-click .visible-parent').last().position() !== undefined) {
           if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
             $('.double-click .main-info-section').addClass('normal-scrolling');
@@ -1026,7 +1024,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             $('.double-click .main-info-section').removeClass('normal-scrolling');
           }
         }
-      }, 10);
     }
   }
 
