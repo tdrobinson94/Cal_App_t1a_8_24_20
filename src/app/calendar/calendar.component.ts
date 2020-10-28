@@ -235,7 +235,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         const standardDayIndex = '0' + newDayIndex;
         // Add day number and date to each box
         if (nextMonth < 10) {
-
           if ((newDayIndex) < 10) {
             dateValue.html(currentYear + '-' + standardMonth + '-' + standardDayIndex);
             numDate.html(newDayIndex).parent().parent().addClass('dead-month-color next-month-days');
@@ -306,28 +305,24 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     _.range(0, startOfMonth).forEach((dayIndex) => {
       const day = $(weeks[dayIndex]);
-
-      const excelDate = toExcelDate(new Date(currentYear, Number(prevMonth), Number((prevDays[dayIndex]))));
-
+      let numBox = day.find('.num-box');
+      let dateValue = day.find('.date-value');
+      let numDate = day.find('.num-date');
       if (startOfMonth > dayIndex) {
         if (prevMonth === 0) {
           prevMonth = 12;
           currentYear = Number(currentYear) - 1;
         }
-
         if (prevMonth < 10) {
           const standardNewMonth = '0' + prevMonth;
-          day.find('.date-value').html(currentYear + '-' + standardNewMonth + '-' + (prevDays[dayIndex]));
-          day.find('.num-date').html((prevDays[dayIndex]));
-          day.find('.excel-date').html(excelDate);
+          dateValue.html(currentYear + '-' + standardNewMonth + '-' + (prevDays[dayIndex]));
+          numDate.html((prevDays[dayIndex]));
         } else {
-          day.find('.date-value').html(currentYear + '-' + prevMonth + '-' + (prevDays[dayIndex]));
-          day.find('.num-date').html((prevDays[dayIndex]));
-          day.find('.excel-date').html(excelDate);
+          dateValue.html(currentYear + '-' + prevMonth + '-' + (prevDays[dayIndex]));
+          numDate.html((prevDays[dayIndex]));
         }
-
-        day.find('.num-date').parent().parent().addClass('dead-month-color prev-month-days');
-        day.find('.num-box').parent().removeClass('day-background-color');
+        numDate.parent().parent().addClass('dead-month-color prev-month-days');
+        numBox.parent().removeClass('day-background-color');
       }
     });
   }
@@ -367,15 +362,17 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   prevClick() {
-    if ($(document).find('#year').val() < (this.currentYear - 5)) {
-      $(document).find('#year').val(this.currentYear - 5).change();
-      $(document).find('#month').val(0).change();
+    let year = $(document).find('#year');
+    let month = $(document).find('#month');
+    if (year.val() < (this.currentYear - 5)) {
+      year.val(this.currentYear - 5).change();
+      month.val(0).change();
     } else {
-      if ($('#month').val() == null || $('#month').val() == 0) {
-        $(document).find('#month').val(11).change();
-        $(document).find('#year').val(Number($(document).find('#year').val()) - 1).change();
+      if (month.val() == null || month.val() == 0) {
+        month.val(11).change();
+        year.val(Number(year.val()) - 1).change();
       } else {
-        $(document).find('#month').val(Number($(document).find('#month').val()) - 1).change();
+        month.val(Number(month.val()) - 1).change();
       }
     }
     $('.calendar-container').addClass('cal-swipe-left');
@@ -386,8 +383,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   currentClick() {
+    let year = $(document).find('#year');
+    let month = $(document).find('#month');
     // if Current month is in view just update to current day, else Change the month to current
-    if (Number($('.month-selector').val()) === this.currentMonth && Number($('.year-selector').val()) === this.currentYear) {
+    if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
       $('.day-box').removeClass('double-click clicked-day');
 
       setTimeout(() => {
@@ -395,23 +394,25 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       }, 50);
     } else {
       $('.calendar-wrapper').removeClass('cal-swipe-left cal-swipe-right');
-      $(document).find('#month').val(this.currentMonth).change();
-      $(document).find('#year').val(this.currentYear).change();
+      month.val(this.currentMonth).change();
+      year.val(this.currentYear).change();
 
       this.changeCal();
     }
   }
 
   nextClick() {
-    if ($(document).find('#year').val() > (this.currentYear + 5) && $(document).find('#month').val() == 11) {
-      $(document).find('#year').val(this.currentYear + 5).change();
-      $(document).find('#month').val(11).change();
+    let year = $(document).find('#year');
+    let month = $(document).find('#month');
+    if (year.val() > (this.currentYear + 5) && month.val() == 11) {
+      year.val(this.currentYear + 5).change();
+      month.val(11).change();
     } else {
-      if ($(document).find('#month').val() == null || $(document).find('#month').val() == 11) {
-        $(document).find('#month').val(0).change();
-        $(document).find('#year').val(Number($(document).find('#year').val()) + 1).change();
+      if (month.val() == null || month.val() == 11) {
+        month.val(0).change();
+        year.val(Number(year.val()) + 1).change();
       } else {
-        $(document).find('#month').val(Number($(document).find('#month').val()) + 1).change();
+        month.val(Number(month.val()) + 1).change();
       }
     }
     
