@@ -960,9 +960,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   filterEvents() {
     let i;
     const singleMonthEvents = [];
+    let prevDays = $('.prev-month-days').length;
+    let nextDays = $('.next-month-days').length;
 
-    const lastDay = moment($('.last-day-box').find('.date-value').html()).add($('.next-month-days').length, 'days');
-    const firstDay = moment($('.first-day-box').find('.date-value').html()).subtract($('.prev-month-days').length, 'days');
+    if (prevDays === 0) {
+      prevDays = prevDays + 1;
+    }
+
+    if (nextDays === 0) {
+      nextDays = nextDays + 1;
+    }
+
+    const lastDay = moment($('.last-day-box').find('.date-value').html()).add(nextDays, 'days');
+    const firstDay = moment($('.first-day-box').find('.date-value').html()).subtract(prevDays, 'days');
 
     for (i = 0; i < this.events.length; i++) {
       let forecast_date = moment(this.events[i].eventstart_date);
@@ -984,6 +994,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } 
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
+    console.log(this.singleMonthEvents);
   }
 
   showEvents() {
