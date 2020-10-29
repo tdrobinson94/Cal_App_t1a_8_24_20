@@ -165,96 +165,96 @@
         <div class="popup-background">
 
         </div>
-    </div>
 
-    <button class="add-item-button" (click)="openForm()" [ngStyle]="{display: hideFormButton ? 'none' : 'flex'}">
-        <span class="material-icons">add</span>
-    </button>
-
-    <div class="add-item-container" #form [ngClass]="{'show-form': openform}">
-        <form class="add-item-form" [formGroup]="addItemForm" (ngSubmit)="submitEvent()">
-            <div class="form-nav-bar" (swipedown)="onSwipeDownForm($event)">
-                <h2 class="form-title">
-                    <input type="text" placeholder="Title" formControlName="title" maxlength="32" name="title" autocomplete="off" required>
-                </h2>
-                <div class="close-form" (click)="closeForm()">
-                    <span class="material-icons">clear</span>
+        <button class="add-item-button" (click)="openForm()" [ngStyle]="{display: hideFormButton ? 'none' : 'flex'}">
+            <span class="material-icons">add</span>
+        </button>
+    
+        <div class="add-item-container" #form [ngClass]="{'show-form': openform}">
+            <form class="add-item-form" [formGroup]="addItemForm" (ngSubmit)="submitEvent()">
+                <div class="form-nav-bar" (swipedown)="onSwipeDownForm($event)">
+                    <h2 class="form-title">
+                        <input type="text" placeholder="Title" formControlName="title" maxlength="32" name="title" autocomplete="off" required>
+                    </h2>
+                    <div class="close-form" (click)="closeForm()">
+                        <span class="material-icons">clear</span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="input-wrapper invisible">
-                <input type="text" placeholder="User ID" formControlName="user_id">
-            </div>
-
-            <div class="input-wrapper invisible">
-                <input type="text" placeholder="Group ID" formControlName="group_id">
-            </div>
-
-            <div class="input-wrapper item-type">
-                <label>Select Type</label>
-                <select formControlName="item_type" required>
-                    <option value="" disabled selected hidden>Choose Type</option>
-                    <option value="1">Event</option>
-                    <!-- <option value="2">Reminder</option>
-                    <option value="3">Task</option>
-                    <option value="4">Budget</option>
-                    <option value="5">Food</option> -->
-                </select>
-            </div>
-
-            <div class="input-wrapper frequency">
-                <label>Select Frequency</label>
-                <select formControlName="frequency" required (change)="frequencyChange($event)">
-                    <option value="" disabled selected hidden>Choose Frequency</option>
-                    <option value="2">Once</option>
-                    <option value="1">Daily</option>
-                    <option value="7">Weekly</option>
-                    <option value="14">Bi-weekly</option>
-                    <option value="30">Monthly</option>
-                    <option value="182">Semi-annual</option>
-                    <option value="365">Annual</option>
-                </select>
-            </div>
-
-            <div class="input-wrapper date-input">
-                <label>Start Date</label>
-                <input type="date" formControlName="start_date" (change)="onStartDateChange($event)" required />
-            </div>
-            
-            <div class="input-wrapper date-input-end">
-                <label>End Date</label>
-                <input type="date" formControlName="end_date" required />
-            </div>
-            
-            <div class="input-wrapper time-input" [ngClass]="{invisible: allDay}">
-                <label class="time-label">Start Time</label>
-                <input type="time" formControlName="start_time" (change)="onStartTimeChange($event)" required />
-            </div>
-            
-            <div class="input-wrapper time-input-end" [ngClass]="{invisible: allDay}">
-                <label class="time-label">End Time</label>
-                <input type="time" formControlName="end_time" required />
-            </div>
-
-            <div class="input-wrapper time-all-day">
-                <input id="all-day" type="checkbox" (change)="allDaySelected($event)" formControlName="all_day" /><label
-                    for="all-day">All day</label>
-            </div>
-
-            <div class="input-wrapper event-description">
-                <label class="description-label">Description</label>
-                <textarea placeholder="Add description" formControlName="description"></textarea>
-            </div>
-
-            <div class="input-wrapper location-input">
-                <label class="location-label">Location</label>
-                <input type="text" placeholder="Location" formControlName="location">
-            </div>
-
-            <div class="input-wrapper submit-buttons">
-                <button class="submit-form" type="submit" [disabled]="!addItemForm.valid">Add</button>
-            </div>
-        </form>
+    
+                <div class="input-wrapper invisible">
+                    <input type="text" placeholder="User ID" formControlName="user_id">
+                </div>
+    
+                <div class="input-wrapper invisible">
+                    <input type="text" placeholder="Group ID" formControlName="group_id">
+                </div>
+    
+                <div class="input-wrapper item-type">
+                    <label>Select Type</label>
+                    <select formControlName="item_type" required>
+                        <option value="" disabled selected hidden>Choose Type</option>
+                        <option value="1">Event</option>
+                        <!-- <option value="2">Reminder</option>
+                        <option value="3">Task</option>
+                        <option value="4">Budget</option>
+                        <option value="5">Food</option> -->
+                    </select>
+                </div>
+    
+                <div class="input-wrapper frequency">
+                    <label>Select Frequency</label>
+                    <select formControlName="frequency" required (change)="frequencyChange($event)">
+                        <option value="" disabled selected hidden>Choose Frequency</option>
+                        <option value="2">Once</option>
+                        <option value="1">Daily</option>
+                        <option value="7">Weekly</option>
+                        <option value="14">Bi-weekly</option>
+                        <option value="30">Monthly</option>
+                        <option value="182">Semi-annual</option>
+                        <option value="365">Annual</option>
+                    </select>
+                </div>
+    
+                <div class="input-wrapper date-input">
+                    <label>Start Date</label>
+                    <input type="date" formControlName="start_date" (change)="onStartDateChange($event)" required />
+                </div>
+                
+                <div class="input-wrapper date-input-end">
+                    <label>End Date</label>
+                    <input type="date" formControlName="end_date" required />
+                </div>
+                
+                <div class="input-wrapper time-input" [ngClass]="{invisible: allDay}">
+                    <label class="time-label">Start Time</label>
+                    <input type="time" formControlName="start_time" (change)="onStartTimeChange($event)" required />
+                </div>
+                
+                <div class="input-wrapper time-input-end" [ngClass]="{invisible: allDay}">
+                    <label class="time-label">End Time</label>
+                    <input type="time" formControlName="end_time" required />
+                </div>
+    
+                <div class="input-wrapper time-all-day">
+                    <input id="all-day" type="checkbox" (change)="allDaySelected($event)" formControlName="all_day" /><label
+                        for="all-day">All day</label>
+                </div>
+    
+                <div class="input-wrapper event-description">
+                    <label class="description-label">Description</label>
+                    <textarea placeholder="Add description" formControlName="description"></textarea>
+                </div>
+    
+                <div class="input-wrapper location-input">
+                    <label class="location-label">Location</label>
+                    <input type="text" placeholder="Location" formControlName="location">
+                </div>
+    
+                <div class="input-wrapper submit-buttons">
+                    <button class="submit-form" type="submit" [disabled]="!addItemForm.valid">Add</button>
+                </div>
+            </form>
+        </div>
     </div>
 
 </div>

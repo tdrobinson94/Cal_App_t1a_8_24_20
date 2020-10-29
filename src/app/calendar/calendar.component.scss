@@ -1092,8 +1092,8 @@
 
     .add-item-button {
         padding: 15px;
-        position: fixed;
-        bottom: 60.9px;
+        position: absolute;
+        bottom: 10px;
         font-size: 20px;
         border-radius: 100%;
         border: none;
@@ -1129,7 +1129,7 @@
 
     .add-item-container {
         position: absolute;
-        bottom: 70px;
+        bottom: 20px;
         right: 20px;
         height: 35px;
         width: 35px;
@@ -1168,16 +1168,15 @@
         }
 
         &.show-form {
-            height: calc(100% - 135px);
+            height: 100%;
             width: 100%;
-            background: $background;
+            background: #121212;
             right: 0px;
             bottom: 0;
             z-index: 99999;
             border-radius: 0;
-            color: $textdrk;
+            color: #fff;
             overflow: auto;
-            margin-bottom: 60px;
 
             transition: all 0.3s ease-in-out;
             -moz-transition: all .3s ease-in-out;
@@ -1373,7 +1372,7 @@
         .submit-buttons {
             position: sticky;
             justify-content: center;
-            bottom: 0;
+            bottom: -1px;
             background: $background;
             width: 100%;
             margin: 0;
