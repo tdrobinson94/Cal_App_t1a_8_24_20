@@ -1106,8 +1106,9 @@
         box-shadow: 2px 5px 15px black;
         cursor: pointer;
 
-        &.moved {
-            @media screen and (max-width: $end-small) {
+
+        @media screen and (max-width: $end-small) {
+            &.moved {
                 display: flex;
                 bottom: 6%;
                 right: 7%;
@@ -1165,13 +1166,14 @@
         }
 
         &.show-form {
-            height: 100%;
-            width: 100%;
+            height: 90%;
+            width: 90%;
             background: #121212;
-            right: 0px;
-            bottom: 0;
+            right: 4.7%;
+            bottom: 4.7%;
             z-index: 99999;
-            border-radius: 0;
+            border-radius: 15px;
+            border: 1px solid $textdrk;
             color: #fff;
             overflow: auto;
 
@@ -1187,7 +1189,6 @@
                 height: 60%;
                 width: 100%;
                 max-width: 800px;
-                border: 1px solid $textdrk;
                 border-radius: 5px;
                 animation: none;
                 box-shadow: 5px 5px 40px black;
