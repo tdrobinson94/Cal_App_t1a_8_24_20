@@ -26,7 +26,7 @@ import { TestCalendarComponent } from './test-calendar/test-calendar.component';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides: any = {
-    swipe: { direction: Hammer.DIRECTION_ALL }
+    swipe: { direction: Hammer.DIRECTION_ALL, velocity: 0.4, threshold: 20}
   };
 }
 

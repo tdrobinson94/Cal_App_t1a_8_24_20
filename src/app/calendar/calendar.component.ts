@@ -458,21 +458,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               }, 200);
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              }, 300);
             } else if ($(e.target).parent().next().length === 0) {
               $(e.target).parent().parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             } else {
               $(e.target).parent().next().addClass('clicked-day double-click swipe-left');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -484,11 +478,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     $('.double-click .main-info-section').removeClass('normal-scrolling');
                   }
                 }
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             }
           } else {
             this.nextClick();
@@ -499,7 +489,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 200);
             setTimeout(() => {
               $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            }, 300);
           }
         } else if ($(e.target).hasClass('event')) {
           if (!$(e.target).parent().parent().parent().next().hasClass('dead-month-color')) {
@@ -514,21 +504,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               }, 200);
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              }, 300);
             } else if ($(e.target).parent().parent().parent().next().length === 0) {
               $(e.target).parent().parent().parent().parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             } else {
               $(e.target).parent().parent().parent().next().addClass('clicked-day double-click swipe-left');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -540,11 +524,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     $('.double-click .main-info-section').removeClass('normal-scrolling');
                   }
                 }
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             }
           } else {
             this.nextClick();
@@ -555,7 +535,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 200);
             setTimeout(() => {
               $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            }, 300);
           }
         } else if ($(e.target).hasClass('event-details')) {
           if (!$(e.target).parent().parent().parent().parent().next().hasClass('dead-month-color')) {
@@ -570,21 +550,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               }, 200);
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              }, 300);
             } else if ($(e.target).parent().parent().parent().parent().next().length === 0) {
               $(e.target).parent().parent().parent().parent().parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             } else {
               $(e.target).parent().parent().parent().parent().next().addClass('clicked-day double-click swipe-left');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -596,11 +570,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     $('.double-click .main-info-section').removeClass('normal-scrolling');
                   }
                 }
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             }
           } else {
             this.nextClick();
@@ -611,7 +581,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 200);
             setTimeout(() => {
               $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            }, 300);
           }
         }
       }
@@ -643,21 +613,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               }, 200);
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              }, 300);
             } else if ($(e.target).parent().prev().length === 0) {
               $(e.target).parent().parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             } else {
               $(e.target).parent().prev().addClass('clicked-day double-click swipe-right');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -669,11 +633,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     $('.double-click .main-info-section').removeClass('normal-scrolling');
                   }
                 }
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             }
           } else {
             this.prevClick();
@@ -684,7 +644,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 200);
             setTimeout(() => {
               $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            }, 300);
           }
         } else if ($(e.target).hasClass('event')) {
           if (!$(e.target).parent().parent().parent().prev().hasClass('dead-month-color')) {
@@ -699,21 +659,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               }, 200);
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              }, 300);
             } else if ($(e.target).parent().parent().parent().prev().length === 0) {
               $(e.target).parent().parent().parent().parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             } else {
               $(e.target).parent().parent().parent().prev().addClass('clicked-day double-click swipe-right');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -725,11 +679,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     $('.double-click .main-info-section').removeClass('normal-scrolling');
                   }
                 }
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             }
           } else {
             this.prevClick();
@@ -740,7 +690,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 200);
             setTimeout(() => {
               $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            }, 300);
           }
         } else if ($(e.target).hasClass('event-details')) {
           if (!$(e.target).parent().parent().parent().parent().prev().hasClass('dead-month-color')) {
@@ -755,16 +705,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               }, 200);
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              }, 300);
             } else if ($(e.target).parent().parent().parent().parent().prev().length === 0) {
               $(e.target).parent().parent().parent().parent().parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              }, 300);
             } else {
               $(e.target).parent().parent().parent().parent().prev().addClass('clicked-day double-click swipe-right');
-              $('.double-click .num-date').removeClass('auto-hide');
               $('.double-click').find('.main-info-section').addClass('animate-events-one');
               setTimeout(() => {
                 $('.double-click').find('.main-info-section').addClass('animate-events-two');
@@ -776,11 +725,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
                     $('.double-click .main-info-section').removeClass('normal-scrolling');
                   }
                 }
-              }, 400);
-
-              setTimeout(() => {
-                $('.double-click .num-date').addClass('auto-hide');
-              }, 7000);
+              }, 300);
             }
           } else {
             this.prevClick();
@@ -791,7 +736,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 200);
             setTimeout(() => {
               $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            }, 300);
           }
         }
       }
@@ -815,7 +760,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           $('.add-item-button, .add-item-container').removeClass('moved');
           setTimeout(() => {
             $('.main-info-section').animate({ scrollTop: 0 }, 200);
-          }, 400);
+          }, 300);
         }
       }
     }
@@ -850,19 +795,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           }, 200);
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          }, 300);
         } else if ($(e.currentTarget).prev().length === 0) {
           $(e.currentTarget).parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          }, 300);
         } else {
           $(e.currentTarget).prev().addClass('clicked-day double-click swipe-right');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          }, 300);
         }
       } else {
         this.prevClick();
@@ -873,7 +818,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 200);
         setTimeout(() => {
           $('.double-click').find('.main-info-section').addClass('animate-events-two');
-        }, 400);
+        }, 300);
       }
 
       // Enable scrolling if the last event isn't viewable anymore
@@ -907,19 +852,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           }, 200);
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          }, 300);
         } else if ($(e.currentTarget).next().length === 0) {
           $(e.currentTarget).parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          }, 300);
         } else {
           $(e.currentTarget).next().addClass('clicked-day double-click swipe-left');
           $('.double-click').find('.main-info-section').addClass('animate-events-one');
           setTimeout(() => {
             $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          }, 300);
         }
       } else {
         this.nextClick();
@@ -930,7 +875,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 200);
         setTimeout(() => {
           $('.double-click').find('.main-info-section').addClass('animate-events-two');
-        }, 400);
+        }, 300);
       }
 
       // Enable scrolling if the last event isn't viewable anymore
@@ -954,7 +899,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.add-item-button, .add-item-container').removeClass('moved');
       setTimeout(() => {
         $('.main-info-section').animate({ scrollTop: 0 }, 200);
-      }, 400);
+      }, 300);
     } else if (!$(e.currentTarget).hasClass('clicked-day') && !$(e.currentTarget).hasClass('double-click')) {
       $('.day-box').removeClass('clicked-day double-click');
       $(e.currentTarget).addClass('clicked-day');
@@ -962,21 +907,16 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       //show popup background because we are in day view
       $('.popup-background').show();
       $(e.currentTarget).addClass('double-click');
-      $('.double-click .num-date').removeClass('auto-hide');
       $(e.currentTarget).find('.main-info-section').addClass('animate-events-one');
       $('.add-item-button, .add-item-container').addClass('moved');
       setTimeout(() => {
         $('.double-click').find('.main-info-section').addClass('animate-events-two');
-      }, 400);
+      }, 300);
       if ($('.double-click .visible-parent').last().position() !== undefined) {
         if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
           $('.double-click .main-info-section').addClass('normal-scrolling');
         }
       } 
-
-      setTimeout(() => {
-        $('.double-click .num-date').addClass('auto-hide');
-      }, 9000);
     }
   }
 
@@ -1132,18 +1072,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } 
     // If an event has been clicked twice
     else if ($(e.currentTarget).hasClass('selected-event')) {
-      $('.form-nav-bar h2').removeClass('auto-hide');
       $('.add-item-button, .add-item-container').hide();
       $('.prev-day, .next-day').addClass('hide');
       $('.num-box').addClass('event-opened');
       setTimeout(() => {
         $('.update-event-form').addClass('show-update-form').removeClass('closed');
       }, 200);
-      $('.update-event-form').animate({ scrollTop: 0 }, 400);
-
-      setTimeout(() => {
-        $('.form-nav-bar h2').addClass('auto-hide');
-      }, 7000);
+      $('.update-event-form').animate({ scrollTop: 0 }, 300);
 
       // Define variables by finding the html of the 1st child element an reducing it to AM or PM, just hours, and just minutes
       const timeofday = e.currentTarget.childNodes[4].children[0].innerHTML.trim().split(' ')[1];
@@ -1270,8 +1205,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   openForm() {
     //show popup background because we are in day view
     $('.popup-background').show();
-    $('.form-nav-bar h2').removeClass('auto-hide');
-    $('.add-item-container').animate({ scrollTop: 0 }, 400);
+    $('.add-item-container').animate({ scrollTop: 0 }, 300);
     this.openform = true;
     this.hideFormButton = true;
     // window.navigator.vibrate(this.gestureVibration);
@@ -1280,10 +1214,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.form-nav-bar, .add-item-form').addClass('animate-events-two');
       // $('input[name=title]').focus();
     }, 450);
-
-    setTimeout(() => {
-      $('.form-nav-bar h2').addClass('auto-hide');
-    }, 7000);
 
     const day = $('.clicked-day .date-value').text();
     let minutes: any = Number(String(this.clock.getMinutes()).padStart(2, '0'));

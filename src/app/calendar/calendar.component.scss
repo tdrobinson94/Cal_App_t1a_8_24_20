@@ -565,13 +565,6 @@
                             font-size: 12px;
                         }
 
-                        .auto-hide {
-                            &:before {
-                                color: transparent;
-                                transition: .5s all ease-in-out;
-                            }
-                        }
-
                         .mobile-hide-helpers {
                             &:before {
                                 display: none;
@@ -770,13 +763,6 @@
                                             width: calc(100% - 40px);
                                         }
 
-                                    }
-
-                                    .auto-hide {
-                                        &:before {
-                                            color: transparent;
-                                            transition: .5s all ease-in-out;
-                                        }
                                     }
 
                                     .mobile-hide-helpers {
@@ -1216,13 +1202,6 @@
                     outline: 0;
                     font-family: "Noto Sans", sans-serif;
                     width: calc(100% - 40px);
-                }
-            }
-
-            .auto-hide {
-                &:before {
-                    color: transparent;
-                    transition: .5s all ease-in-out;
                 }
             }
 
