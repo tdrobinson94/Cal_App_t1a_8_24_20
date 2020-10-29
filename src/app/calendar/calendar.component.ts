@@ -805,7 +805,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           $('.main-info-section').removeClass('normal-scrolling');
           $('.main-info-section').removeClass('animate-events-one animate-events-two');
           $('.visible').removeClass('selected-event');
-          $('.add-item-button, .add-item-container').removeClass('moved');
+          // $('.add-item-button, .add-item-container').removeClass('moved');
           setTimeout(() => {
             $('.main-info-section').animate({ scrollTop: 0 }, 200);
           }, 400);
@@ -944,7 +944,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.main-info-section').removeClass('normal-scrolling');
       $('.main-info-section').removeClass('animate-events-one animate-events-two');
       $('.visible').removeClass('selected-event');
-      $('.add-item-button, .add-item-container').removeClass('moved');
+      // $('.add-item-button, .add-item-container').removeClass('moved');
       setTimeout(() => {
         $('.main-info-section').animate({ scrollTop: 0 }, 200);
       }, 400);
@@ -957,7 +957,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $(e.currentTarget).addClass('double-click');
       $('.double-click .num-date').removeClass('auto-hide');
       $(e.currentTarget).find('.main-info-section').addClass('animate-events-one');
-      $('.add-item-button, .add-item-container').addClass('moved');
+      // $('.add-item-button, .add-item-container').addClass('moved');
       setTimeout(() => {
         $('.double-click').find('.main-info-section').addClass('animate-events-two');
       }, 400);
