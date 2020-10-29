@@ -438,12 +438,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       // window.navigator.vibrate(this.gestureVibration);
       $('.double-click').removeClass('bounce-left');
       if (!$('.day-box').hasClass('double-click')) {
-        this.nextClick();
-      } else {
-        if ($(e.target).hasClass('show-form') || $(e.target).hasClass('show-form form-title')){
-          console.log('form is open');
-          //Do nothing
+        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+          // Do nothing
+          console.log($(e.target));
+        } else {
+          this.prevClick();
         }
+      } else {
         if ($(e.target).hasClass('main-info-section')) {
           if (!$(e.target).parent().next().hasClass('dead-month-color')) {
             $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
@@ -622,12 +623,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.double-click').removeClass('bounce-right');
       if (!$('.day-box').hasClass('double-click')) {
-        this.prevClick();
-      } else {
-        if ($(e.target).hasClass('show-form') || $(e.target).hasClass('show-form form-title')){
-          console.log('form is open');
-          //Do nothing
+        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+          // Do nothing
+          console.log($(e.target));
+        } else {
+          this.prevClick();
         }
+      } else {
         if ($(e.target).hasClass('main-info-section')) {
           if (!$(e.target).parent().prev().hasClass('dead-month-color')) {
             $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
