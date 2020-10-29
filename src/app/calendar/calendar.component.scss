@@ -1107,13 +1107,11 @@
         cursor: pointer;
 
         &.moved {
-            display: flex;
-            bottom: 87px;
-            right: 25px;
-        }
-
-        @media screen and (min-width: $end-small) {
-            bottom: 65.9px;
+            @media screen and (max-width: $end-small) {
+                display: flex;
+                bottom: 6%;
+                right: 7%;
+            }
         }
 
         &:active {
@@ -1154,13 +1152,12 @@
         }
 
         &.moved {
-            bottom: 97px;
-            right: 35px;
+            bottom: 7.5%;
+            right: 9.5%;
         }
 
         @media screen and (min-width: $end-small) {
             right: 50% !important;
-            bottom: 75px;
             transform: translateX(50%);
             overflow: hidden;
             border-radius: 100%;
@@ -1186,18 +1183,14 @@
             @media screen and (min-width: $end-small) {
                 bottom: 50%;
                 right: 50%;
-                transform: translate(50%, 52%);
-                height: 50%;
+                transform: translate(50%, 50%);
+                height: 60%;
                 width: 100%;
                 max-width: 800px;
                 border: 1px solid $textdrk;
                 border-radius: 5px;
                 animation: none;
                 box-shadow: 5px 5px 40px black;
-            }
-
-            @media screen and (min-height: 600px) and (min-width: $end-small) {
-                transform: translate(50%, 60%);
             }
         }
 
