@@ -1095,6 +1095,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     } else {
+      $('.main-info-section').show();
       this.loading = false;
     }
 
