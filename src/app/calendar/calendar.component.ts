@@ -867,6 +867,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           $('.double-click').find('.main-info-section').addClass('animate-events-two');
         }, 400);
       }
+
+      // Enable scrolling if the last event isn't viewable anymore
+      if ($('.day-box').hasClass('double-click')) {
+        setTimeout(() => {
+          if ($('.double-click .visible-parent').last().position() !== undefined) {
+            if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
+              $('.double-click .main-info-section').addClass('normal-scrolling');
+            } else {
+              $('.double-click .main-info-section').removeClass('normal-scrolling');
+            }
+          }
+        },50)
+      }
     } else if ($(e.target).hasClass('next-day-icon')) {
       $('.visible').removeClass('selected-event');
       $('.update-event-form').removeClass('show-update-form');
@@ -910,6 +923,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         setTimeout(() => {
           $('.double-click').find('.main-info-section').addClass('animate-events-two');
         }, 400);
+      }
+
+      // Enable scrolling if the last event isn't viewable anymore
+      if ($('.day-box').hasClass('double-click')) {
+        setTimeout(() => {
+          if ($('.double-click .visible-parent').last().position() !== undefined) {
+            if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
+              $('.double-click .main-info-section').addClass('normal-scrolling');
+            } else {
+              $('.double-click .main-info-section').removeClass('normal-scrolling');
+            }
+          }
+        },50)
       }
     } else if ($(e.target).hasClass('close-day-icon')) {
       $('.popup-background').hide();
