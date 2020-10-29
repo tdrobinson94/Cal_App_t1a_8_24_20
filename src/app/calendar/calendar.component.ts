@@ -440,6 +440,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!$('.day-box').hasClass('double-click')) {
         this.nextClick();
       } else {
+        if ($(e.target).hasClass('show-form') || $(e.target).hasClass('show-form form-title')){
+          console.log('form is open');
+          //Do nothing
+        }
         if ($(e.target).hasClass('main-info-section')) {
           if (!$(e.target).parent().next().hasClass('dead-month-color')) {
             $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
@@ -619,10 +623,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.double-click').removeClass('bounce-right');
       if (!$('.day-box').hasClass('double-click')) {
         this.prevClick();
-      } else if ($(e.target).hasClass('loading-container')) {
-        // Do nothing
-        console.log('loading-container');
       } else {
+        if ($(e.target).hasClass('show-form') || $(e.target).hasClass('show-form form-title')){
+          console.log('form is open');
+          //Do nothing
+        }
         if ($(e.target).hasClass('main-info-section')) {
           if (!$(e.target).parent().prev().hasClass('dead-month-color')) {
             $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
