@@ -442,7 +442,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           // Do nothing
           console.log($(e.target));
         } else {
-          this.prevClick();
+          this.nextClick();
         }
       } else {
         if ($(e.target).hasClass('main-info-section')) {
