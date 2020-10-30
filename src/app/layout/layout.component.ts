@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserDataService } from '../services/userdata.service';
 import { Router, NavigationEnd } from '@angular/router';
 import $ from 'jquery';
@@ -8,7 +8,7 @@ import $ from 'jquery';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
   firstName = '';
   lastName = '';
   firstInitial = '';
@@ -90,6 +90,10 @@ export class LayoutComponent implements OnInit {
         this.firstInitial = this.firstName.substring(0, 1);
         this.lastInitial = this.lastName.substring(0, 1);
       });
+  }
+
+  ngOnDestroy(){
+    this.clickLogout();
   }
 
 }
