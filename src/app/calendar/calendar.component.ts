@@ -1135,7 +1135,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       // Set the time to variables and concat the values to a proper time input format
       const eCurrentTime = eHours + ':' + eMinutes;
       const eEndTime = eEndTimeHours + ':' + eEndTimeMinutes;
-      const userID = localStorage.getItem('userId');
+      const userID = sessionStorage.getItem('userId');
 
       if (e.currentTarget.childNodes[3].innerHTML.trim() == 2) {
         $('.date-input-end-update').hide();
@@ -1251,7 +1251,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     const currentTime = hours.toString() + ':' + minutes.toString();
     const endTime = (extraHour) + ':' + minutes;
 
-    const userID = localStorage.getItem('userId');
+    const userID = sessionStorage.getItem('userId');
 
     $('.date-input-end').show();
     this.addItemForm = new FormGroup({

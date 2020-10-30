@@ -14,8 +14,8 @@ export class UserDataService {
     constructor(private http: HttpClient, private cookieService: CookieService) { }
 
     getToken() {
-        const cookieValue = localStorage.getItem('userId');
-        const token = localStorage.getItem('token');
+        const cookieValue = sessionStorage.getItem('userId');
+        const token = sessionStorage.getItem('token');
         // const cookieValue = this.cookieService.get('userId');
         // const token = this.cookieService.get('token');
         const config = {
@@ -35,11 +35,12 @@ export class UserDataService {
     }
 
     loggedIn() {
-        return localStorage.getItem('token') ? true : false;
+        return sessionStorage.getItem('token') ? true : false;
     }
 
     logout() {
         localStorage.clear();
+        sessionStorage.clear();
         this.cookieService.deleteAll();
     }
 

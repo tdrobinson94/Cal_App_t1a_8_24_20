@@ -93,7 +93,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.clickLogout();
+
   }
 
 }
