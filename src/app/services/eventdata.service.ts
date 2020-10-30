@@ -13,7 +13,8 @@ export class EventDataService {
     constructor(private http: HttpClient, private cookieService: CookieService) { }
 
     getToken() {
-        const token = this.cookieService.get('token');
+        const token = localStorage.getItem('token');
+        // const token = this.cookieService.get('token');
         const config = {
             headers: new HttpHeaders({ Authorization: 'Bearer ' + token })
         };
@@ -30,7 +31,7 @@ export class EventDataService {
     }
 
     getEvents(): Observable<any> {
-        const param = { user_id: this.cookieService.get('userId')};
+        const param = { user_id: localStorage.getItem('userId')};
         return this.http.get(this.apiUrl + '/user/events', { params: param });
     }
 

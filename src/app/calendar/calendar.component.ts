@@ -7,7 +7,6 @@ import _ from 'lodash';
 import * as moment from 'moment';
 import 'hammerjs';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -15,7 +14,6 @@ import { Subject } from 'rxjs';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
-  private ngUnsubscribe = new Subject();
   constructor(private dataService: EventDataService, private cookieService: CookieService) { }
 
   // Date variables
@@ -52,6 +50,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   cachedMonth: any = localStorage.getItem('cachedMonth');
   cachedYear: any = localStorage.getItem('cachedYear');
+  cachedDay: any = localStorage.getItem('cachedDay');
 
   // Delete event form
   deleteItemForm = new FormGroup({
@@ -157,6 +156,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     // update the calendar as well as the current day number and day of week
     console.log(this.cachedMonth);
     console.log(this.cachedYear);
+    console.log(this.cachedDay);
     let dayBox = $('.day-box');
     let currentDayBox = dayBox.find('.current-day');
     setInterval(() => {
@@ -270,7 +270,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (thisMonth < 10) {
           if (dayIndex < 10) {
             dateValue.html(currentYear + '-' + standardNewMonth + '-' + standardNewDays);
-            numDate.html('&nbsp' + newDays + '&nbsp');
+            numDate.html(newDays);
           } else {
             dateValue.html(currentYear + '-' + standardNewMonth + '-' + newDays);
             numDate.html(newDays);
@@ -278,7 +278,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           if (dayIndex < 10) {
             dateValue.html(currentYear + '-' + thisMonth + '-' + standardNewDays);
-            numDate.html('&nbsp' + newDays + '&nbsp');
+            numDate.html(newDays);
           } else {
             dateValue.html(currentYear + '-' + thisMonth + '-' + newDays);
             numDate.html(newDays);
@@ -286,7 +286,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
       // Find the 1 day of each month and add Class first-day
-      if (numDate.html() === '&nbsp;' + '1' + '&nbsp;') {
+      if (numDate.html() === '1') {
         numDate.parent().addClass('first-day');
         numDate.parent().parent().addClass('first-day-box');
       } else {
@@ -361,6 +361,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
+
+    
+    if (this.cachedDay) {
+        
+    }
     
     if (this.events !== undefined) {
       setTimeout(() => {
@@ -379,6 +384,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     localStorage.setItem('cachedMonth', $(document).find('#month').val());
     localStorage.setItem('cachedYear', $(document).find('#year').val());
+    localStorage.setItem('cachedDay', $('.clicked-day .num-box .num-date').html());
   }
 
   prevClick() {
@@ -916,6 +922,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } else if (!$(e.currentTarget).hasClass('clicked-day') && !$(e.currentTarget).hasClass('double-click')) {
       $('.day-box').removeClass('clicked-day double-click');
       $(e.currentTarget).addClass('clicked-day');
+      localStorage.setItem('cachedDay', $('.clicked-day .num-box .num-date').html());
     } else if ($(e.currentTarget).hasClass('clicked-day')) {
       //show popup background because we are in day view
       $('.popup-background').show();
@@ -1135,7 +1142,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       // Set the time to variables and concat the values to a proper time input format
       const eCurrentTime = eHours + ':' + eMinutes;
       const eEndTime = eEndTimeHours + ':' + eEndTimeMinutes;
-      const userID = this.cookieService.get('userId');
+      // const userID = this.cookieService.get('userId');
+      const userID = localStorage.getItem('userId');
 
       if (e.currentTarget.childNodes[3].innerHTML.trim() == 2) {
         $('.date-input-end-update').hide();
@@ -1251,7 +1259,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     const currentTime = hours.toString() + ':' + minutes.toString();
     const endTime = (extraHour) + ':' + minutes;
 
-    const userID = this.cookieService.get('userId');
+    // const userID = this.cookieService.get('userId');
+    const userID = localStorage.getItem('userId');
 
     $('.date-input-end').show();
     this.addItemForm = new FormGroup({

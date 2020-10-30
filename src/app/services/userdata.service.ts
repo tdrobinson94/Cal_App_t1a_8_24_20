@@ -14,8 +14,10 @@ export class UserDataService {
     constructor(private http: HttpClient, private cookieService: CookieService) { }
 
     getToken() {
-        const cookieValue = this.cookieService.get('userId');
-        const token = this.cookieService.get('token');
+        const cookieValue = localStorage.getItem('userId');
+        const token = localStorage.getItem('token');
+        // const cookieValue = this.cookieService.get('userId');
+        // const token = this.cookieService.get('token');
         const config = {
             headers: new HttpHeaders({ Authorization: 'Bearer ' + token })
         };
@@ -33,7 +35,7 @@ export class UserDataService {
     }
 
     loggedIn() {
-        return this.cookieService.get('token') ? true : false;
+        return localStorage.getItem('token') ? true : false;
     }
 
     logout() {
