@@ -378,7 +378,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Save the current viewing month and year
     localStorage.setItem('cachedMonth', $(document).find('#month').val());
-    localStorage.setItem('cachedYear', $(document).find('#month').val())
+    localStorage.setItem('cachedYear', $(document).find('#year').val())
   }
 
   prevClick() {
