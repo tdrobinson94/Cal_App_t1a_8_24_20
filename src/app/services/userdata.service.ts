@@ -37,6 +37,7 @@ export class UserDataService {
     }
 
     logout() {
+        localStorage.clear();
         this.cookieService.deleteAll();
     }
 

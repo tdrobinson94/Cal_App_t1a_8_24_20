@@ -6,9 +6,8 @@ import $ from 'jquery';
 import _ from 'lodash';
 import * as moment from 'moment';
 import 'hammerjs';
-import { toExcelDate } from 'js-excel-date-convert';
 import { CookieService } from 'ngx-cookie-service';
-import { unescapeIdentifier } from '@angular/compiler';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -16,7 +15,7 @@ import { unescapeIdentifier } from '@angular/compiler';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  private ngUnsubscribe = new Subject();
   constructor(private dataService: EventDataService, private cookieService: CookieService) { }
 
   // Date variables
@@ -50,6 +49,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   eachEvent: any;
 
   groupID: any = 0;
+
+  cachedMonth: any = localStorage.getItem('cachedMonth');
+  cachedYear: any = localStorage.getItem('cachedYear');
 
   // Delete event form
   deleteItemForm = new FormGroup({
@@ -153,6 +155,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     // Every 10 sec update the date automatically and if the day changes
     // update the calendar as well as the current day number and day of week
+    console.log(this.cachedMonth);
+    console.log(this.cachedYear);
     let dayBox = $('.day-box');
     let currentDayBox = dayBox.find('.current-day');
     setInterval(() => {
@@ -187,7 +191,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // On first load init calendar
-    this.changeCal();
+    if (this.cachedMonth && this.cachedYear) {
+      $(document).find('#month').val(this.cachedMonth);
+      $(document).find('#year').val(this.cachedYear);
+      this.changeCal();
+    } else {
+      this.changeCal();
+    }
 
     // Initial loading of the events
     setTimeout(() => {
@@ -366,6 +376,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.loading = false;
     }
+
+    localStorage.setItem('cachedMonth', $(document).find('#month').val());
+    localStorage.setItem('cachedYear', $(document).find('#year').val());
   }
 
   prevClick() {
@@ -1511,7 +1524,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy() {
-    // this.dataService.getEvents().subscribe().unsubscribe();
+    // this.dataService.getEvents().unsubscribe();
   }
 
 }
