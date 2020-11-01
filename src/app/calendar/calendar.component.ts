@@ -51,8 +51,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   groupID: any = 0;
 
-  cachedMonth: any = localStorage.getItem('cachedMonth');
-  cachedYear: any = localStorage.getItem('cachedYear');
+  cachedMonth: any = sessionStorage.getItem('cachedMonth');
+  cachedYear: any = sessionStorage.getItem('cachedYear');
 
   // Delete event form
   deleteItemForm = new FormGroup({
@@ -377,8 +377,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Save the current viewing month and year
-    localStorage.setItem('cachedMonth', $(document).find('#month').val());
-    localStorage.setItem('cachedYear', $(document).find('#year').val())
+    sessionStorage.setItem('cachedMonth', $(document).find('#month').val());
+    sessionStorage.setItem('cachedYear', $(document).find('#year').val())
   }
 
   prevClick() {
@@ -954,7 +954,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((response) => {
         let i;
         const eventlist = [];
-        const weeks = $(document).find('.weeks').children();
 
         for (i = 0; i < response.length; i++) {
           eventlist[i] = {
@@ -987,13 +986,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     const lastDayBox = $('.last-day-box').find('.date-value').html();
     const firstDayBox = $('.first-day-box').find('.date-value').html();
 
-    if (prevDays === 0) {
-      prevDays = prevDays + 1;
-    }
-
-    if (nextDays === 0) {
-      nextDays = nextDays + 1;
-    }
+    prevDays = prevDays + 1;
+    nextDays = nextDays + 1;
 
     const lastDay = moment(lastDayBox).add(nextDays, 'days');
     const firstDay = moment(firstDayBox).subtract(prevDays, 'days');
