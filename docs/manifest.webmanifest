@@ -61,7 +61,7 @@
     {
        "name": "Login",
        "description": "Open login screen.",
-       "url": "/login",
+       "url": "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/#/login",
        "icons": [
           {
              "src": "/assets/icons/icon-96x96.png",
