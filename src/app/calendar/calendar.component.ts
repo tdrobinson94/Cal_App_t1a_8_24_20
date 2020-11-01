@@ -185,7 +185,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.prev, .next').show();
       $('.close-day, .close-form').removeClass('mobile');
     }
-
     // On first load init calendar
     if (this.cachedMonth && this.cachedYear) {
       $(document).find('#month').val(this.cachedMonth);
