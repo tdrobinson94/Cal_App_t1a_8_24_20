@@ -346,6 +346,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changeCal() {
+    $('.current-day').removeClass('pulse');
     $('.update-event-form').removeClass('show-update-form');
     $('.day-box').removeClass('clicked-day double-click selected-day swipe-right swipe-left first-day-box last-day-box');
     $('.main-info-section').removeClass('animate-events-one animate-events-two');
@@ -410,10 +411,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
       $('.day-box').removeClass('double-click clicked-day');
+      $('.current-day').removeClass('pulse');
 
       setTimeout(() => {
         $('.current-day').parent().addClass('clicked-day');
       }, 50);
+      setTimeout(() => {
+        $('.current-day').addClass('pulse');
+      }, 375);
     } else {
       $('.calendar-wrapper').removeClass('cal-swipe-left cal-swipe-right');
       month.val(this.currentMonth).change();
@@ -756,6 +761,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  onSwipeUp(e) {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
+        this.openForm();
+      }
+    }
+  }
+
   onSwipeDown(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
@@ -1058,6 +1072,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       },50)
     }
+
+    $('.current-day').addClass('pulse');
   }
 
   // Click on an Event
