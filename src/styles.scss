@@ -40,15 +40,32 @@ body {
     font-family: $globalFont;
     position: relative;
     top: 0px;
+    
+    &.bounce-up {
+      animation: bounceInDown;
+      animation-duration: .5s;
+      animation-timing-function: ease;
+    }
 
     @media screen and (min-width: $end-small) {
       top: 50px;
     }
-    // overflow-x: hidden;
+}
 
-    // @media screen and (min-width: $mid-small) {
-    //   overflow: initial;
-    // }
-    // bottom: 52.9px;
-    // overflow: auto;
+
+@keyframes bounceInDown {
+  0% {
+     opacity: 0;
+     transform: translateY(200%);
+  }
+  60% {
+     opacity: 1;
+     transform: translateY(-10px);
+  }
+  80% {
+     transform: translateY(30px);
+  }
+  100% {
+     transform: translateY(0);
+  }
 }

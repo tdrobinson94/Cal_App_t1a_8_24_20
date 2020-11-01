@@ -7,8 +7,6 @@ import _ from 'lodash';
 import * as moment from 'moment';
 import 'hammerjs';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject } from 'rxjs';
-import { getLocaleCurrencyCode } from '@angular/common';
 
 @Component({
   selector: 'app-calendar',
@@ -16,7 +14,6 @@ import { getLocaleCurrencyCode } from '@angular/common';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
-  private ngUnsubscribe = new Subject();
   constructor(private dataService: EventDataService, private cookieService: CookieService) { }
 
   // Date variables
@@ -193,15 +190,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.cachedMonth && this.cachedYear) {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
-      this.changeCal();
+      setTimeout(() => {
+        this.changeCal();
+      }, 500); 
     } else {
-      this.changeCal();
+      setTimeout(() => {
+        this.changeCal();
+      }, 500); 
     }
 
     // Initial loading of the events
     setTimeout(() => {
       this.getEvents();
-    }, 100);
+    }, 600);
   }
 
   // Find the start day of the selected Month and Year and render each day number into the calendar table
@@ -795,6 +796,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSwipeDownForm(e) {
+    e.preventDefault();
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
       || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       this.closeForm();
