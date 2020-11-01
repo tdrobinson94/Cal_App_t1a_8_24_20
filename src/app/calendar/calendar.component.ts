@@ -346,7 +346,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changeCal() {
-    $('.current-day').removeClass('pulse');
+    $('.current-day').removeClass('bouncing');
     $('.update-event-form').removeClass('show-update-form');
     $('.day-box').removeClass('clicked-day double-click selected-day swipe-right swipe-left first-day-box last-day-box');
     $('.main-info-section').removeClass('animate-events-one animate-events-two');
@@ -411,13 +411,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
       $('.day-box').removeClass('double-click clicked-day');
-      $('.current-day').removeClass('pulse');
+      $('.current-day').removeClass('bouncing');
 
       setTimeout(() => {
         $('.current-day').parent().addClass('clicked-day');
       }, 50);
       setTimeout(() => {
-        $('.current-day').addClass('pulse');
+        $('.current-day').addClass('bouncing');
       }, 375);
     } else {
       $('.calendar-wrapper').removeClass('cal-swipe-left cal-swipe-right');
@@ -1074,13 +1074,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       },50)
     }
 
-    $('.current-day').addClass('pulse');
+    $('.current-day').addClass('bouncing');
   }
 
   // Click on an Event
   selectEvent(e) {
     const day = $('.clicked-day .date-value').text();
-
     // If delete button has been clicked
     if ($(e.target).hasClass('delete-event')) {
       this.deleteItemForm = new FormGroup({

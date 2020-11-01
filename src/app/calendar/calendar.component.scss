@@ -39,7 +39,7 @@
                 border: none;
                 outline: none;
                 font-size: 25px;
-                transition: all .2s ease-in-out;
+                transition: all .2s ease;
                 color: $textwht;
                 font-family: $globalFont !important;
                 -moz-appearance: none;
@@ -205,7 +205,7 @@
 
                 width: 14.2%;
                 height: 100%;
-                transition: height .3s ease-in-out !important;
+                transition: height .3s ease !important;
                 position: relative;
                 border: 1px solid transparent;
 
@@ -270,27 +270,17 @@
                         font-weight: bold;
                     }
 
-                    &.pulse {
-                        animation: pulse;
-                        animation-duration: 1s;
+                    &.bouncing {
+                        animation: bouncing;
+                        animation-duration: .75s;
                         animation-iteration-count: 4;
+                        animation-timing-function: ease;
                     }
 
-                    @keyframes pulse {
-                        0% {
-                            transform: scale(0.95);
-                            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-                        }
-                    
-                        70% {
-                            transform: scale(1);
-                            box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
-                        }
-                    
-                        100% {
-                            transform: scale(0.95);
-                            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-                        }
+                    @keyframes bouncing {
+                        0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+                        40% {transform: translateY(-5px);} 
+                        60% {transform: translateY(-1px);} 
                     }
                 }
 
@@ -354,14 +344,14 @@
                         overflow: hidden;
                         margin: 0 0 3px;
                         padding: 2px 0 0 4%;
-                        transition: all .2s ease-in-out;
+                        transition: all .2s ease;
                         position: relative;
                         display: none;
 
                         &.visible {
                             display: block;
                             border-left: 2px solid rgba(255,0,0,.8);
-                            transition: all .2s ease-in-out;
+                            transition: all .2s ease;
                             pointer-events: none;
                             color: $textdrk;
                         }
@@ -406,11 +396,11 @@
 
                             &.edit-event {
                                 background-color: rgba(0, 0, 0, .8);
-                                transition: all .3s ease-in-out;
+                                transition: all .3s ease;
                             }
 
                             &.delete-event {
-                                transition: all .4s ease-in-out;
+                                transition: all .4s ease;
                             }
                         }
                     }
@@ -421,17 +411,17 @@
                         &.closed {
                             position: fixed;
                             top: 110% !important;
-                            transition: all .3s ease-in-out;
+                            transition: all .3s ease;
 
                             @media screen and (min-width: $end-small) {
                                 top: 0 !important;
                                 right: -110% !important;
-                                transition: all .3s ease-in-out;
+                                transition: all .3s ease;
                             }
 
                             .submit-buttons {
                                 bottom: -110% !important;
-                                transition: all .2s ease-in-out;
+                                transition: all .2s ease;
                             }
                         }
                     }
@@ -455,10 +445,10 @@
                 &.clicked-day {
                     border: 1px solid darkgray;
                     border-radius: 5px;
-                    transition: all .3s ease-in-out;
+                    transition: all .3s ease;
                     animation-name: shrink-1;
                     animation-duration: .3s;
-                    animation-timing-function: ease-in;
+                    animation-timing-function: ease;
 
                     .num-date {
                         font-weight: bold;
@@ -479,11 +469,11 @@
                     border-radius: 15px;
                     max-width: 800px;
                     z-index: 99;
-                    transition: height, width 0.3s ease-in-out !important;
+                    transition: height, width 0.3s ease !important;
                     border: 1px solid $textdrk;
                     animation-name: grow;
                     animation-duration: .3s;
-                    animation-timing-function: ease-in-out;
+                    animation-timing-function: ease;
                     box-shadow: 5px 5px 40px black;
                     overflow-y: auto;
                     overflow-x: hidden;
@@ -584,7 +574,7 @@
                     .num-box {
                         margin-bottom: 21px;
                         margin-top: 14px;
-                        transition: all .3s ease-in-out;
+                        transition: all .3s ease;
                         .num-date {
                             font-size: 12px;
                         }
@@ -599,7 +589,7 @@
                     .event-opened {
                         @media screen and (min-width: $end-small) {
                             width: 50%;
-                            transition: all .3s ease-in-out;
+                            transition: all .3s ease;
 
                             -webkit-transform: translateZ(0);
                             -moz-transform: translateZ(0);
@@ -607,10 +597,10 @@
                             -o-transform: translateZ(0);
                             transform: translateZ(0);
 
-                            transition: all 0.3s ease-in-out;
-                            -moz-transition: all .3s ease-in-out;
-                            -webkit-transition: all .3s ease-in-out;
-                            -o-transition: all .3s ease-in-out;
+                            transition: all 0.3s ease;
+                            -moz-transition: all .3s ease;
+                            -webkit-transition: all .3s ease;
+                            -o-transition: all .3s ease;
                         }
                     }
 
@@ -703,7 +693,7 @@
                             &.selected-event {
                                 background: rgba(255,0,0,.2);
                                 border-radius: 5px;
-                                transition: all .3s ease-in-out;
+                                transition: all .3s ease;
 
                                 button {
                                     display: inline;
@@ -717,8 +707,8 @@
                                     &.delete-event {
                                         animation-name: appear;
                                         animation-duration: .2s;
-                                        animation-timing-function: ease-in;
-                                        transition: all .3s ease-in;
+                                        animation-timing-function: ease;
+                                        transition: all .3s ease;
 
                                         &.hidden {
                                             visibility: hidden;
@@ -750,13 +740,13 @@
                                 padding: 0;
                                 animation-name: grow-2;
                                 animation-duration: .2s;
-                                animation-timing-function: ease-in-out;
+                                animation-timing-function: ease;
                                 overscroll-behavior: none;
 
-                                transition: all 0.3s ease-in-out;
-                                -moz-transition: all .3s ease-in-out;
-                                -webkit-transition: all .3s ease-in-out;
-                                -o-transition: all .3s ease-in-out;
+                                transition: all 0.3s ease;
+                                -moz-transition: all .3s ease;
+                                -webkit-transition: all .3s ease;
+                                -o-transition: all .3s ease;
 
                                 @media screen and (min-width: $end-small) {
                                     top: 0px;
@@ -766,7 +756,7 @@
                                     width: 50%;
                                     animation-name: slide-left;
                                     animation-duration: .2s;
-                                    animation-timing-function: ease-in-out;
+                                    animation-timing-function: ease;
                                 }
 
                                 .form-nav-bar {
@@ -862,7 +852,7 @@
                                     -moz-box-sizing: border-box;
                                     box-sizing: border-box;
                                     font-size: 15px;
-                                    transition: all .3s ease-in-out;
+                                    transition: all .3s ease;
                                     background: $background;
                                     color: $textdrk;
 
@@ -870,7 +860,7 @@
                                         border: 0;
                                         border-bottom: 1px solid $primary;
                                         outline: 0;
-                                        transition: all .3s ease-in-out;
+                                        transition: all .3s ease;
                                         font-size: 16px;
                                     }
                                     &:-internal-autofill-selected {
@@ -915,16 +905,16 @@
                                         border: 0;
                                         font-size: 20px;
                                         width: 50%;
-                                        transition: all .3s ease-in-out;
+                                        transition: all .3s ease;
 
                                         &:disabled {
                                             opacity: .3;
-                                            transition: all .3s ease-in-out;
+                                            transition: all .3s ease;
                                         }
 
                                         &:hover, &:focus {
                                             opacity: .5;
-                                            transition: all .3s ease-in-out;
+                                            transition: all .3s ease;
                                         }
                                     }
                                 }
@@ -978,26 +968,26 @@
                     transition: none !important;
                     animation-name: swipeRight;
                     animation-duration: .2s;
-                    animation-timing-function: ease-in;
+                    animation-timing-function: ease;
                 }
 
                 &.swipe-left {
                     transition: none !important;
                     animation-name: swipeLeft;
                     animation-duration: .2s;
-                    animation-timing-function: ease-in;
+                    animation-timing-function: ease;
                 }
 
                 &.bounce-right {
                     animation-name: bounceRight;
                     animation-duration: .2s;
-                    animation-timing-function: ease-in;
+                    animation-timing-function: ease;
                 }
 
                 &.bounce-left {
                     animation-name: bounceLeft;
                     animation-duration: .2s;
-                    animation-timing-function: ease-in;
+                    animation-timing-function: ease;
                 }
 
                 @keyframes swipeRight {
@@ -1073,12 +1063,12 @@
     .cal-swipe-right {
         animation-name: calSwipeRight;
         animation-duration: .2s;
-        animation-timing-function: ease-in;
+        animation-timing-function: ease;
     }
     .cal-swipe-left {
         animation-name: calSwipeLeft;
         animation-duration: .2s;
-        animation-timing-function: ease-in;
+        animation-timing-function: ease;
     }
 
     @keyframes calSwipeLeft {
@@ -1111,7 +1101,7 @@
         color: $textwht;
         right: 10px;
         z-index: 9999;
-        transition: all .3s ease-in-out;
+        transition: all .3s ease;
         display: flex;
         box-shadow: 2px 5px 15px black;
         cursor: pointer;
@@ -1146,7 +1136,7 @@
         border-radius: 100%;
         color: transparent;
         overflow: hidden;
-        transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease;
 
         &::-webkit-scrollbar {
             width: 2px;
@@ -1187,10 +1177,10 @@
             color: #fff;
             overflow-y: auto;
 
-            transition: all 0.3s ease-in-out;
-            -moz-transition: all .3s ease-in-out;
-            -webkit-transition: all .3s ease-in-out;
-            -o-transition: all .3s ease-in-out;
+            transition: all 0.3s ease;
+            -moz-transition: all .3s ease;
+            -webkit-transition: all .3s ease;
+            -o-transition: all .3s ease;
 
             @media screen and (min-width: $end-small) {
                 bottom: 50%;
@@ -1323,7 +1313,7 @@
             -moz-box-sizing: border-box;
             box-sizing: border-box;
             font-size: 15px;
-            transition: all .3s ease-in-out;
+            transition: all .3s ease;
             background: $background;
             color: $textdrk;
 
@@ -1331,7 +1321,7 @@
                 border: 0;
                 border-bottom: 1px solid $primary;
                 outline: 0;
-                transition: all .3s ease-in-out;
+                transition: all .3s ease;
                 font-size: 16px;
             }
             &:-internal-autofill-selected {
@@ -1383,16 +1373,16 @@
                 font-size: 20px;
                 width: 100%;
                 opacity: 1;
-                transition: all .3s ease-in-out;
+                transition: all .3s ease;
 
                 &:disabled {
                     opacity: .3;
-                    transition: all .3s ease-in-out;
+                    transition: all .3s ease;
                 }
 
                 &:hover, &:focus {
                     opacity: .5;
-                    transition: all .3s ease-in-out;
+                    transition: all .3s ease;
                 }
             }
         }
@@ -1413,7 +1403,7 @@
   align-items: center;
   z-index: 999999;
   flex-direction: column-reverse;
-  transition: all .3s ease-in-out;
+  transition: all .3s ease;
 
   &.show {
       display: flex;
@@ -1437,7 +1427,7 @@
             margin: 0 3px;
             display: inline-block;
             animation-duration: .7s;
-            animation-timing-function: ease-in;
+            animation-timing-function: ease;
             animation-iteration-count: infinite;
             animation-name: bouncy;
 
