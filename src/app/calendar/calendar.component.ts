@@ -765,7 +765,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
-        this.openForm();
+        $('.clicked-day').addClass('double-click');
+        // this.openForm();
       }
     }
   }
