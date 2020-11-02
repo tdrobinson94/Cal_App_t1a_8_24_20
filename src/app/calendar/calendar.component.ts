@@ -102,6 +102,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   gestureVibration = 2;
 
   ngOnInit() {
+    this.getEvents();
     this.createCalendarGrid();
   }
 
@@ -201,9 +202,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Initial loading of the events
-    setTimeout(() => {
-      this.getEvents();
-    }, 600);
+    // setTimeout(() => {
+    //   this.getEvents();
+    // }, 600);
   }
 
   // Find the start day of the selected Month and Year and render each day number into the calendar table
@@ -964,9 +965,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  async getEvents() {
+  getEvents() {
     this.loading = true;
-    await this.dataService.getEvents()
+    this.dataService.getEvents()
       .subscribe((response) => {
         let i;
         const eventlist = [];
@@ -988,9 +989,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
         }
         this.events = eventlist;
-        setTimeout(() => {
-          this.showEvents();
-        }, 100);
       });
   }
 
