@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1604341051729,
+  "timestamp": 1604346218892,
   "index": "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/index.html",
   "assetGroups": [
     {
@@ -17,7 +17,7 @@
         "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/manifest.webmanifest",
         "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/polyfills.a4021de53358bb0fec14.js",
         "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/runtime.e227d1a0e31cbccbf8ec.js",
-        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/styles.3969a9676f9c7ddda79c.css"
+        "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/styles.62aa64e1fab42b8cc239.css"
       ],
       "patterns": []
     },
@@ -60,12 +60,12 @@
     "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/videos/Testing_App02.mp4": "cb94b0f80b155bd8b5432761316f6fa04a0ca964",
     "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/assets/videos/webex.exe": "8d6ed217a1a01b078b6d2da293bf5d33118fba39",
     "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/index.html": "3c6a381c2625773e6c67eeedca467399e663b144",
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/index.html": "b16edb6fe60ff374cef878111cbc816837d0dc81",
     "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/main.cd0d4646571b8e32ad78.js": "86777b603ae3311864183179d52de77f0535ccbc",
     "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/manifest.webmanifest": "28a63048ca5808ca177dafc476f774f93974c9bc",
     "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/polyfills.a4021de53358bb0fec14.js": "b47435a9ef2a4829f2f9dfd35599bde3614981b1",
     "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/runtime.e227d1a0e31cbccbf8ec.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/styles.3969a9676f9c7ddda79c.css": "d56a02cd13b712d709fe8bbbe4829c5f641680c6"
+    "https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/styles.62aa64e1fab42b8cc239.css": "d9f98079e50c3e2c585a30a2344cbd0b56eaa316"
   },
   "navigationUrls": [
     {
