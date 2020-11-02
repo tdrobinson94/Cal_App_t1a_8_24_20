@@ -59,20 +59,6 @@
   ],
   "shortcuts": [
     {
-       "name": "Login",
-       "description": "Open login screen.",
-       "url": "./#/login",
-       "icons": [
-          {
-             "src": "./assets/icons/icon-96x96.png",
-             "sizes": "96x96",
-             "type": "image/png",
-             "purpose": "any"
-          }
-       ]
-    },
-
-    {
       "name": "Calendar",
       "description": "Open login screen.",
       "url": "./#/calendar",
@@ -84,6 +70,20 @@
             "purpose": "any"
          }
       ]
-   }
+   },
+
+    {
+       "name": "Login",
+       "description": "Open login screen.",
+       "url": "./#/login",
+       "icons": [
+          {
+             "src": "./assets/icons/icon-96x96.png",
+             "sizes": "96x96",
+             "type": "image/png",
+             "purpose": "any"
+          }
+       ]
+    }
  ]
 }

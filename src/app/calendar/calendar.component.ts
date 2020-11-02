@@ -1524,10 +1524,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     // Delay for the Close animation
     setTimeout(() => {
       $('.update-event-form').removeClass('show-update-form');
+      this.updateItemForm.reset();
     }, 100);
     $('.add-item-button, .add-item-container').show();
     $('.prev-day, .next-day').removeClass('hide');
-    this.updateItemForm.reset();
   }
 
 
