@@ -984,6 +984,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
         }
         this.events = eventlist;
+        this.loading = false;
       });
   }
 
@@ -1043,11 +1044,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               event.addClass('visible').parent().addClass('visible-parent');
               this.eachDayEventsCount();
           }
-          this.loading = false;
         }
       }
-    } else {
-      this.loading = false;
     }
 
     $('.main-info-section').show();
