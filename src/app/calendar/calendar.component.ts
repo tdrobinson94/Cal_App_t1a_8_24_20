@@ -200,11 +200,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         this.changeCal();
       }, 500); 
     }
-
-    // Initial loading of the events
-    // setTimeout(() => {
-    //   this.getEvents();
-    // }, 600);
   }
 
   // Find the start day of the selected Month and Year and render each day number into the calendar table
@@ -365,7 +360,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedDay();
     
     if (this.events !== undefined) {
-      this.loading = true;
+      // this.loading = true;
       setTimeout(() => {
         this.showEvents();
 
