@@ -61,7 +61,7 @@
     {
        "name": "Login",
        "description": "Open login screen.",
-       "url": "/login",
+       "url": "./app/login",
        "icons": [
           {
              "src": "./assets/icons/icon-96x96.png",
@@ -70,6 +70,20 @@
              "purpose": "any"
           }
        ]
-    }
+    },
+
+    {
+      "name": "Calendar",
+      "description": "Open login screen.",
+      "url": "./app/calendar",
+      "icons": [
+         {
+            "src": "./assets/icons/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any"
+         }
+      ]
+   }
  ]
 }
