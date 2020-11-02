@@ -102,9 +102,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   async ngOnInit() {
-    await this.createCalendarGrid();
-
-    this.getEvents();
+    this.createCalendarGrid();
   }
 
   // This will set our calendar table and the control bar
@@ -379,6 +377,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
           $('.popup-background').hide();
         }
       }, 20);
+    } else {
+      this.getEvents();
     }
 
     // Save the current viewing month and year
@@ -971,7 +971,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   getEvents() {
     this.loading = true;
     this.dataService.getEvents()
-      .subscribe((response) => {
+     .subscribe((response) => {
         let i;
         const eventlist = [];
 
@@ -989,16 +989,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
             eventcreatedAt: moment(response[i].created_at).format(),
             itemtype: response[i].item_type.toString()
           };
-
         }
         this.events = eventlist;
         this.loading = false;
 
-        if (this.singleMonthEvents) {
-          setTimeout(() => {
-            this.showEvents();
-          }, 100);
-        }
+        setTimeout(() => {
+          this.showEvents();
+        }, 100);
+
+        return true;
       });
   }
 
@@ -1039,12 +1038,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     console.log(this.singleMonthEvents);
   }
 
-  showEvents() {
+  async showEvents() {
+    await this.filterEvents();
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
-
-    this.filterEvents();
 
     if (this.singleMonthEvents.length) {
       for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
