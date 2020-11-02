@@ -964,9 +964,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  getEvents() {
+  async getEvents() {
     this.loading = true;
-    this.dataService.getEvents()
+    await this.dataService.getEvents()
       .subscribe((response) => {
         let i;
         const eventlist = [];
