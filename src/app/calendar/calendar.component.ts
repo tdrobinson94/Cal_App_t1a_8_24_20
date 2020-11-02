@@ -44,6 +44,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   events: any;
   singleMonthEvents: any;
+  nextMonthEvents: any;
+  prevMonthEvents: any;
   eachEvent: any;
 
   groupID: any = 0;
@@ -357,12 +359,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.event').removeClass('visible');
     $('.event-container').removeClass('visible-parent');
 
-    this.loading = true;
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
     
     if (this.events !== undefined) {
+      this.loading = true;
       setTimeout(() => {
         this.showEvents();
 
@@ -373,8 +375,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           $('.popup-background').hide();
         }
       }, 20);
-    } else {
-      this.loading = false;
     }
 
     // Save the current viewing month and year
@@ -1031,6 +1031,102 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(this.singleMonthEvents);
   }
 
+  filterNextMonthEvents() {
+    let nextMonth = Number($(document).find('#month').val()) + 2;
+    let year = $(document).find('#year').val();
+    let newMonth: string;
+    const nextMonthEvents = [];
+    let i;
+
+    if (Number($(document).find('#month').val()) === 11) {
+      nextMonth = 1;
+      year = Number(year) + 1;
+    }
+
+    if (nextMonth < 10) {
+      newMonth = '0' + nextMonth.toString();
+    } else {
+      newMonth = nextMonth.toString();
+    }
+
+    let nextMonthDays = MONTHS[nextMonth - 1].days;
+
+    const lastDay = moment(year + '-' + newMonth + '-' + nextMonthDays).add(13, 'days');
+    const firstDay = moment(year + '-' + newMonth + '-' + '01').subtract(7, 'days');
+    
+    for (i = 0; i < this.events.length; i++) {
+      let forecast_date = moment(this.events[i].eventstart_date);
+      if (forecast_date.isBefore(lastDay) && forecast_date.isAfter(firstDay)) {
+        nextMonthEvents[i] = {
+          eventid: this.events[i].eventid,
+          eventtitle: this.events[i].eventtitle,
+          eventstart_date: this.events[i].eventstart_date,
+          eventend_date: this.events[i].eventend_date,
+          eventdesc: this.events[i].eventdesc,
+          eventlocation: this.events[i].eventlocation,
+          eventfrequency: this.events[i].eventfrequency,
+          eventstart_time: moment(this.events[i].eventstart_time, 'HH:mm:ss').format('h:mm A'),
+          eventend_time: moment(this.events[i].eventend_time, 'HH:mm:ss').format('h:mm A'),
+          eventcreatedAt: moment(this.events[i].eventcreated_at).format(),
+          itemtype: this.events[i].itemtype
+        }
+      }
+    } 
+
+    this.nextMonthEvents = nextMonthEvents.filter(event => event);
+    console.log(this.nextMonthEvents);
+  }
+
+  filterPrevMonthEvents() {
+    let prevMonth = Number($(document).find('#month').val()) - 1;
+    let year = $(document).find('#year').val();
+    let newMonth: string;
+    const prevMonthEvents = [];
+    let i;
+
+    if (Number($(document).find('#month').val()) === 0) {
+      prevMonth = 12;
+      year = Number(year) - 1;
+    }
+
+    if (prevMonth <= 0) {
+      newMonth = prevMonth.toString() + '1';
+      prevMonth = 1;
+    } else if (prevMonth < 10) {
+      newMonth = '0' + (prevMonth + 1).toString();
+    } else {
+      newMonth = prevMonth.toString();
+      prevMonth = prevMonth - 1;
+    }
+
+    let prevMonthDays = MONTHS[prevMonth].days;
+
+    const lastDay = moment(year + '-' + newMonth + '-' + prevMonthDays).add(13, 'days');
+    const firstDay = moment(year + '-' + newMonth + '-' + '01').subtract(7, 'days');
+    
+    for (i = 0; i < this.events.length; i++) {
+      let forecast_date = moment(this.events[i].eventstart_date);
+      if (forecast_date.isBefore(lastDay) && forecast_date.isAfter(firstDay)) {
+        prevMonthEvents[i] = {
+          eventid: this.events[i].eventid,
+          eventtitle: this.events[i].eventtitle,
+          eventstart_date: this.events[i].eventstart_date,
+          eventend_date: this.events[i].eventend_date,
+          eventdesc: this.events[i].eventdesc,
+          eventlocation: this.events[i].eventlocation,
+          eventfrequency: this.events[i].eventfrequency,
+          eventstart_time: moment(this.events[i].eventstart_time, 'HH:mm:ss').format('h:mm A'),
+          eventend_time: moment(this.events[i].eventend_time, 'HH:mm:ss').format('h:mm A'),
+          eventcreatedAt: moment(this.events[i].eventcreated_at).format(),
+          itemtype: this.events[i].itemtype
+        }
+      }
+    } 
+
+    this.prevMonthEvents = prevMonthEvents.filter(event => event);
+    console.log(this.prevMonthEvents);
+  }
+
   showEvents() {
     let i;
     let dayIndex;
@@ -1049,18 +1145,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
               event.addClass('visible').parent().addClass('visible-parent');
               this.eachDayEventsCount();
-              $('.main-info-section').show();
-              this.loading = false;
-          } else {
-            $('.main-info-section').show();
-            this.loading = false;
           }
+          this.loading = false;
         }
       }
     } else {
-      $('.main-info-section').show();
       this.loading = false;
     }
+
+    $('.main-info-section').show();
 
     // Enable scrolling if the last event isn't viewable anymore
     if ($('.day-box').hasClass('double-click')) {
@@ -1076,7 +1169,56 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     $('.current-day').addClass('bouncing');
+
+    // this.filterNextMonthEvents();
+    // this.filterPrevMonthEvents();
   }
+
+  // showPrevMonthEvents() {
+  //   let i;
+  //   let dayIndex;
+  //   const weeks = $(document).find('.weeks').children();
+
+  //  if (this.prevMonthEvents) {
+  //     for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+  //       for (i = 0; i < this.prevMonthEvents.length; i++) {
+  //         const day = $(weeks[dayIndex - 1]);
+  
+  //         day.find('.event-count').empty().hide();
+  
+  //         if (day.find('.date-value').html() === this.prevMonthEvents[i].eventstart_date) {
+  //             let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+  //             event.addClass('visible').parent().addClass('visible-parent');
+  //             this.eachDayEventsCount();
+  //         }
+  //         this.loading = false;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // showNextMonthEvents() {
+  //   let i;
+  //   let dayIndex;
+  //   const weeks = $(document).find('.weeks').children();
+    
+  //   if (this.nextMonthEvents) {
+  //     for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+  //       for (i = 0; i < this.nextMonthEvents.length; i++) {
+  //         const day = $(weeks[dayIndex - 1]);
+  
+  //         day.find('.event-count').empty().hide();
+  
+  //         if (day.find('.date-value').html() === this.nextMonthEvents[i].eventstart_date) {
+  //             let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+  //             event.addClass('visible').parent().addClass('visible-parent');
+  //             this.eachDayEventsCount();
+  //         }
+  //         this.loading = false;
+  //       }
+  //     }
+  //   }
+  // }
 
   // Click on an Event
   selectEvent(e) {
