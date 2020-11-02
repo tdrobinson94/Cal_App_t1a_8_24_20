@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { EventDataService } from '../services/eventdata.service';
 import { MONTHS } from './months.constant';
@@ -13,7 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CalendarComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
   constructor(private dataService: EventDataService, private cookieService: CookieService) { }
 
   // Date variables
@@ -101,9 +101,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   // Gesture Vibration
   gestureVibration = 2;
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.createCalendarGrid();
+
     this.getEvents();
-    this.createCalendarGrid();
   }
 
   // This will set our calendar table and the control bar
@@ -151,6 +152,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     } else if (navigator.userAgent.indexOf('Win') !== -1) {
       // console.log('Windows');
     }
+
+    
+  }
+
+  ngAfterContentInit() {
+
   }
 
   ngAfterViewInit() {
@@ -188,6 +195,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $('.prev, .next').show();
       $('.close-day, .close-form').removeClass('mobile');
     }
+
     // On first load init calendar
     if (this.cachedMonth && this.cachedYear) {
       $(document).find('#month').val(this.cachedMonth);
