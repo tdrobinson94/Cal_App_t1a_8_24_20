@@ -194,11 +194,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       $(document).find('#year').val(this.cachedYear);
       setTimeout(() => {
         this.changeCal();
-      }, 500); 
+      }, 300); 
     } else {
       setTimeout(() => {
         this.changeCal();
-      }, 500); 
+      }, 300); 
     }
   }
 
@@ -396,7 +396,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.changeCal();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
-    }, 200);
+    }, 100);
   }
 
   currentClick() {
@@ -442,7 +442,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.changeCal();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
-    }, 200);
+    }, 100);
   }
 
 
