@@ -469,7 +469,6 @@
                     border-radius: 15px;
                     max-width: 800px;
                     z-index: 99;
-                    transition: height, width 0.3s ease !important;
                     border: 1px solid $textdrk;
                     animation-name: grow;
                     animation-duration: .3s;
@@ -935,25 +934,17 @@
                             }
 
                             @keyframes grow-2 {
-                                from  {
-                                    top: 100%;
-                                }
-
-                                to {
-                                    top: default;
-                                }
+                                0%   { top: 100% }
+                                30%  { top: 0 }
+                                70%  { top: 10px }
+                                100% { top: 0 }
                             }
 
                             @keyframes slide-left {
-                                from  {
-                                    right: -10%;
-                                    opacity: 0;
-                                }
-
-                                to {
-                                    right: 0;
-                                    opacity: 1;
-                                }
+                                0%   { right: -100% }
+                                30%  { right: 0 }
+                                70%  { right: 10px }
+                                100% { right: 0 }
                             }
                         }
                     }
@@ -991,23 +982,17 @@
                 }
 
                 @keyframes swipeRight {
-                    from {
-                        left: -100%;
-                    }
-
-                    to {
-                        left: 0;
-                    }
+                    0%   { left: -100% }
+                    30%  { left: 0 }
+                    70%  { left: 10px }
+                    100% { left: 0 }
                 }
 
                 @keyframes swipeLeft {
-                    from {
-                        right: -100%;
-                    }
-
-                    to {
-                        right: 0;
-                    }
+                    0%   { right: -100% }
+                    30%  { right: 0 }
+                    70%  { right: 10px }
+                    100% { right: 0 }
                 }
 
                 @keyframes bounceRight {
@@ -1072,22 +1057,16 @@
     }
 
     @keyframes calSwipeLeft {
-        from {
-            left: -100%;
-        }
-
-        to {
-            left: 0;
-        }
+        0%   { left: -100% }
+        30%  { left: 0 }
+        70%  { left: 10px }
+        100% { left: 0 }
     }
     @keyframes calSwipeRight {
-        from {
-            left: 100%;
-        }
-
-        to {
-            left: 0;
-        }
+        0%   { right: -100% }
+        30%  { right: 0 }
+        70%  { right: 10px }
+        100% { right: 0 }
     }
 
     .add-item-button {
