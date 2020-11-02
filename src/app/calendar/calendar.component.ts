@@ -985,6 +985,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.events = eventlist;
         this.loading = false;
+
+        if (this.singleMonthEvents) {
+          setTimeout(() => {
+            this.showEvents();
+          }, 100);
+        }
       });
   }
 
@@ -1210,7 +1216,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
         // Get the new Events table after the item has been deleted
         setTimeout(() => {
           this.getEvents();
-        }, 200);
+        }, 100);
       });
   }
 
@@ -1488,7 +1494,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
         setTimeout(() => {
           this.getEvents();
-        }, 200);
+        }, 100);
       });
   }
 
@@ -1503,7 +1509,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
         setTimeout(() => {
           this.getEvents();
-        }, 200);
+          this.showEvents();
+        }, 100);
       });
   }
 
