@@ -291,7 +291,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
           }
         }
       }
-      // Find the 1 day of each month and add Class first-day
+      // Find the 1st day of each month and add Class first-day
       if (numDate.html() === '&nbsp;' + '1' + '&nbsp;') {
         numDate.parent().addClass('first-day');
         numDate.parent().parent().addClass('first-day-box');
@@ -355,8 +355,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   changeCal() {
     $('.current-day').removeClass('bouncing');
     $('.update-event-form').removeClass('show-update-form');
-    $('.day-box').removeClass('clicked-day double-click selected-day swipe-right swipe-left first-day-box last-day-box');
-    $('.main-info-section').removeClass('animate-events-one animate-events-two');
+    $('.day-box').removeClass('first-day-box last-day-box');
+    this.removeClassesForDayBox();
     $('.add-item-button, .add-item-container').show();
     $('.add-item-form').removeClass('show-form');
     $('.num-box').removeClass('first-day last-day current-day');
@@ -456,6 +456,46 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     }, 320);
   }
 
+  removeClassesForDayBox() {
+    $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
+    $('.main-info-section').removeClass('animate-events-one animate-events-two');
+  }
+
+  swipeNextMonthAnimationOne() {
+    this.nextClick();
+    setTimeout(() => {
+      $('.day-box').removeClass('clicked-day');
+      $('.first-day').parent().addClass('clicked-day double-click swipe-left');
+      $('.double-click').find('.main-info-section').addClass('animate-events-one');
+    }, 350);
+    setTimeout(() => {
+      $('.double-click').find('.main-info-section').addClass('animate-events-two');
+    }, 400);
+  }
+
+  swipeNextEndOfRow() {
+    $('.double-click').find('.main-info-section').addClass('animate-events-one');
+    setTimeout(() => {
+      $('.double-click').find('.main-info-section').addClass('animate-events-two');
+    }, 300);
+    console.log('just checking');
+  }
+
+  swipeNextDay() {
+    $('.double-click').find('.main-info-section').addClass('animate-events-one');
+    setTimeout(() => {
+      $('.double-click').find('.main-info-section').addClass('animate-events-two');
+
+      if ($('.double-click .visible-parent').last().position() !== undefined) {
+        if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
+          $('.double-click .main-info-section').addClass('normal-scrolling');
+        } else {
+          $('.double-click .main-info-section').removeClass('normal-scrolling');
+        }
+      }
+    }, 300);
+  }
+
   onSwipeLeft(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
@@ -471,145 +511,87 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       } else {
         if ($(e.target).hasClass('main-info-section')) {
           if (!$(e.target).parent().next().hasClass('dead-month-color')) {
-            $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
-            $('.main-info-section').removeClass('animate-events-one animate-events-two');
+            this.removeClassesForDayBox();
             if ($(e.target).parent().hasClass('last-day-box')) {
-              this.nextClick();
-              setTimeout(() => {
-                $('.day-box').removeClass('clicked-day');
-                $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-                $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              }, 350);
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              this.swipeNextMonthAnimationOne();
             } else if ($(e.target).parent().next().length === 0) {
               $(e.target).parent().parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 300);
+              this.swipeNextEndOfRow();
             } else {
               $(e.target).parent().next().addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-
-                if ($('.double-click .visible-parent').last().position() !== undefined) {
-                  if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-                    $('.double-click .main-info-section').addClass('normal-scrolling');
-                  } else {
-                    $('.double-click .main-info-section').removeClass('normal-scrolling');
-                  }
-                }
-              }, 300);
+              this.swipeNextDay();
             }
           } else {
-            this.nextClick();
-            setTimeout(() => {
-              $('.day-box').removeClass('clicked-day');
-              $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-            }, 350);
-            setTimeout(() => {
-              $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            this.removeClassesForDayBox();
           }
         } else if ($(e.target).hasClass('event')) {
           if (!$(e.target).parent().parent().parent().next().hasClass('dead-month-color')) {
-            $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
-            $('.main-info-section').removeClass('animate-events-one animate-events-two');
+            this.removeClassesForDayBox();
             if ($(e.target).parent().parent().parent().hasClass('last-day-box')) {
-              this.nextClick();
-              setTimeout(() => {
-                $('.day-box').removeClass('clicked-day');
-                $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-                $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              }, 350);
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              this.removeClassesForDayBox();
             } else if ($(e.target).parent().parent().parent().next().length === 0) {
               $(e.target).parent().parent().parent().parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 300);
+              this.swipeNextEndOfRow();
             } else {
               $(e.target).parent().parent().parent().next().addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-
-                if ($('.double-click .visible-parent').last().position() !== undefined) {
-                  if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-                    $('.double-click .main-info-section').addClass('normal-scrolling');
-                  } else {
-                    $('.double-click .main-info-section').removeClass('normal-scrolling');
-                  }
-                }
-              }, 300);
+              this.swipeNextDay();
             }
           } else {
-            this.nextClick();
-            setTimeout(() => {
-              $('.day-box').removeClass('clicked-day');
-              $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-            }, 350);
-            setTimeout(() => {
-              $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            this.removeClassesForDayBox();
           }
         } else if ($(e.target).hasClass('event-details')) {
           if (!$(e.target).parent().parent().parent().parent().next().hasClass('dead-month-color')) {
-            $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
-            $('.main-info-section').removeClass('animate-events-one animate-events-two');
+            this.removeClassesForDayBox();
             if ($(e.target).parent().parent().parent().parent().hasClass('last-day-box')) {
-              this.nextClick();
-              setTimeout(() => {
-                $('.day-box').removeClass('clicked-day');
-                $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-                $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              }, 350);
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              this.removeClassesForDayBox();
             } else if ($(e.target).parent().parent().parent().parent().next().length === 0) {
               $(e.target).parent().parent().parent().parent().parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 300);
+              this.swipeNextEndOfRow();
             } else {
               $(e.target).parent().parent().parent().parent().next().addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-
-                if ($('.double-click .visible-parent').last().position() !== undefined) {
-                  if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-                    $('.double-click .main-info-section').addClass('normal-scrolling');
-                  } else {
-                    $('.double-click .main-info-section').removeClass('normal-scrolling');
-                  }
-                }
-              }, 300);
+              this.swipeNextDay();
             }
           } else {
-            this.nextClick();
-            setTimeout(() => {
-              $('.day-box').removeClass('clicked-day');
-              $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-            }, 350);
-            setTimeout(() => {
-              $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            this.removeClassesForDayBox();
           }
         }
       }
     }
+  }
+
+  swipePrevMonthAnimationOne() {
+    this.prevClick();
+    setTimeout(() => {
+      $('.day-box').removeClass('clicked-day');
+      $('.last-day').parent().addClass('clicked-day double-click swipe-right');
+      $('.double-click').find('.main-info-section').addClass('animate-events-one');
+    }, 350);
+    setTimeout(() => {
+      $('.double-click').find('.main-info-section').addClass('animate-events-two');
+    }, 400);
+  }
+
+  swipePrevEndOfRow() {
+    $('.double-click').find('.main-info-section').addClass('animate-events-one');
+    setTimeout(() => {
+      $('.double-click').find('.main-info-section').addClass('animate-events-two');
+    }, 300);
+    console.log('just checking');
+  }
+
+  swipePrevDay() {
+    $('.double-click').find('.main-info-section').addClass('animate-events-one');
+    setTimeout(() => {
+      $('.double-click').find('.main-info-section').addClass('animate-events-two');
+
+      if ($('.double-click .visible-parent').last().position() !== undefined) {
+        if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
+          $('.double-click .main-info-section').addClass('normal-scrolling');
+        } else {
+          $('.double-click .main-info-section').removeClass('normal-scrolling');
+        }
+      }
+    }, 300);
   }
 
   onSwipeRight(e) {
@@ -626,141 +608,48 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       } else {
         if ($(e.target).hasClass('main-info-section')) {
           if (!$(e.target).parent().prev().hasClass('dead-month-color')) {
-            $('.day-box').removeClass('clicked-day double-click swipe-left swipe-right bounce-right bounce-left');
-            $('.main-info-section').removeClass('animate-events-one animate-events-two');
+            this.removeClassesForDayBox();
             if ($(e.target).parent().hasClass('first-day-box')) {
-              this.prevClick();
-              setTimeout(() => {
-                $('.day-box').removeClass('clicked-day');
-                $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-                $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              }, 350);
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              this.swipePrevMonthAnimationOne();
             } else if ($(e.target).parent().prev().length === 0) {
               $(e.target).parent().parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 300);
+              this.swipePrevEndOfRow();
             } else {
               $(e.target).parent().prev().addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-
-                if ($('.double-click .visible-parent').last().position() !== undefined) {
-                  if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-                    $('.double-click .main-info-section').addClass('normal-scrolling');
-                  } else {
-                    $('.double-click .main-info-section').removeClass('normal-scrolling');
-                  }
-                }
-              }, 300);
+              this.swipePrevDay();
             }
           } else {
-            this.prevClick();
-            setTimeout(() => {
-              $('.day-box').removeClass('clicked-day');
-              $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-            }, 350);
-            setTimeout(() => {
-              $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            this.swipePrevMonthAnimationOne();
           }
         } else if ($(e.target).hasClass('event')) {
           if (!$(e.target).parent().parent().parent().prev().hasClass('dead-month-color')) {
-            $('.day-box').removeClass('clicked-day double-click swipe-right swipe-left bounce-right bounce-left');
-            $('.main-info-section').removeClass('animate-events-one animate-events-two');
+            this.removeClassesForDayBox();
             if ($(e.target).parent().parent().parent().hasClass('first-day-box')) {
-              this.prevClick();
-              setTimeout(() => {
-                $('.day-box').removeClass('clicked-day');
-                $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-                $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              }, 350);
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              this.swipePrevMonthAnimationOne();
             } else if ($(e.target).parent().parent().parent().prev().length === 0) {
               $(e.target).parent().parent().parent().parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 300);
+              this.swipePrevEndOfRow();
             } else {
               $(e.target).parent().parent().parent().prev().addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-
-                if ($('.double-click .visible-parent').last().position() !== undefined) {
-                  if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-                    $('.double-click .main-info-section').addClass('normal-scrolling');
-                  } else {
-                    $('.double-click .main-info-section').removeClass('normal-scrolling');
-                  }
-                }
-              }, 300);
+              this.swipePrevDay();
             }
           } else {
-            this.prevClick();
-            setTimeout(() => {
-              $('.day-box').removeClass('clicked-day');
-              $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-            }, 350);
-            setTimeout(() => {
-              $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            this.swipePrevMonthAnimationOne();
           }
         } else if ($(e.target).hasClass('event-details')) {
           if (!$(e.target).parent().parent().parent().parent().prev().hasClass('dead-month-color')) {
-            $('.day-box').removeClass('clicked-day double-click swipe-right swipe-left bounce-right bounce-left');
-            $('.main-info-section').removeClass('animate-events-one animate-events-two');
+            this.removeClassesForDayBox();
             if ($(e.target).parent().parent().parent().parent().hasClass('first-day-box')) {
-              this.prevClick();
-              setTimeout(() => {
-                $('.day-box').removeClass('clicked-day');
-                $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-                $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              }, 350);
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 400);
+              this.swipePrevMonthAnimationOne();
             } else if ($(e.target).parent().parent().parent().parent().prev().length === 0) {
               $(e.target).parent().parent().parent().parent().parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-              }, 300);
+              this.swipePrevEndOfRow();
             } else {
               $(e.target).parent().parent().parent().parent().prev().addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-              setTimeout(() => {
-                $('.double-click').find('.main-info-section').addClass('animate-events-two');
-
-                if ($('.double-click .visible-parent').last().position() !== undefined) {
-                  if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-                    $('.double-click .main-info-section').addClass('normal-scrolling');
-                  } else {
-                    $('.double-click .main-info-section').removeClass('normal-scrolling');
-                  }
-                }
-              }, 300);
+              this.swipePrevDay();
             }
           } else {
-            this.prevClick();
-            setTimeout(() => {
-              $('.day-box').removeClass('clicked-day');
-              $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-              $('.double-click').find('.main-info-section').addClass('animate-events-one');
-            }, 350);
-            setTimeout(() => {
-              $('.double-click').find('.main-info-section').addClass('animate-events-two');
-            }, 400);
+            this.swipePrevMonthAnimationOne();
           }
         }
       }
@@ -777,24 +666,24 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     }
   }
 
+  closeDayJquery() {
+    $('.popup-background').hide();
+    $('.day-box').removeClass('double-click swipe-right swipe-left');
+    $('.main-info-section').removeClass('normal-scrolling');
+    $('.main-info-section').removeClass('animate-events-one animate-events-two');
+    $('.add-item-button, .add-item-container').removeClass('moved');
+    setTimeout(() => {
+      $('.main-info-section').animate({ scrollTop: 0 }, 200);
+    }, 300);
+  }
+
   onSwipeDown(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
-        // do nothing 
+        this.showEvents();
       } else {
-        if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
-          console.log('no scroll');
-        } else {
-          $('.popup-background').hide();
-          $('.day-box').removeClass('double-click swipe-right swipe-left');
-          $('.main-info-section').removeClass('normal-scrolling');
-          $('.main-info-section').removeClass('animate-events-one animate-events-two');
-          $('.add-item-button, .add-item-container').removeClass('moved');
-          setTimeout(() => {
-            $('.main-info-section').animate({ scrollTop: 0 }, 200);
-          }, 300);
-        }
+        this.closeDayJquery();
       }
     }
   }
@@ -808,6 +697,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     }
   }
 
+  enableDefaultScrolling() {}
+
   clickonDay(e) {
     $('.add-item-form').removeClass('show-form');
     $('.extra').hide();
@@ -817,55 +708,21 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       //show popup background because we are in day view
       $('.popup-background').show();
       if (!$(e.currentTarget).prev().hasClass('dead-month-color')) {
-        $('.day-box').removeClass('clicked-day double-click swipe-right swipe-left');
-        $('.main-info-section').removeClass('animate-events-one animate-events-two');
+        this.removeClassesForDayBox();
         if ($(e.currentTarget).hasClass('first-day-box')) {
-          this.prevClick();
-          setTimeout(() => {
-            $('.day-box').removeClass('clicked-day');
-            $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-            $('.double-click').find('.main-info-section').addClass('animate-events-one');
-          }, 350);
-          setTimeout(() => {
-            $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          this.swipePrevMonthAnimationOne();
         } else if ($(e.currentTarget).prev().length === 0) {
           $(e.currentTarget).parent().prev().children().eq(6).addClass('clicked-day double-click swipe-right');
-          $('.double-click').find('.main-info-section').addClass('animate-events-one');
-          setTimeout(() => {
-            $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 300);
+          this.swipePrevEndOfRow();
         } else {
           $(e.currentTarget).prev().addClass('clicked-day double-click swipe-right');
-          $('.double-click').find('.main-info-section').addClass('animate-events-one');
-          setTimeout(() => {
-            $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 300);
+          this.swipePrevEndOfRow();
         }
       } else {
-        this.prevClick();
-        setTimeout(() => {
-          $('.day-box').removeClass('clicked-day');
-          $('.last-day').parent().addClass('clicked-day double-click swipe-right');
-          $('.double-click').find('.main-info-section').addClass('animate-events-one');
-        }, 350);
-        setTimeout(() => {
-          $('.double-click').find('.main-info-section').addClass('animate-events-two');
-        }, 400);
+        this.swipePrevMonthAnimationOne();
       }
 
-      // Enable scrolling if the last event isn't viewable anymore
-      if ($('.day-box').hasClass('double-click')) {
-        setTimeout(() => {
-          if ($('.double-click .visible-parent').last().position() !== undefined) {
-            if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-              $('.double-click .main-info-section').addClass('normal-scrolling');
-            } else {
-              $('.double-click .main-info-section').removeClass('normal-scrolling');
-            }
-          }
-        },50)
-      }
+      this.enableDefaultScrolling();
     } else if ($(e.target).hasClass('next-day-icon')) {
       $('.update-event-form').removeClass('show-update-form');
       $('.num-box').removeClass('event-opened');
@@ -873,64 +730,23 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $('.popup-background').show();
       // window.navigator.vibrate(this.gestureVibration);
       if (!$(e.currentTarget).next().hasClass('dead-month-color')) {
-        $('.day-box').removeClass('clicked-day double-click swipe-right swipe-left');
-        $('.main-info-section').removeClass('animate-events-one animate-events-two');
+        this.removeClassesForDayBox();
         if ($(e.currentTarget).hasClass('last-day-box')) {
-          this.nextClick();
-          setTimeout(() => {
-            $('.day-box').removeClass('clicked-day');
-            $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-            $('.double-click').find('.main-info-section').addClass('animate-events-one');
-          }, 350);
-          setTimeout(() => {
-            $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 400);
+          this.swipeNextMonthAnimationOne();
         } else if ($(e.currentTarget).next().length === 0) {
           $(e.currentTarget).parent().next().children().eq(0).addClass('clicked-day double-click swipe-left');
-          $('.double-click').find('.main-info-section').addClass('animate-events-one');
-          setTimeout(() => {
-            $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 300);
+          this.swipeNextEndOfRow();
         } else {
           $(e.currentTarget).next().addClass('clicked-day double-click swipe-left');
-          $('.double-click').find('.main-info-section').addClass('animate-events-one');
-          setTimeout(() => {
-            $('.double-click').find('.main-info-section').addClass('animate-events-two');
-          }, 300);
+          this.swipeNextEndOfRow();
         }
       } else {
-        this.nextClick();
-        setTimeout(() => {
-          $('.day-box').removeClass('clicked-day');
-          $('.first-day').parent().addClass('clicked-day double-click swipe-left');
-          $('.double-click').find('.main-info-section').addClass('animate-events-one');
-        }, 350);
-        setTimeout(() => {
-          $('.double-click').find('.main-info-section').addClass('animate-events-two');
-        }, 400);
+        this.swipeNextMonthAnimationOne();
       }
 
-      // Enable scrolling if the last event isn't viewable anymore
-      if ($('.day-box').hasClass('double-click')) {
-        setTimeout(() => {
-          if ($('.double-click .visible-parent').last().position() !== undefined) {
-            if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-              $('.double-click .main-info-section').addClass('normal-scrolling');
-            } else {
-              $('.double-click .main-info-section').removeClass('normal-scrolling');
-            }
-          }
-        },50)
-      }
+      this.enableDefaultScrolling();
     } else if ($(e.target).hasClass('close-day-icon')) {
-      $('.popup-background').hide();
-      $('.day-box').removeClass('double-click swipe-right swipe-left');
-      $('.main-info-section').removeClass('normal-scrolling');
-      $('.main-info-section').removeClass('animate-events-one animate-events-two');
-      $('.add-item-button, .add-item-container').removeClass('moved');
-      setTimeout(() => {
-        $('.main-info-section').animate({ scrollTop: 0 }, 200);
-      }, 300);
+      this.closeDayJquery();
     } else if (!$(e.currentTarget).hasClass('clicked-day') && !$(e.currentTarget).hasClass('double-click')) {
       $('.day-box').removeClass('clicked-day double-click');
       $(e.currentTarget).addClass('clicked-day');
@@ -1060,18 +876,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
     $('.main-info-section').show();
 
-    // Enable scrolling if the last event isn't viewable anymore
-    if ($('.day-box').hasClass('double-click')) {
-      setTimeout(() => {
-        if ($('.double-click .visible-parent').last().position() !== undefined) {
-          if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-            $('.double-click .main-info-section').addClass('normal-scrolling');
-          } else {
-            $('.double-click .main-info-section').removeClass('normal-scrolling');
-          }
-        }
-      },50)
-    }
+    this.enableDefaultScrolling();
 
     $('.current-day').addClass('bouncing');
   }

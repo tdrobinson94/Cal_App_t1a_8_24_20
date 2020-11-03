@@ -355,7 +355,7 @@
                             pointer-events: none;
                             color: $textdrk;
 
-                            &:hover, &:focus {
+                            &:hover {
                                 background: rgba(255,0,0,.7);
                                 border-radius: 5px;
                                 transition: all .3s ease;
