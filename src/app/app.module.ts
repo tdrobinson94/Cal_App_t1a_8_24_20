@@ -22,8 +22,9 @@ import { GuestGuard } from './guest.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { EventDataService } from './services/eventdata.service';
 import { TestCalendarComponent } from './test-calendar/test-calendar.component';
+import {Injectable} from '@angular/core';
 
-
+@Injectable({providedIn: 'root'})
 export class HammerConfig extends HammerGestureConfig {
   overrides: any = {
     swipe: { direction: Hammer.DIRECTION_ALL}
