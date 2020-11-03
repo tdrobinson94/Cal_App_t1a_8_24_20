@@ -47,6 +47,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   nextMonthEvents: any;
   prevMonthEvents: any;
   eachEvent: any;
+  boxDate: any;
+  isClicked = false;
 
   groupID: any = 0;
 
@@ -155,7 +157,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   ngAfterContentInit() {
-
+    
   }
 
   ngAfterViewInit() {
@@ -452,7 +454,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       this.changeCal();
     }, 100);
   }
-
 
   onSwipeLeft(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
@@ -933,13 +934,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       setTimeout(() => {
         $('.main-info-section').animate({ scrollTop: 0 }, 200);
       }, 300);
-    } else if (!$(e.currentTarget).hasClass('clicked-day') && !$(e.currentTarget).hasClass('double-click')) {
-      $('.day-box').removeClass('clicked-day double-click');
-      $(e.currentTarget).addClass('clicked-day');
-    } else if ($(e.currentTarget).hasClass('clicked-day')) {
-      //show popup background because we are in day view
+    } else if (!$(e.currentTarget).hasClass('double-click')) {
       $('.popup-background').show();
-      $(e.currentTarget).addClass('double-click');
+      $('.day-box').removeClass('clicked-day double-click');
+      $(e.currentTarget).addClass('clicked-day double-click');
       $(e.currentTarget).find('.main-info-section').addClass('animate-events-one');
       $('.add-item-button, .add-item-container').addClass('moved');
       setTimeout(() => {
