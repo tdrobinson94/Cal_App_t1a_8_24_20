@@ -104,6 +104,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   async ngOnInit() {
+    this.loading = true;
     this.createCalendarGrid();
   }
 
