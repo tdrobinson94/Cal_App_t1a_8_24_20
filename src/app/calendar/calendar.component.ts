@@ -934,10 +934,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       setTimeout(() => {
         $('.main-info-section').animate({ scrollTop: 0 }, 200);
       }, 300);
-    } else if (!$(e.currentTarget).hasClass('double-click')) {
-      $('.popup-background').show();
+    } else if (!$(e.currentTarget).hasClass('clicked-day') && !$(e.currentTarget).hasClass('double-click')) {
       $('.day-box').removeClass('clicked-day double-click');
       $(e.currentTarget).addClass('clicked-day double-click');
+    } else if ($(e.currentTarget).hasClass('clicked-day')) {
+      //show popup background because we are in day view
+      $('.popup-background').show();
+      $(e.currentTarget).addClass('double-click');
       $(e.currentTarget).find('.main-info-section').addClass('animate-events-one');
       $('.add-item-button, .add-item-container').addClass('moved');
       setTimeout(() => {
