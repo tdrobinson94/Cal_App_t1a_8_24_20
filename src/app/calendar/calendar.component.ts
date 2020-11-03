@@ -789,7 +789,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
           $('.day-box').removeClass('double-click swipe-right swipe-left');
           $('.main-info-section').removeClass('normal-scrolling');
           $('.main-info-section').removeClass('animate-events-one animate-events-two');
-          $('.visible').removeClass('selected-event');
           $('.add-item-button, .add-item-container').removeClass('moved');
           setTimeout(() => {
             $('.main-info-section').animate({ scrollTop: 0 }, 200);
@@ -812,7 +811,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     $('.add-item-form').removeClass('show-form');
     $('.extra').hide();
     if ($(e.target).hasClass('prev-day-icon')) {
-      $('.visible').removeClass('selected-event');
       $('.update-event-form').removeClass('show-update-form');
       $('.num-box').removeClass('event-opened');
       //show popup background because we are in day view
@@ -868,7 +866,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         },50)
       }
     } else if ($(e.target).hasClass('next-day-icon')) {
-      $('.visible').removeClass('selected-event');
       $('.update-event-form').removeClass('show-update-form');
       $('.num-box').removeClass('event-opened');
       //show popup background because we are in day view
@@ -929,7 +926,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $('.day-box').removeClass('double-click swipe-right swipe-left');
       $('.main-info-section').removeClass('normal-scrolling');
       $('.main-info-section').removeClass('animate-events-one animate-events-two');
-      $('.visible').removeClass('selected-event');
       $('.add-item-button, .add-item-container').removeClass('moved');
       setTimeout(() => {
         $('.main-info-section').animate({ scrollTop: 0 }, 200);
@@ -1082,118 +1078,102 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   // Click on an Event
   selectEvent(e) {
     const day = $('.clicked-day .date-value').text();
-    // If delete button has been clicked
-    if ($(e.target).hasClass('delete-event')) {
-      this.deleteItemForm = new FormGroup({
-        id: new FormControl($(e.target).val()),
+    $('.add-item-button, .add-item-container').hide();
+    $('.prev-day, .next-day').addClass('hide');
+    $('.num-box').addClass('event-opened');
+    setTimeout(() => {
+      $('.update-event-form').addClass('show-update-form').removeClass('closed');
+    }, 200);
+    $('.update-event-form').animate({ scrollTop: 0 }, 300);
+
+    // Define variables by finding the html of the 1st child element an reducing it to AM or PM, just hours, and just minutes
+    const timeofday = e.currentTarget.childNodes[4].children[0].innerHTML.trim().split(' ')[1];
+    let eHours: any = Number(e.currentTarget.childNodes[4].children[0].innerHTML.trim().split(':')[0]);
+    const eMinutes: any = e.currentTarget.childNodes[4].children[0].innerHTML.trim().split(':')[1].substring(0, 2);
+
+    // This is a repeat of the above just for creating the end date, except this time we find the 2nd child element
+    const endDay = e.currentTarget.childNodes[5].innerHTML.trim();
+    const timeofday2 = e.currentTarget.childNodes[4].children[1].innerHTML.trim().split(' ')[1];
+    let eEndTimeHours: any = Number(e.currentTarget.childNodes[4].children[1].innerHTML.trim().split(':')[0]);
+    const eEndTimeMinutes = e.currentTarget.childNodes[4].children[1].innerHTML.trim().split(':')[1].substring(0, 2);
+
+    // Define how to display Hours, this checks for AM/PM on a 24hr format
+    if (timeofday === 'PM' && eHours <= 10) {
+      eHours = 24 - (12 - eHours);
+    } else if (timeofday === 'PM' && eHours > 10) {
+      if (eHours === 12) {
+        eHours = eHours;
+      } else {
+        eHours = eHours + 12;
+      }
+    } else if (timeofday === 'AM' && eHours < 10) {
+      eHours = '0' + eHours;
+    } else if (timeofday === 'AM' && eHours === 12) {
+      eHours = '00';
+    }
+
+    // Repeat of above but for the end time
+    if (timeofday2 === 'PM' && eEndTimeHours <= 10) {
+      eEndTimeHours = 24 - (12 - eEndTimeHours);
+    } else if (timeofday2 === 'PM' && eEndTimeHours > 10) {
+      if (eEndTimeHours === 12) {
+        eEndTimeHours = eEndTimeHours;
+      } else {
+        eEndTimeHours = eEndTimeHours + 12;
+      }
+    } else if (timeofday2 === 'AM' && eEndTimeHours < 10) {
+      eEndTimeHours = '0' + eEndTimeHours;
+    }
+
+    // Set the time to variables and concat the values to a proper time input format
+    const eCurrentTime = eHours + ':' + eMinutes;
+    const eEndTime = eEndTimeHours + ':' + eEndTimeMinutes;
+    const userID = sessionStorage.getItem('userId');
+
+    if (e.currentTarget.childNodes[3].innerHTML.trim() == 2) {
+      $('.date-input-end-update').hide();
+    } else {
+      $('.date-input-end-update').show();
+    }
+
+    // Update the form with the time values defined above
+
+    if (eCurrentTime === '00:00' && eEndTime === '23:59') {
+      this.allDay = true;
+      this.updateItemForm = new FormGroup({
+        user_id: new FormControl(userID),
+        group_id: new FormControl(''),
+        id: new FormControl(e.currentTarget.childNodes[6].value),
+        item_type: new FormControl(Number(e.currentTarget.childNodes[7].innerHTML.trim())),
+        frequency: new FormControl(Number(e.currentTarget.childNodes[3].innerHTML.trim())),
+        title: new FormControl(e.currentTarget.childNodes[0].innerHTML.trim()),
+        description: new FormControl(e.currentTarget.childNodes[1].innerHTML.trim()),
+        start_date: new FormControl(day),
+        end_date: new FormControl(endDay),
+        start_time: new FormControl(eCurrentTime),
+        end_time: new FormControl(eEndTime),
+        all_day: new FormControl(true),
+        location: new FormControl(e.currentTarget.childNodes[2].innerHTML.trim()),
+      });
+    } else {
+      this.allDay = false;
+      this.updateItemForm = new FormGroup({
+        user_id: new FormControl(userID),
+        group_id: new FormControl(''),
+        id: new FormControl(e.currentTarget.childNodes[6].value),
+        item_type: new FormControl(Number(e.currentTarget.childNodes[7].innerHTML.trim())),
+        frequency: new FormControl(Number(e.currentTarget.childNodes[3].innerHTML.trim())),
+        title: new FormControl(e.currentTarget.childNodes[0].innerHTML.trim()),
+        description: new FormControl(e.currentTarget.childNodes[1].innerHTML.trim()),
+        start_date: new FormControl(day),
+        end_date: new FormControl(endDay),
+        start_time: new FormControl(eCurrentTime),
+        end_time: new FormControl(eEndTime),
+        all_day: new FormControl(false),
+        location: new FormControl(e.currentTarget.childNodes[2].innerHTML.trim()),
       });
     }
-    // If an event has been clicked once
-    else if (!$(e.currentTarget).hasClass('selected-event')) {
-      $('.visible').removeClass('selected-event');
-      $('.update-event-form').removeClass('show-update-form');
-      $(e.currentTarget).addClass('selected-event');
-      $('.num-box').removeClass('event-opened');
-    } 
-    // If an event has been clicked twice
-    else if ($(e.currentTarget).hasClass('selected-event')) {
-      $('.add-item-button, .add-item-container').hide();
-      $('.prev-day, .next-day').addClass('hide');
-      $('.num-box').addClass('event-opened');
-      setTimeout(() => {
-        $('.update-event-form').addClass('show-update-form').removeClass('closed');
-      }, 200);
-      $('.update-event-form').animate({ scrollTop: 0 }, 300);
-
-      // Define variables by finding the html of the 1st child element an reducing it to AM or PM, just hours, and just minutes
-      const timeofday = e.currentTarget.childNodes[4].children[0].innerHTML.trim().split(' ')[1];
-      let eHours: any = Number(e.currentTarget.childNodes[4].children[0].innerHTML.trim().split(':')[0]);
-      const eMinutes: any = e.currentTarget.childNodes[4].children[0].innerHTML.trim().split(':')[1].substring(0, 2);
-
-      // This is a repeat of the above just for creating the end date, except this time we find the 2nd child element
-      const endDay = e.currentTarget.childNodes[5].innerHTML.trim();
-      const timeofday2 = e.currentTarget.childNodes[4].children[1].innerHTML.trim().split(' ')[1];
-      let eEndTimeHours: any = Number(e.currentTarget.childNodes[4].children[1].innerHTML.trim().split(':')[0]);
-      const eEndTimeMinutes = e.currentTarget.childNodes[4].children[1].innerHTML.trim().split(':')[1].substring(0, 2);
-
-      // Define how to display Hours, this checks for AM/PM on a 24hr format
-      if (timeofday === 'PM' && eHours <= 10) {
-        eHours = 24 - (12 - eHours);
-      } else if (timeofday === 'PM' && eHours > 10) {
-        if (eHours === 12) {
-          eHours = eHours;
-        } else {
-          eHours = eHours + 12;
-        }
-      } else if (timeofday === 'AM' && eHours < 10) {
-        eHours = '0' + eHours;
-      } else if (timeofday === 'AM' && eHours === 12) {
-        eHours = '00';
-      }
-
-      // Repeat of above but for the end time
-      if (timeofday2 === 'PM' && eEndTimeHours <= 10) {
-        eEndTimeHours = 24 - (12 - eEndTimeHours);
-      } else if (timeofday2 === 'PM' && eEndTimeHours > 10) {
-        if (eEndTimeHours === 12) {
-          eEndTimeHours = eEndTimeHours;
-        } else {
-          eEndTimeHours = eEndTimeHours + 12;
-        }
-      } else if (timeofday2 === 'AM' && eEndTimeHours < 10) {
-        eEndTimeHours = '0' + eEndTimeHours;
-      }
-
-      // Set the time to variables and concat the values to a proper time input format
-      const eCurrentTime = eHours + ':' + eMinutes;
-      const eEndTime = eEndTimeHours + ':' + eEndTimeMinutes;
-      const userID = sessionStorage.getItem('userId');
-
-      if (e.currentTarget.childNodes[3].innerHTML.trim() == 2) {
-        $('.date-input-end-update').hide();
-      } else {
-        $('.date-input-end-update').show();
-      }
-
-      // Update the form with the time values defined above
-
-      if (eCurrentTime === '00:00' && eEndTime === '23:59') {
-        this.allDay = true;
-        this.updateItemForm = new FormGroup({
-          user_id: new FormControl(userID),
-          group_id: new FormControl(''),
-          id: new FormControl(e.currentTarget.childNodes[6].value),
-          item_type: new FormControl(Number(e.currentTarget.childNodes[7].innerHTML.trim())),
-          frequency: new FormControl(Number(e.currentTarget.childNodes[3].innerHTML.trim())),
-          title: new FormControl(e.currentTarget.childNodes[0].innerHTML.trim()),
-          description: new FormControl(e.currentTarget.childNodes[1].innerHTML.trim()),
-          start_date: new FormControl(day),
-          end_date: new FormControl(endDay),
-          start_time: new FormControl(eCurrentTime),
-          end_time: new FormControl(eEndTime),
-          all_day: new FormControl(true),
-          location: new FormControl(e.currentTarget.childNodes[2].innerHTML.trim()),
-        });
-      } else {
-        this.allDay = false;
-        this.updateItemForm = new FormGroup({
-          user_id: new FormControl(userID),
-          group_id: new FormControl(''),
-          id: new FormControl(e.currentTarget.childNodes[6].value),
-          item_type: new FormControl(Number(e.currentTarget.childNodes[7].innerHTML.trim())),
-          frequency: new FormControl(Number(e.currentTarget.childNodes[3].innerHTML.trim())),
-          title: new FormControl(e.currentTarget.childNodes[0].innerHTML.trim()),
-          description: new FormControl(e.currentTarget.childNodes[1].innerHTML.trim()),
-          start_date: new FormControl(day),
-          end_date: new FormControl(endDay),
-          start_time: new FormControl(eCurrentTime),
-          end_time: new FormControl(eEndTime),
-          all_day: new FormControl(false),
-          location: new FormControl(e.currentTarget.childNodes[2].innerHTML.trim()),
-        });
-      }
-      console.log(this.updateItemForm.value);
-    }
+    console.log(this.updateItemForm.value);
   }
 
   // Delete an event
@@ -1523,7 +1503,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   closeEventUpdateForm() {
     // window.navigator.vibrate(this.gestureVibration);
-    $('.event').removeClass('selected-event');
     $('.num-box').removeClass('event-opened');
     $('.update-event-form').addClass('closed');
     // Delay for the Close animation
