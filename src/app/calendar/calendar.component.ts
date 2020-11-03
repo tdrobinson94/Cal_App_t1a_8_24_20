@@ -685,9 +685,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
-        this.showEvents();
+        // this.showEvents();
       } else {
-        this.closeDayJquery();
+        if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
+          console.log('no scroll');
+        } else {
+          this.closeDayJquery();
+        }
       }
     }
   }
@@ -756,7 +760,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     } else if (!$(e.currentTarget).hasClass('clicked-day') && !$(e.currentTarget).hasClass('double-click')) {
       $('.day-box').removeClass('clicked-day double-click');
       $(e.currentTarget).addClass('clicked-day');
-      
+
     } else if ($(e.currentTarget).hasClass('clicked-day')) {
       //show popup background because we are in day view
       $('.popup-background').show();
