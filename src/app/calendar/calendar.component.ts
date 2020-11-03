@@ -501,7 +501,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   onSwipeLeft(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-      // window.navigator.vibrate(this.gestureVibration);
+      $('.visible').removeClass('selected-event');
       $('.double-click').removeClass('bounce-left');
       if (!$('.day-box').hasClass('double-click')) {
         if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
@@ -601,6 +601,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   onSwipeRight(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.visible').removeClass('selected-event');
       $('.double-click').removeClass('bounce-right');
       if (!$('.day-box').hasClass('double-click')) {
         if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
@@ -684,6 +685,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   onSwipeDown(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.visible').removeClass('selected-event');
       if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
         // this.showEvents();
       } else {
@@ -710,6 +712,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   clickonDay(e) {
     $('.add-item-form').removeClass('show-form');
     $('.extra').hide();
+    $('.visible').removeClass('selected-event');
     if ($(e.target).hasClass('prev-day-icon')) {
       $('.update-event-form').removeClass('show-update-form');
       $('.num-box').removeClass('event-opened');
@@ -895,9 +898,17 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   // Click on an Event
   selectEvent(e) {
     const day = $('.clicked-day .date-value').text();
+    $('.visible').removeClass('selected-event');
     $('.add-item-button, .add-item-container').hide();
     $('.prev-day, .next-day').addClass('hide');
     $('.num-box').addClass('event-opened');
+    setTimeout(() => {
+      if ($(e.target).hasClass('visible')){
+        $(e.target).addClass('selected-event');
+      } else if ($(e.target).parent().hasClass('visible')) {
+        $(e.target).parent().addClass('selected-event');
+      }
+    }, 20)
     setTimeout(() => {
       $('.update-event-form').addClass('show-update-form').removeClass('closed');
     }, 200);
