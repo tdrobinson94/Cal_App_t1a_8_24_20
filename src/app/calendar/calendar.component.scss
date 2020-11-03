@@ -928,41 +928,61 @@
 
                 &.swipe-right {
                     transition: none !important;
-                    animation-name: swipeRight;
-                    animation-duration: .2s;
+                    animation-name: swipeRightBounce;
+                    animation-duration: .3s;
                     animation-timing-function: ease;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-name: swipeRight;
+                        animation-timing-function: ease-in-out;
+                    }
                 }
 
                 &.swipe-left {
                     transition: none !important;
-                    animation-name: swipeLeft;
-                    animation-duration: .2s;
+                    animation-name: swipeLeftBounce;
+                    animation-duration: .3s;
                     animation-timing-function: ease;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-name: swipeLeft;
+                        animation-timing-function: ease-in-out;
+                    }
                 }
 
                 &.bounce-right {
                     animation-name: bounceRight;
-                    animation-duration: .2s;
+                    animation-duration: .3s;
                     animation-timing-function: ease;
                 }
 
                 &.bounce-left {
                     animation-name: bounceLeft;
-                    animation-duration: .2s;
+                    animation-duration: .3s;
                     animation-timing-function: ease;
+                }
+
+                @keyframes swipeRightBounce {
+                    0%   { left: -100% }
+                    70%  { left: 0 }
+                    85%  { left: 10px }
+                    100% { left: 0 }
+                }
+
+                @keyframes swipeLeftBounce {
+                    0%   { right: -100% }
+                    70%  { right: 0 }
+                    85%  { right: 10px }
+                    100% { right: 0 }
                 }
 
                 @keyframes swipeRight {
                     0%   { left: -100% }
-                    30%  { left: 0 }
-                    70%  { left: 10px }
                     100% { left: 0 }
                 }
 
                 @keyframes swipeLeft {
                     0%   { right: -100% }
-                    30%  { right: 0 }
-                    70%  { right: 10px }
                     100% { right: 0 }
                 }
 
@@ -1018,25 +1038,21 @@
 
     .cal-swipe-right {
         animation-name: calSwipeRight;
-        animation-duration: 1s;
+        animation-duration: .3s;
         animation-timing-function: ease;
     }
     .cal-swipe-left {
         animation-name: calSwipeLeft;
-        animation-duration: 1s;
+        animation-duration: .3s;
         animation-timing-function: ease;
     }
 
     @keyframes calSwipeLeft {
         0%   { left: -100% }
-        30%  { left: 0 }
-        70%  { left: 10px }
         100% { left: 0 }
     }
     @keyframes calSwipeRight {
         0%   { right: -100% }
-        30%  { right: 0 }
-        70%  { right: 10px }
         100% { right: 0 }
     }
 
