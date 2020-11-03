@@ -406,7 +406,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
-    }, 100);
+    }, 350);
   }
 
   currentClick() {
@@ -452,7 +452,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
-    }, 100);
+    }, 350);
   }
 
   onSwipeLeft(e) {
