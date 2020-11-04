@@ -14,7 +14,19 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
-  constructor(private dataService: EventDataService, private cookieService: CookieService) { }
+  constructor(private dataService: EventDataService, private cookieService: CookieService) {
+    if (typeof Worker !== 'undefined') {
+      // Create a new
+      const worker = new Worker('./calendar.worker', { type: 'module' });
+      worker.onmessage = ({ data }) => {
+        console.log(`page got message: ${data}`);
+      };
+      worker.postMessage('hello');
+    } else {
+      // Web workers are not supported in this environment.
+      // You should add a fallback so that your program still executes correctly.
+    }
+  }
 
   // Date variables
   clock = new Date();
@@ -105,6 +117,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   ngOnInit() {
     this.createCalendarGrid();
+    this.getEvents();
   }
 
   // This will set our calendar table and the control bar
@@ -796,11 +809,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
-    this.loading = true;
+    let i;
+    const eventlist = [];
     this.dataService.getEvents()
      .subscribe((response) => {
-        let i;
-        const eventlist = [];
 
         for (i = 0; i < response.length; i++) {
           eventlist[i] = {
@@ -817,15 +829,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
             itemtype: response[i].item_type.toString()
           };
         }
-        this.events = eventlist;
-        this.loading = false;
-
-        setTimeout(() => {
-          this.showEvents();
-        }, 100);
-
-        return true;
       });
+      this.events = eventlist;
   }
 
   filterEvents() {
@@ -886,6 +891,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         }
       }
     }
+    this.loading = false;
 
     $('.main-info-section').show();
 
@@ -1005,6 +1011,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   // Delete an event
   deleteEvent(e) {
+    this.loading = true;
     // On click set the value of the form with the value of the button
     this.updateItemForm = new FormGroup({
       user_id: new FormControl(''),
@@ -1027,9 +1034,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.dataService.deleteEvent(this.updateItemForm.value)
       .subscribe((response) => {
         this.closeEventUpdateForm();
+        this.getEvents();
         // Get the new Events table after the item has been deleted
         setTimeout(() => {
-          this.getEvents();
+          this.showEvents();
         }, 100);
       });
   }
@@ -1304,10 +1312,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       .subscribe((response) => {
         this.addItemForm.reset();
         this.closeForm();
-        this.loading = false;
+        this.getEvents();
 
         setTimeout(() => {
-          this.getEvents();
+          this.showEvents();
         }, 100);
       });
   }
@@ -1319,10 +1327,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.dataService.updatedEvent(this.updateItemForm.value)
       .subscribe((response) => {
         this.closeEventUpdateForm();
-        this.loading = false;
+        this.getEvents();
 
         setTimeout(() => {
-          this.getEvents();
           this.showEvents();
         }, 100);
       });
