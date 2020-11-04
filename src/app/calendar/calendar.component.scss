@@ -168,7 +168,7 @@
     .calendar-container {
 
         width: 100%;
-        height: calc(100% - 140px);
+        height: calc(100% - 133px);
         padding: 5px 0;
         position: relative;
         top: 74px;
@@ -1059,7 +1059,7 @@
     .add-item-button {
         padding: 15px;
         position: absolute;
-        bottom: 0px;
+        bottom: 10px;
         font-size: 20px;
         border-radius: 100%;
         border: none;
@@ -1094,7 +1094,7 @@
 
     .add-item-container {
         position: absolute;
-        bottom: 7px;
+        bottom: 17px;
         right: 17px;
         height: 40px;
         width: 40px;

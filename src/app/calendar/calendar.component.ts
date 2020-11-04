@@ -185,11 +185,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $(document).find('#year').val(this.cachedYear);
       setTimeout(() => {
         this.changeCal();
-      }, 200); 
+      }, 300); 
     } else {
       setTimeout(() => {
         this.changeCal();
-      }, 200); 
+      }, 300); 
     }
 
     // Every 10 sec update the date automatically and if the day changes
@@ -702,14 +702,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.visible').removeClass('selected-event');
-      if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
-        // this.showEvents();
+      if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
+        console.log('no scroll');
       } else {
-        if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
-          console.log('no scroll');
-        } else {
-          this.closeDayJquery();
-        }
+        this.closeDayJquery();
       }
     }
   }
