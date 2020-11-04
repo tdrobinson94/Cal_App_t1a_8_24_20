@@ -117,7 +117,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   ngOnInit() {
     this.createCalendarGrid();
-    this.getEvents();
   }
 
   // This will set our calendar table and the control bar
@@ -171,6 +170,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   ngAfterContentInit() {
     this.loading = true;
+    this.getEvents();
   }
 
   ngAfterViewInit() {
@@ -427,6 +427,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     let month = $(document).find('#month');
 
     $('.popup-background').hide();
+    $('.add-item-button, .add-item-container').removeClass('moved');
+    $('.main-info-section').removeClass('animate-events-one animate-events-two')
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
       $('.day-box').removeClass('double-click clicked-day');
@@ -1290,6 +1292,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       all_day: new FormControl(this.updateItemForm.value.all_day),
       location: new FormControl(this.updateItemForm.value.location),
     });
+  }
+
+  closeAll() {
+    $('.visible').removeClass('selected-event');
+    if ($('.day-box').hasClass('double-click')) {
+      this.closeDayJquery();
+    } 
+    this.closeEventUpdateForm();
+    this.closeForm();
   }
 
   closeForm() {
