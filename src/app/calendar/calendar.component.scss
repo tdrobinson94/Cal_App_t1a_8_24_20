@@ -1102,7 +1102,7 @@
         border-radius: 100%;
         color: transparent;
         overflow: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
 
         &::-webkit-scrollbar {
             width: 2px;
@@ -1143,10 +1143,10 @@
             color: #fff;
             overflow-y: auto;
 
-            transition: all 0.3s ease;
-            -moz-transition: all .3s ease;
-            -webkit-transition: all .3s ease;
-            -o-transition: all .3s ease;
+            transition: all 0.2s ease;
+            -moz-transition: all .2s ease;
+            -webkit-transition: all .2s ease;
+            -o-transition: all .2s ease;
 
             @media screen and (min-width: $end-small) {
                 bottom: 50%;
