@@ -39,7 +39,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit(): void {
-    this.bounceUp();
+    // this.bounceUp();
   }
 
   clickNavButton() {
@@ -51,7 +51,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   clickLink() {
     window.navigator.vibrate(this.gestureVibration);
     $('html, body').animate({ scrollTop: 0 }, 500);
-    this.bounceUp();
+    // this.bounceUp();
     if ($(window).width() < 800) {
       $('.hamburger').toggleClass('is-active');
       $('.wrapper ul').slideToggle();
@@ -67,7 +67,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   clickFooterLink() {
     window.navigator.vibrate(this.gestureVibration);
-    this.bounceUp();
+    // this.bounceUp();
   }
 
   clickLogo() {
