@@ -15,17 +15,22 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
   constructor(private dataService: EventDataService, private cookieService: CookieService) {
-    if (typeof Worker !== 'undefined') {
-      // Create a new
-      const worker = new Worker('./calendar.worker', { type: 'module' });
-      worker.onmessage = ({ data }) => {
-        console.log(`page got message: ${data}`);
-      };
-      worker.postMessage('hello');
-    } else {
-      // Web workers are not supported in this environment.
-      // You should add a fallback so that your program still executes correctly.
-    }
+    // if (typeof Worker !== 'undefined') {
+    //   // Create a new
+    //   const worker = new Worker('./calendar.worker', { type: 'module' });
+    //   worker.onmessage = ({ data }) => {
+    //     console.log(`page got message: ${data}`);
+    //   };
+
+    //   this.dataService.getEvents()
+    //   .subscribe((response) => {
+    //      worker.postMessage(response);
+    //    });
+    //   // worker.postMessage('hello');
+    // } else {
+    //   // Web workers are not supported in this environment.
+    //   // You should add a fallback so that your program still executes correctly.
+    // }
   }
 
   // Date variables
@@ -116,6 +121,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   ngOnInit() {
+    this.getEvents();
     this.createCalendarGrid();
   }
 
@@ -169,11 +175,23 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   ngAfterContentInit() {
-    this.loading = true;
-    this.getEvents();
+
   }
 
   ngAfterViewInit() {
+    // On first load init calendar
+    if (this.cachedMonth && this.cachedYear) {
+      $(document).find('#month').val(this.cachedMonth);
+      $(document).find('#year').val(this.cachedYear);
+      setTimeout(() => {
+        this.changeCal();
+      }, 200); 
+    } else {
+      setTimeout(() => {
+        this.changeCal();
+      }, 200); 
+    }
+
     // Every 10 sec update the date automatically and if the day changes
     // update the calendar as well as the current day number and day of week
     let dayBox = $('.day-box');
@@ -207,19 +225,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     } else {
       $('.prev, .next').show();
       $('.close-day, .close-form').removeClass('mobile');
-    }
-
-    // On first load init calendar
-    if (this.cachedMonth && this.cachedYear) {
-      $(document).find('#month').val(this.cachedMonth);
-      $(document).find('#year').val(this.cachedYear);
-      setTimeout(() => {
-        this.changeCal();
-      }, 300); 
-    } else {
-      setTimeout(() => {
-        this.changeCal();
-      }, 300); 
     }
   }
 
@@ -380,21 +385,18 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.renderMonth();
     this.selectedDay();
     
-    if (this.events !== undefined) {
-      // this.loading = true;
-      setTimeout(() => {
-        this.showEvents();
+    setTimeout(() => {
+      this.filterEvents();
+      this.showEvents();
 
-        //show popup background because we are in day view
-        if ($('.day-box').hasClass('double-click')) {
-          $('.popup-background').show();
-        } else {
-          $('.popup-background').hide();
-        }
-      }, 20);
-    } else {
-      this.getEvents();
-    }
+      //show popup background because we are in day view
+      if ($('.day-box').hasClass('double-click')) {
+        $('.popup-background').show();
+      } else {
+        $('.popup-background').hide();
+      }
+    }, 20);
+
 
     // Save the current viewing month and year
     sessionStorage.setItem('cachedMonth', $(document).find('#month').val());
@@ -811,6 +813,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
+    this.loading = true;
     let i;
     const eventlist = [];
     this.dataService.getEvents()
@@ -831,8 +834,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
             itemtype: response[i].item_type.toString()
           };
         }
+        this.events = eventlist;
+        console.log('Get events task finished.');
       });
-      this.events = eventlist;
   }
 
   filterEvents() {
@@ -869,11 +873,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     } 
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
-    console.log(this.singleMonthEvents);
+    this.loading = false;
+    console.log('Filter events task finsihed.');
   }
 
-  async showEvents() {
-    await this.filterEvents();
+  showEvents() {
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
@@ -893,7 +897,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         }
       }
     }
-    this.loading = false;
+    console.log('Show events task finished.');
 
     $('.main-info-section').show();
 
@@ -1318,7 +1322,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   submitEvent() {
     this.loading = true;
     console.log(this.addItemForm.value);
-
     this.dataService.createEvent(this.addItemForm.value)
       .subscribe((response) => {
         this.addItemForm.reset();
