@@ -20,8 +20,7 @@ addEventListener('message', ({ data }) => {
       itemtype: data[i].item_type.toString()
     };
   }
-  console.log(eventlist);
 
-  const response = `worker response to ${data}`;
+  const response = `${JSON.stringify(eventlist)}`;
   postMessage(response);
 });

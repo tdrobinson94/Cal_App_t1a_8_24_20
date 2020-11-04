@@ -15,22 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
   constructor(private dataService: EventDataService, private cookieService: CookieService) {
-    // if (typeof Worker !== 'undefined') {
-    //   // Create a new
-    //   const worker = new Worker('./calendar.worker', { type: 'module' });
-    //   worker.onmessage = ({ data }) => {
-    //     console.log(`page got message: ${data}`);
-    //   };
-
-    //   this.dataService.getEvents()
-    //   .subscribe((response) => {
-    //      worker.postMessage(response);
-    //    });
-    //   // worker.postMessage('hello');
-    // } else {
-    //   // Web workers are not supported in this environment.
-    //   // You should add a fallback so that your program still executes correctly.
-    // }
+    this.getEvents();
   }
 
   // Date variables
@@ -121,7 +106,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   ngOnInit() {
-    this.getEvents();
+    // this.getEvents();
     this.createCalendarGrid();
   }
 
@@ -809,29 +794,46 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   getEvents() {
     this.loading = true;
-    let i;
-    const eventlist = [];
-    this.dataService.getEvents()
-     .subscribe((response) => {
+    // let i;
+    // const eventlist = [];
+    // this.dataService.getEvents()
+    //  .subscribe((response) => {
 
-        for (i = 0; i < response.length; i++) {
-          eventlist[i] = {
-            eventid: response[i].id.toString(),
-            eventtitle: response[i].title,
-            eventstart_date: response[i].start_date.substring(0, 10),
-            eventend_date: response[i].end_date.substring(0, 10),
-            eventdesc: response[i].description,
-            eventlocation: response[i].location,
-            eventfrequency: response[i].frequency,
-            eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
-            eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
-            eventcreatedAt: moment(response[i].created_at).format(),
-            itemtype: response[i].item_type.toString()
-          };
-        }
-        this.events = eventlist;
-        console.log('Get events task finished.');
-      });
+    //     for (i = 0; i < response.length; i++) {
+    //       eventlist[i] = {
+    //         eventid: response[i].id.toString(),
+    //         eventtitle: response[i].title,
+    //         eventstart_date: response[i].start_date.substring(0, 10),
+    //         eventend_date: response[i].end_date.substring(0, 10),
+    //         eventdesc: response[i].description,
+    //         eventlocation: response[i].location,
+    //         eventfrequency: response[i].frequency,
+    //         eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
+    //         eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
+    //         eventcreatedAt: moment(response[i].created_at).format(),
+    //         itemtype: response[i].item_type.toString()
+    //       };
+    //     }
+    //     this.events = eventlist;
+    //     console.log('Get events task finished.');
+    //   });
+
+      if (typeof Worker !== 'undefined') {
+        // Create a new
+        const worker = new Worker('./calendar.worker', { type: 'module' });
+        worker.onmessage = ({ data }) => {
+          this.events = JSON.parse(data);
+          console.log(this.events);
+        };
+  
+        this.dataService.getEvents()
+        .subscribe((response) => {
+           worker.postMessage(response);
+         });
+      } else {
+        // Web workers are not supported in this environment.
+        // You should add a fallback so that your program still executes correctly.
+      }
   }
 
   filterEvents() {
@@ -868,8 +870,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     } 
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
-    this.loading = false;
     console.log('Filter events task finsihed.');
+    this.loading = false;
   }
 
   async showEvents() {
