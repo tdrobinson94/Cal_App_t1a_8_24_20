@@ -386,7 +386,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.selectedDay();
     
     setTimeout(() => {
-      this.filterEvents();
       this.showEvents();
 
       //show popup background because we are in day view
@@ -874,6 +873,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   showEvents() {
+    this.filterEvents();
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
