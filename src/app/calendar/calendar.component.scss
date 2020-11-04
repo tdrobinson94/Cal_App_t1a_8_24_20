@@ -1118,9 +1118,11 @@
             background: rgba(126, 93, 93, 0.7); 
         }
 
-        &.moved {
-            bottom: 7.5%;
-            right: 9.5%;
+        @media screen and (max-width: $end-small) {
+            &.moved {
+                bottom: 7.5%;
+                right: 9.5%;
+            }
         }
 
         @media screen and (min-width: $end-small) {

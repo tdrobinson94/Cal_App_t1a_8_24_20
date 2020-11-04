@@ -364,16 +364,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.renderMonth();
     this.selectedDay();
     
-    setTimeout(() => {
-      this.showEvents();
-
+    // setTimeout(() => {
       //show popup background because we are in day view
       if ($('.day-box').hasClass('double-click')) {
         $('.popup-background').show();
       } else {
         $('.popup-background').hide();
       }
-    }, 320);
+    // }, 320);
 
 
     // Save the current viewing month and year
@@ -399,6 +397,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
+      this.showEvents();
     }, 320);
   }
 
@@ -426,6 +425,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       year.val(this.currentYear).change();
 
       this.changeCal();
+      this.showEvents();
     }
   }
 
@@ -447,6 +447,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
+      this.showEvents();
     }, 320);
   }
 
@@ -787,48 +788,52 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
-      if (typeof Worker !== 'undefined') {
-        // Create a new
-        const worker = new Worker('./calendar.worker', { type: 'module' });
-        worker.onmessage = ({ data }) => {
-          this.events = JSON.parse(data);
-          console.log(this.events);
-
-          this.filterEvents();
-        };
-  
-        this.dataService.getEvents()
-        .subscribe((response) => {
-           worker.postMessage(response);
-         });
-      } else {
-        // Web workers are not supported in this environment.
-        // You should add a fallback so that your program still executes correctly.
+    if (typeof Worker !== 'undefined') {
+      // Create a new
+      const worker = new Worker('./calendar.worker', { type: 'module' });
+      worker.onmessage = ({ data }) => {
         this.loading = true;
-        let i;
-        const eventlist = [];
-        this.dataService.getEvents()
-        .subscribe((response) => {
+        this.events = JSON.parse(data);
+        console.log('Get events task finished.');
 
-            for (i = 0; i < response.length; i++) {
-              eventlist[i] = {
-                eventid: response[i].id.toString(),
-                eventtitle: response[i].title,
-                eventstart_date: response[i].start_date.substring(0, 10),
-                eventend_date: response[i].end_date.substring(0, 10),
-                eventdesc: response[i].description,
-                eventlocation: response[i].location,
-                eventfrequency: response[i].frequency,
-                eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
-                eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
-                eventcreatedAt: moment(response[i].created_at).format(),
-                itemtype: response[i].item_type.toString()
-              };
+        this.showEvents();
+      };
+
+      this.dataService.getEvents()
+      .subscribe((response) => {
+          worker.postMessage(response);
+        });
+    } else {
+      // Web workers are not supported in this environment.
+      // You should add a fallback so that your program still executes correctly.
+      this.loading = true;
+      let i;
+      const eventlist = [];
+      this.dataService.getEvents()
+      .subscribe((response) => {
+
+          for (i = 0; i < response.length; i++) {
+            eventlist[i] = {
+              eventid: response[i].id.toString(),
+              eventtitle: response[i].title,
+              eventstart_date: response[i].start_date.substring(0, 10),
+              eventend_date: response[i].end_date.substring(0, 10),
+              eventdesc: response[i].description,
+              eventlocation: response[i].location,
+              eventfrequency: response[i].frequency,
+              eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
+              eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
+              eventcreatedAt: moment(response[i].created_at).format(),
+              itemtype: response[i].item_type.toString()
+            };
+            if (i === (this.events.length - 1)) {
+              this.events = eventlist;
+              console.log('Get events task finished.');
+              this.showEvents();
             }
-            this.events = eventlist;
-            console.log('Get events task finished.');
-          });
-      }
+          }
+        });
+    }
   }
 
   filterEvents() {
@@ -862,11 +867,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
           itemtype: this.events[i].itemtype
         }
       }
+      if (i === (this.events.length - 1)) {
+        this.singleMonthEvents = singleMonthEvents.filter(event => event);
+        console.log('Filter events task finsihed.');
+      }
     } 
-
-    this.singleMonthEvents = singleMonthEvents.filter(event => event);
-    console.log('Filter events task finsihed.');
-    // this.loading = false;
   }
 
   showEvents() {
@@ -876,28 +881,31 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
     this.filterEvents();
 
-    if (this.singleMonthEvents.length) {
-      for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-        for (i = 0; i < this.singleMonthEvents.length; i++) {
-          const day = $(weeks[dayIndex - 1]);
+    setTimeout(() => {
+      if (this.singleMonthEvents.length) {
+        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+          for (i = 0; i < this.singleMonthEvents.length; i++) {
+            const day = $(weeks[dayIndex - 1]);
+    
+            day.find('.event-count').empty().hide();
+    
+            if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
+                let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+                event.addClass('visible').parent().addClass('visible-parent');
+                this.eachDayEventsCount();
+            }
+          }
   
-          day.find('.event-count').empty().hide();
-  
-          if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
-              let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
-              event.addClass('visible').parent().addClass('visible-parent');
-              this.eachDayEventsCount();
+          if (dayIndex === 42) {
+            console.log('Show events task finished.');
+            $('.main-info-section').show();
+            this.enableDefaultScrolling();
+            $('.current-day').addClass('bouncing');
+            this.loading = false;
           }
         }
       }
-    }
-    console.log('Show events task finished.');
-
-    $('.main-info-section').show();
-
-    this.enableDefaultScrolling();
-
-    $('.current-day').addClass('bouncing');
+    }, 20);
   }
 
   // Click on an Event
@@ -1321,25 +1329,16 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         this.addItemForm.reset();
         this.closeForm();
         this.getEvents();
-
-        setTimeout(() => {
-          this.showEvents();
-        }, 100);
       });
   }
 
   updateEvent() {
-    // window.navigator.vibrate(this.gestureVibration);
     this.loading = true;
     console.log(this.updateItemForm.value);
     this.dataService.updatedEvent(this.updateItemForm.value)
       .subscribe((response) => {
         this.closeEventUpdateForm();
         this.getEvents();
-
-        setTimeout(() => {
-          this.showEvents();
-        }, 100);
       });
   }
 
