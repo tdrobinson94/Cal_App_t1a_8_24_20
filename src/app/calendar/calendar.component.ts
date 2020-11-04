@@ -872,8 +872,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     console.log('Filter events task finsihed.');
   }
 
-  showEvents() {
-    this.filterEvents();
+  async showEvents() {
+    await this.filterEvents();
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
