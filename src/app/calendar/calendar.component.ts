@@ -882,7 +882,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.filterEvents();
 
     setTimeout(() => {
-      if (this.singleMonthEvents.length) {
+      if (this.singleMonthEvents.length > 0) {
         for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
           for (i = 0; i < this.singleMonthEvents.length; i++) {
             const day = $(weeks[dayIndex - 1]);
@@ -904,6 +904,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
             this.loading = false;
           }
         }
+      } else {
+        this.loading = false;
+        $('.main-info-section').show();
       }
     }, 20);
   }
