@@ -106,7 +106,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   ngOnInit() {
-    // this.getEvents();
     this.createCalendarGrid();
   }
 
@@ -168,14 +167,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     if (this.cachedMonth && this.cachedYear) {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
-      setTimeout(() => {
-        this.changeCal();
-      }, 300); 
-    } else {
-      setTimeout(() => {
-        this.changeCal();
-      }, 300); 
-    }
+    } 
+    
+    this.changeCal();
 
     // Every 10 sec update the date automatically and if the day changes
     // update the calendar as well as the current day number and day of week
@@ -379,7 +373,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       } else {
         $('.popup-background').hide();
       }
-    }, 20);
+    }, 320);
 
 
     // Save the current viewing month and year
@@ -793,37 +787,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
-    this.loading = true;
-    // let i;
-    // const eventlist = [];
-    // this.dataService.getEvents()
-    //  .subscribe((response) => {
-
-    //     for (i = 0; i < response.length; i++) {
-    //       eventlist[i] = {
-    //         eventid: response[i].id.toString(),
-    //         eventtitle: response[i].title,
-    //         eventstart_date: response[i].start_date.substring(0, 10),
-    //         eventend_date: response[i].end_date.substring(0, 10),
-    //         eventdesc: response[i].description,
-    //         eventlocation: response[i].location,
-    //         eventfrequency: response[i].frequency,
-    //         eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
-    //         eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
-    //         eventcreatedAt: moment(response[i].created_at).format(),
-    //         itemtype: response[i].item_type.toString()
-    //       };
-    //     }
-    //     this.events = eventlist;
-    //     console.log('Get events task finished.');
-    //   });
-
       if (typeof Worker !== 'undefined') {
         // Create a new
         const worker = new Worker('./calendar.worker', { type: 'module' });
         worker.onmessage = ({ data }) => {
           this.events = JSON.parse(data);
           console.log(this.events);
+
+          this.filterEvents();
         };
   
         this.dataService.getEvents()
@@ -833,6 +804,30 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       } else {
         // Web workers are not supported in this environment.
         // You should add a fallback so that your program still executes correctly.
+        this.loading = true;
+        let i;
+        const eventlist = [];
+        this.dataService.getEvents()
+        .subscribe((response) => {
+
+            for (i = 0; i < response.length; i++) {
+              eventlist[i] = {
+                eventid: response[i].id.toString(),
+                eventtitle: response[i].title,
+                eventstart_date: response[i].start_date.substring(0, 10),
+                eventend_date: response[i].end_date.substring(0, 10),
+                eventdesc: response[i].description,
+                eventlocation: response[i].location,
+                eventfrequency: response[i].frequency,
+                eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
+                eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
+                eventcreatedAt: moment(response[i].created_at).format(),
+                itemtype: response[i].item_type.toString()
+              };
+            }
+            this.events = eventlist;
+            console.log('Get events task finished.');
+          });
       }
   }
 
@@ -871,14 +866,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
     console.log('Filter events task finsihed.');
-    this.loading = false;
+    // this.loading = false;
   }
 
-  async showEvents() {
-    await this.filterEvents();
+  showEvents() {
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
+
+    this.filterEvents();
 
     if (this.singleMonthEvents.length) {
       for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
