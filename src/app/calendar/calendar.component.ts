@@ -51,6 +51,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   eachEvent: any;
   boxDate: any;
   isClicked = false;
+  visible = false;
 
   groupID: any = 0;
 
@@ -886,14 +887,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
           for (i = 0; i < this.singleMonthEvents.length; i++) {
             const day = $(weeks[dayIndex - 1]);
+            let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
     
             day.find('.event-count').empty().hide();
     
             if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
-                let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
                 event.addClass('visible').parent().addClass('visible-parent');
                 this.eachDayEventsCount();
-            }
+            } 
           }
   
           if (dayIndex === 42) {
