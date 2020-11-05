@@ -791,6 +791,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
+    this.loading = true;
     console.log('Get events task started');
     if (typeof Worker !== 'undefined') {
       // Create a new
@@ -802,7 +803,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         });
 
       worker.onmessage = ({ data }) => {
-        this.loading = true;
         this.events = JSON.parse(data);
         console.log('Get events task finished.');
         this.showEvents();
@@ -861,12 +861,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     setTimeout(() => {
       if (this.singleMonthEvents !== undefined) {
         for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+          const day = $(weeks[dayIndex - 1]);
+          day.find('.event-count').empty().hide();
+          let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+          day.find('.event-count').empty().hide();
           for (i = 0; i < this.singleMonthEvents.length; i++) {
-            const day = $(weeks[dayIndex - 1]);
-            let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
-    
-            day.find('.event-count').empty().hide();
-    
             if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
                 event.addClass('visible').parent().addClass('visible-parent');
                 this.eachDayEventsCount();
