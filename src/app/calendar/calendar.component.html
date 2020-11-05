@@ -47,7 +47,7 @@
                     <span class="material-icons next-day-icon">keyboard_arrow_right</span>
                 </button>
                 <div class="main-info-section">
-                    <div class="event-container" *ngFor="let event of events">
+                    <div class="event-container" *ngFor="let event of singleMonthEvents">
                         <div class="event" [ngClass]="{showing: visible}" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency" (click)="selectEvent($event)">
                             <p class="event-details title">
                                 {{event.eventtitle}}

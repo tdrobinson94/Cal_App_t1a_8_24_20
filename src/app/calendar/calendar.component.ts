@@ -107,7 +107,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   ngOnInit() {
-    // this.getEvents();
     this.createCalendarGrid();
   }
 
@@ -367,6 +366,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.selectedDay();
 
     if (this.events !== undefined) {
+      this.filterEvents();
       this.showEvents();
     }
     //show popup background because we are in day view
@@ -793,6 +793,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   getEvents() {
     this.loading = true;
     console.log('Get events task started');
+
     if (typeof Worker !== 'undefined') {
       // Create a new
       const worker = new Worker('./calendar.worker', { type: 'module' });
@@ -809,7 +810,29 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       };
     } else {
       // Web workers are not supported in this environment.
-      // You should add a fallback so that your program still executes correctly.
+      this.dataService.getEvents()
+      .subscribe((response) => {
+        let i;
+        let eventlist = [];
+        for (i = 0; i < response.length; i++) {
+          eventlist[i] = {
+            eventid: response[i].id.toString(),
+            eventtitle: response[i].title,
+            eventstart_date: response[i].start_date.substring(0, 10),
+            eventend_date: response[i].end_date.substring(0, 10),
+            eventdesc: response[i].description,
+            eventlocation: response[i].location,
+            eventfrequency: response[i].frequency,
+            eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
+            eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
+            eventcreatedAt: moment(response[i].created_at).format(),
+            itemtype: response[i].item_type.toString()
+          };
+        }
+        this.events = eventlist;
+        console.log('Get events task finished.');
+        this.showEvents();
+      });
     }
   }
 
