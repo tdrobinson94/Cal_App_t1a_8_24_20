@@ -887,7 +887,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     await this.filterEvents();
     console.log('Show events task started');
     setTimeout(() => {
-      if (this.singleMonthEvents.length > 0) {
+      if (this.singleMonthEvents !== undefined) {
         for (i = 0; i < this.singleMonthEvents.length; i++) {
           for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
             const day = $(weeks[dayIndex - 1]);
