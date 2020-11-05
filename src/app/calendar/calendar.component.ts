@@ -810,40 +810,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     } else {
       // Web workers are not supported in this environment.
       // You should add a fallback so that your program still executes correctly.
-      this.loading = true;
-      let i;
-      const eventlist = [];
-      this.dataService.getEvents()
-      .subscribe((response) => {
-
-          for (i = 0; i < response.length; i++) {
-            eventlist[i] = {
-              eventid: response[i].id.toString(),
-              eventtitle: response[i].title,
-              eventstart_date: response[i].start_date.substring(0, 10),
-              eventend_date: response[i].end_date.substring(0, 10),
-              eventdesc: response[i].description,
-              eventlocation: response[i].location,
-              eventfrequency: response[i].frequency,
-              eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
-              eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
-              eventcreatedAt: moment(response[i].created_at).format(),
-              itemtype: response[i].item_type.toString()
-            };
-            if (i === (this.events.length - 1)) {
-              this.events = eventlist;
-              console.log('Get events task finished.');
-              this.showEvents();
-            }
-          }
-        });
     }
   }
 
   filterEvents() {
     console.log('Filter events task started.');
     let i;
-    const singleMonthEvents = [];
+    let singleMonthEvents = [];
     let prevDays = $('.prev-month-days').length;
     let nextDays = $('.next-month-days').length;
     const lastDayBox = $('.last-day-box').find('.date-value').html();
