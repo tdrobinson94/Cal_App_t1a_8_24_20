@@ -364,7 +364,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
-    
+
+    if (this.events !== undefined) {
+      this.showEvents();
+    }
     // setTimeout(() => {
       //show popup background because we are in day view
       if ($('.day-box').hasClass('double-click')) {
@@ -398,7 +401,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
-      this.showEvents();
     }, 320);
   }
 
@@ -426,7 +428,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       year.val(this.currentYear).change();
 
       this.changeCal();
-      this.showEvents();
     }
   }
 
@@ -448,7 +449,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     setTimeout(() => {
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
-      this.showEvents();
     }, 320);
   }
 
@@ -1047,10 +1047,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       .subscribe((response) => {
         this.closeEventUpdateForm();
         this.getEvents();
-        // Get the new Events table after the item has been deleted
-        setTimeout(() => {
-          this.showEvents();
-        }, 100);
       });
   }
 
