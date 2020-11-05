@@ -15,7 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
   constructor(private dataService: EventDataService, private cookieService: CookieService) {
-    this.getEvents();
+
   }
 
   // Date variables
@@ -107,6 +107,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   ngOnInit() {
+    this.getEvents();
     this.createCalendarGrid();
   }
 
@@ -368,15 +369,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     if (this.events !== undefined) {
       this.showEvents();
     }
-    // setTimeout(() => {
-      //show popup background because we are in day view
-      if ($('.day-box').hasClass('double-click')) {
-        $('.popup-background').show();
-      } else {
-        $('.popup-background').hide();
-      }
-    // }, 320);
-
+    //show popup background because we are in day view
+    if ($('.day-box').hasClass('double-click')) {
+      $('.popup-background').show();
+    } else {
+      $('.popup-background').hide();
+    }
 
     // Save the current viewing month and year
     sessionStorage.setItem('cachedMonth', $(document).find('#month').val());
@@ -682,10 +680,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.visible').removeClass('selected-event');
-      if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
-        console.log('no scroll');
+      if (!$('.day-box').hasClass('double-click') || $('.update-event-form').hasClass('show-update-form')) {
+        // do nothing 
       } else {
-        this.closeDayJquery();
+        if ($(e.target).hasClass('event') || $(e.target).hasClass('main-info-section') || $(e.target).hasClass('event-details')) {
+          console.log('no scroll');
+        } else {
+          this.closeDayJquery();
+        }
       }
     }
   }
@@ -764,7 +766,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $('.add-item-button, .add-item-container').addClass('moved');
       setTimeout(() => {
         $('.double-click').find('.main-info-section').addClass('animate-events-two');
-      }, 300);
+      }, 250);
       if ($('.double-click .visible-parent').last().position() !== undefined) {
         if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
           $('.double-click .main-info-section').addClass('normal-scrolling');
@@ -789,6 +791,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
+    console.log('Get events task started');
     if (typeof Worker !== 'undefined') {
       // Create a new
       const worker = new Worker('./calendar.worker', { type: 'module' });
@@ -838,6 +841,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   filterEvents() {
+    console.log('Filter events task started.');
     let i;
     const singleMonthEvents = [];
     let prevDays = $('.prev-month-days').length;
@@ -875,17 +879,17 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     } 
   }
 
-  showEvents() {
+  async showEvents() {
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
 
-    this.filterEvents();
-
+    await this.filterEvents();
+    console.log('Show events task started');
     setTimeout(() => {
       if (this.singleMonthEvents.length > 0) {
-        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-          for (i = 0; i < this.singleMonthEvents.length; i++) {
+        for (i = 0; i < this.singleMonthEvents.length; i++) {
+          for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
             const day = $(weeks[dayIndex - 1]);
             let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
     
@@ -897,7 +901,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
             } 
           }
   
-          if (dayIndex === 42) {
+          if (i === (this.singleMonthEvents.length - 1)) {
             console.log('Show events task finished.');
             $('.main-info-section').show();
             this.enableDefaultScrolling();
@@ -924,6 +928,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         $(e.target).addClass('selected-event');
       } else if ($(e.target).parent().hasClass('visible')) {
         $(e.target).parent().addClass('selected-event');
+      } else {
+        $(e.target).parent().parent().addClass('selected-event');
       }
     }, 20)
     setTimeout(() => {
