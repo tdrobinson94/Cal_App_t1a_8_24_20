@@ -15,7 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
   constructor(private dataService: EventDataService, private cookieService: CookieService) {
-
+    this.getEvents();
   }
 
   // Date variables
@@ -107,7 +107,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   gestureVibration = 2;
 
   ngOnInit() {
-    this.getEvents();
+    // this.getEvents();
     this.createCalendarGrid();
   }
 
@@ -795,18 +795,18 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     if (typeof Worker !== 'undefined') {
       // Create a new
       const worker = new Worker('./calendar.worker', { type: 'module' });
-      worker.onmessage = ({ data }) => {
-        this.loading = true;
-        this.events = JSON.parse(data);
-        console.log('Get events task finished.');
-
-        this.showEvents();
-      };
 
       this.dataService.getEvents()
       .subscribe((response) => {
           worker.postMessage(response);
         });
+
+      worker.onmessage = ({ data }) => {
+        this.loading = true;
+        this.events = JSON.parse(data);
+        console.log('Get events task finished.');
+        this.showEvents();
+      };
     } else {
       // Web workers are not supported in this environment.
       // You should add a fallback so that your program still executes correctly.
@@ -845,11 +845,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
           itemtype: this.events[i].itemtype
         }
       }
-      if (i === (this.events.length - 1)) {
-        this.singleMonthEvents = singleMonthEvents.filter(event => event);
-        console.log('Filter events task finsihed.');
-      }
     } 
+
+    this.singleMonthEvents = singleMonthEvents.filter(event => event);
+    console.log('Filter events task finsihed.');
   }
 
   async showEvents() {
@@ -861,8 +860,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     console.log('Show events task started');
     setTimeout(() => {
       if (this.singleMonthEvents !== undefined) {
-        for (i = 0; i < this.singleMonthEvents.length; i++) {
-          for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+          for (i = 0; i < this.singleMonthEvents.length; i++) {
             const day = $(weeks[dayIndex - 1]);
             let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
     
@@ -873,19 +872,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
                 this.eachDayEventsCount();
             } 
           }
-  
-          if (i === (this.singleMonthEvents.length - 1)) {
-            console.log('Show events task finished.');
-            $('.main-info-section').show();
-            this.enableDefaultScrolling();
-            $('.current-day').addClass('bouncing');
-            this.loading = false;
-          }
         }
-      } else {
-        this.loading = false;
-        $('.main-info-section').show();
-      }
+      } 
+
+      console.log('Show events task finished.');
+      $('.main-info-section').show();
+      this.enableDefaultScrolling();
+      $('.current-day').addClass('bouncing');
+      this.loading = false;
     }, 20);
   }
 
