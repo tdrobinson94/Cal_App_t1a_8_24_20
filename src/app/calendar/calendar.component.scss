@@ -202,8 +202,7 @@
             overflow: hidden;
 
             .day-box {
-
-                width: 14%;
+                width: calc(14.2857142857% - 2px);
                 height: 100%;
                 transition: height .3s ease !important;
                 position: relative;
@@ -306,10 +305,6 @@
 
                         @media screen and (min-width: $end-small) {
                             height: calc(100% - 65px);
-                        }
-
-                        @media screen and (max-height: 600px) {
-                            height: calc(100% - 130px);
                         }
     
                         @media screen and (min-height: 800px) and (max-width: $end-small) {
@@ -633,7 +628,7 @@
                             height: auto !important;
                             overflow: initial !important;
                             text-align: left;
-                            width: 70%;
+                            width: 80%;
                             margin: 5px auto;
                             padding: 2px 4% 4px;
                             pointer-events: all;
