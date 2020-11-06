@@ -203,7 +203,7 @@
 
             .day-box {
 
-                width: 14.2%;
+                width: 14%;
                 height: 100%;
                 transition: height .3s ease !important;
                 position: relative;
@@ -482,12 +482,6 @@
                     box-shadow: 5px 5px 40px black;
                     overflow-y: auto;
                     overflow-x: hidden;
-
-                    @media screen and (min-width: $end-small) {
-                        top: 20%;
-                        height: 60%;
-                        border-radius: 5px;
-                    }
 
                     button.close-day {
                         display: inline;
@@ -1072,7 +1066,6 @@
         box-shadow: 2px 5px 15px black;
         cursor: pointer;
 
-
         @media screen and (max-width: $end-small) {
             &.moved {
                 display: flex;
@@ -1088,6 +1081,9 @@
         @media screen and (min-width: $end-small) {
             right: 50%;
             transform: translateX(50%);
+            &.moved {
+                bottom: 7%;
+            }
         }
     }
 
@@ -1131,6 +1127,9 @@
             overflow: hidden;
             border-radius: 100%;
             max-width: 800px;
+            &.moved {
+                bottom: 8.5%;
+            }
         }
 
         &.show-form {
@@ -1154,10 +1153,8 @@
                 bottom: 50%;
                 right: 50%;
                 transform: translate(50%, 50%);
-                height: 60%;
                 width: 100%;
                 max-width: 800px;
-                border-radius: 5px;
                 animation: none;
                 box-shadow: 5px 5px 40px black;
             }

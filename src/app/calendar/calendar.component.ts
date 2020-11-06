@@ -366,7 +366,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.selectedDay();
 
     if (this.events !== undefined) {
-      this.filterEvents();
       this.showEvents();
     }
     //show popup background because we are in day view
@@ -894,13 +893,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
                 this.eachDayEventsCount();
             } 
           }
+
+          if (dayIndex === 42) {
+            console.log('Show events task finished.');
+            $('.main-info-section').show();
+            this.enableDefaultScrolling();
+            $('.current-day').addClass('bouncing');
+          }
         }
       } 
-
-      console.log('Show events task finished.');
-      $('.main-info-section').show();
-      this.enableDefaultScrolling();
-      $('.current-day').addClass('bouncing');
       this.loading = false;
     }, 20);
   }
