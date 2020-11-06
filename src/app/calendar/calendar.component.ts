@@ -224,7 +224,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       let numBox = day.find('.num-box');
       let dateValue = day.find('.date-value');
       let numDate = day.find('.num-date');
-      let dateValues = [];
 
       // if current month and year find the current day and style it
       if (this.clock.getDate() === dayIndex && this.clock.getMonth() ==
