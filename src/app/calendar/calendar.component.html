@@ -48,7 +48,7 @@
                 </button>
                 <div class="main-info-section">
                     <div class="event-container" *ngFor="let event of singleMonthEvents">
-                        <div class="event" [ngClass]="{showing: visible}" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency" (click)="selectEvent($event)">
+                        <div class="event" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency" (click)="selectEvent($event)">
                             <p class="event-details title">
                                 {{event.eventtitle}}
                             </p>
