@@ -700,7 +700,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     }
   }
 
-  enableDefaultScrolling() {}
+  enableDefaultScrolling() {
+    if ($('.double-click .visible-parent').last().position() !== undefined) {
+      if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
+        $('.double-click .main-info-section').addClass('normal-scrolling');
+      }
+    }
+  }
 
   clickonDay(e) {
     $('.add-item-form').removeClass('show-form');
@@ -766,11 +772,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       setTimeout(() => {
         $('.double-click').find('.main-info-section').addClass('animate-events-two');
       }, 250);
-      if ($('.double-click .visible-parent').last().position() !== undefined) {
-        if ($('.double-click .main-info-section').height() <= $('.double-click .visible-parent').last().position().top) {
-          $('.double-click .main-info-section').addClass('normal-scrolling');
-        }
-      } 
+      
+      this.enableDefaultScrolling();
     }
   }
 
