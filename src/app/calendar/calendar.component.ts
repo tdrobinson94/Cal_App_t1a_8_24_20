@@ -28,6 +28,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   openform = false;
   hideFormButton = false;
   makeEventVisible = false;
+  dateValue: any;
 
   // Calendar variables
   rows: any = [];
@@ -882,12 +883,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       if (this.singleMonthEvents !== undefined) {
         for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
           const day = $(weeks[dayIndex - 1]);
-          day.find('.event-count').empty().hide();
-          let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+          // this.dateValue = day.find('.date-value').html();
+          // console.log(this.dateValue);
           for (i = 0; i < this.singleMonthEvents.length; i++) {
             if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
-                event.addClass('visible').parent().addClass('visible-parent');
-                this.eachDayEventsCount();
+              day.find('.event-count').empty().hide();
+              let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+              event.addClass('visible').parent().addClass('visible-parent');
+              this.eachDayEventsCount();
             } 
           }
 
@@ -900,7 +903,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         }
       } 
       this.loading = false;
-    }, 5);
+    }, 1);
   }
 
   // Click on an Event
