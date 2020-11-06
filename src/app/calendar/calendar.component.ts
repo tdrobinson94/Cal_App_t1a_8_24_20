@@ -51,7 +51,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   eachEvent: any;
   boxDate: any;
   isClicked = false;
-  visible = false;
 
   groupID: any = 0;
 
@@ -396,9 +395,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     }
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
-      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
-    }, 320);
+      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
+    }, 300);
   }
 
   currentClick() {
@@ -444,9 +443,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     }
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
-      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCal();
-    }, 320);
+      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
+    }, 300);
   }
 
   removeClassesForDayBox() {
@@ -873,12 +872,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     console.log('Filter events task finsihed.');
   }
 
-  async showEvents() {
+  showEvents() {
+    this.filterEvents();
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
-
-    await this.filterEvents();
     console.log('Show events task started');
     setTimeout(() => {
       if (this.singleMonthEvents !== undefined) {
@@ -886,7 +884,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
           const day = $(weeks[dayIndex - 1]);
           day.find('.event-count').empty().hide();
           let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
-          day.find('.event-count').empty().hide();
           for (i = 0; i < this.singleMonthEvents.length; i++) {
             if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
                 event.addClass('visible').parent().addClass('visible-parent');
@@ -903,7 +900,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         }
       } 
       this.loading = false;
-    }, 20);
+    }, 5);
   }
 
   // Click on an Event
