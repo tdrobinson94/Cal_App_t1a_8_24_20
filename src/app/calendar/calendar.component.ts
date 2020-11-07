@@ -855,7 +855,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.singleMonthEvents =  this.events.filter(event => {
       return moment(event.eventstart_date).isBefore(lastDay) && moment(event.eventstart_date).isAfter(firstDay); 
     })
-    
+    this.loading = false;
     console.log('Filter events task finsihed.');
   }
 
@@ -888,7 +888,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
           }
         }
       } 
-      this.loading = false;
     }, 1);
   }
 
