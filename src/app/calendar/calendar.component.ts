@@ -224,6 +224,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       let numBox = day.find('.num-box');
       let dateValue = day.find('.date-value');
       let numDate = day.find('.num-date');
+      let dayBox = day.find('.day-box');
 
       // if current month and year find the current day and style it
       if (this.clock.getDate() === dayIndex && this.clock.getMonth() ==
@@ -832,7 +833,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
             itemtype: response[i].item_type.toString()
           };
         }
-        this.events = eventlist;
         console.log('Get events task finished.');
         this.showEvents();
       });
@@ -841,8 +841,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   filterEvents() {
     console.log('Filter events task started.');
-    let i;
-    let singleMonthEvents = [];
     let prevDays = $('.prev-month-days').length;
     let nextDays = $('.next-month-days').length;
     const lastDayBox = $('.last-day-box').find('.date-value').html();
@@ -854,26 +852,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     const lastDay = moment(lastDayBox).add(nextDays, 'days');
     const firstDay = moment(firstDayBox).subtract(prevDays, 'days');
 
-    for (i = 0; i < this.events.length; i++) {
-      let forecast_date = moment(this.events[i].eventstart_date);
-      if (forecast_date.isBefore(lastDay) && forecast_date.isAfter(firstDay)) {
-        singleMonthEvents[i] = {
-          eventid: this.events[i].eventid,
-          eventtitle: this.events[i].eventtitle,
-          eventstart_date: this.events[i].eventstart_date,
-          eventend_date: this.events[i].eventend_date,
-          eventdesc: this.events[i].eventdesc,
-          eventlocation: this.events[i].eventlocation,
-          eventfrequency: this.events[i].eventfrequency,
-          eventstart_time: moment(this.events[i].eventstart_time, 'HH:mm:ss').format('h:mm A'),
-          eventend_time: moment(this.events[i].eventend_time, 'HH:mm:ss').format('h:mm A'),
-          eventcreatedAt: moment(this.events[i].eventcreated_at).format(),
-          itemtype: this.events[i].itemtype
-        }
-      }
-    } 
-
-    this.singleMonthEvents = singleMonthEvents.filter(event => event);
+    this.singleMonthEvents =  this.events.filter(event => {
+      return moment(event.eventstart_date).isBefore(lastDay) && moment(event.eventstart_date).isAfter(firstDay); 
+    })
+    
     console.log('Filter events task finsihed.');
   }
 
