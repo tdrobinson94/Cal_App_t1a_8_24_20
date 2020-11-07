@@ -795,7 +795,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
-    this.loading = true;
+    this.loading = false;
     console.log('Get events task started');
 
     if (typeof Worker !== 'undefined') {
@@ -862,18 +862,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   showEvents() {
     this.filterEvents();
-    let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
-    let prevDays = $('.prev-month-days').length;
-    let nextDays = $('.next-month-days').length;
-    const lastDayBox = $('.last-day-box').find('.date-value').html();
-    const firstDayBox = $('.first-day-box').find('.date-value').html();
-    prevDays = prevDays + 1;
-    nextDays = nextDays + 1;
-
-    const lastDay = moment(lastDayBox).add(nextDays, 'days');
-    const firstDay = moment(firstDayBox).subtract(prevDays, 'days');
     console.log('Show events task started');
     setTimeout(() => {
       if (this.singleMonthEvents !== undefined) {
