@@ -954,15 +954,15 @@
 
                 @keyframes swipeRightBounce {
                     0%   { left: -100% }
-                    70%  { left: 0 }
-                    85%  { left: 10px }
+                    85%  { left: 0 }
+                    90%  { left: 10px }
                     100% { left: 0 }
                 }
 
                 @keyframes swipeLeftBounce {
                     0%   { right: -100% }
-                    70%  { right: 0 }
-                    85%  { right: 10px }
+                    85%  { right: 0 }
+                    90%  { right: 10px }
                     100% { right: 0 }
                 }
 

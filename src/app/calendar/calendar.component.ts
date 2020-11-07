@@ -47,6 +47,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   events: any;
   singleMonthEvents: any;
+  eachDayEvents: any;
   nextMonthEvents: any;
   prevMonthEvents: any;
   eachEvent: any;
@@ -463,10 +464,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $('.day-box').removeClass('clicked-day');
       $('.first-day').parent().addClass('clicked-day double-click swipe-left');
       $('.double-click').find('.main-info-section').addClass('animate-events-one');
-    }, 350);
+    }, 300);
     setTimeout(() => {
       $('.double-click').find('.main-info-section').addClass('animate-events-two');
-    }, 400);
+    }, 350);
   }
 
   swipeNextEndOfRow() {
@@ -563,10 +564,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $('.day-box').removeClass('clicked-day');
       $('.last-day').parent().addClass('clicked-day double-click swipe-right');
       $('.double-click').find('.main-info-section').addClass('animate-events-one');
-    }, 350);
+    }, 300);
     setTimeout(() => {
       $('.double-click').find('.main-info-section').addClass('animate-events-two');
-    }, 400);
+    }, 350);
   }
 
   swipePrevEndOfRow() {
@@ -790,7 +791,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       } else if (day.find('.visible-parent').length !== 0) {
         day.find('.event-count').html(day.find('.visible-parent').length).show();
       }
-
     }
   }
 
@@ -868,24 +868,21 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     console.log('Show events task started');
     setTimeout(() => {
       if (this.singleMonthEvents !== undefined) {
-        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-          const day = $(weeks[dayIndex - 1]);
           this.singleMonthEvents.forEach(event => {
-            if (day.find('.date-value').html() === event.eventstart_date) {
-              day.find('.event-count').empty().hide();
-              let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
-              event.addClass('visible').parent().addClass('visible-parent');
-              this.eachDayEventsCount();
+            for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+              const day = $(weeks[dayIndex - 1]);
+              if (day.find('.date-value').html() === event.eventstart_date) {
+                day.find('.event-count').empty().hide();
+                let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
+                event.addClass('visible').parent().addClass('visible-parent');
+                this.eachDayEventsCount();
+              }
             }
           })
-
-          if (dayIndex === 42) {
-            console.log('Show events task finished.');
-            $('.main-info-section').show();
-            this.enableDefaultScrolling();
-            $('.current-day').addClass('bouncing');
-          }
-        }
+          console.log('Show events task finished.');
+          $('.main-info-section').show();
+          this.enableDefaultScrolling();
+          $('.current-day').addClass('bouncing');
       } 
     }, 1);
   }
