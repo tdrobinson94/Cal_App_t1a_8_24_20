@@ -833,6 +833,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
             itemtype: response[i].item_type.toString()
           };
         }
+        this.events = eventlist;
         console.log('Get events task finished.');
         this.showEvents();
       });
@@ -864,21 +865,28 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     let i;
     let dayIndex;
     const weeks = $(document).find('.weeks').children();
+    let prevDays = $('.prev-month-days').length;
+    let nextDays = $('.next-month-days').length;
+    const lastDayBox = $('.last-day-box').find('.date-value').html();
+    const firstDayBox = $('.first-day-box').find('.date-value').html();
+    prevDays = prevDays + 1;
+    nextDays = nextDays + 1;
+
+    const lastDay = moment(lastDayBox).add(nextDays, 'days');
+    const firstDay = moment(firstDayBox).subtract(prevDays, 'days');
     console.log('Show events task started');
     setTimeout(() => {
       if (this.singleMonthEvents !== undefined) {
         for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
           const day = $(weeks[dayIndex - 1]);
-          // this.dateValue = day.find('.date-value').html();
-          // console.log(this.dateValue);
-          for (i = 0; i < this.singleMonthEvents.length; i++) {
-            if (day.find('.date-value').html() === this.singleMonthEvents[i].eventstart_date) {
+          this.singleMonthEvents.forEach(event => {
+            if (day.find('.date-value').html() === event.eventstart_date) {
               day.find('.event-count').empty().hide();
               let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
               event.addClass('visible').parent().addClass('visible-parent');
               this.eachDayEventsCount();
-            } 
-          }
+            }
+          })
 
           if (dayIndex === 42) {
             console.log('Show events task finished.');
