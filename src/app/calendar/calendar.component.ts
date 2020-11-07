@@ -367,10 +367,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
-
-    if (this.events !== undefined) {
-      this.showEvents();
-    }
     //show popup background because we are in day view
     if ($('.day-box').hasClass('double-click')) {
       $('.popup-background').show();
@@ -398,8 +394,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       }
     }
     $('.calendar-container').addClass('cal-swipe-left');
+    this.changeCal();
     setTimeout(() => {
-      this.changeCal();
+      this.showEvents();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 300);
   }
@@ -428,6 +425,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       year.val(this.currentYear).change();
 
       this.changeCal();
+      this.showEvents();
     }
   }
 
@@ -446,8 +444,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       }
     }
     $('.calendar-container').addClass('cal-swipe-right');
+    this.changeCal();
     setTimeout(() => {
-      this.changeCal();
+      this.showEvents();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 300);
   }
@@ -464,10 +463,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $('.day-box').removeClass('clicked-day');
       $('.first-day').parent().addClass('clicked-day double-click swipe-left');
       $('.double-click').find('.main-info-section').addClass('animate-events-one');
-    }, 300);
+    }, 350);
     setTimeout(() => {
       $('.double-click').find('.main-info-section').addClass('animate-events-two');
-    }, 350);
+    }, 370);
   }
 
   swipeNextEndOfRow() {
@@ -564,10 +563,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       $('.day-box').removeClass('clicked-day');
       $('.last-day').parent().addClass('clicked-day double-click swipe-right');
       $('.double-click').find('.main-info-section').addClass('animate-events-one');
-    }, 300);
+    }, 350);
     setTimeout(() => {
       $('.double-click').find('.main-info-section').addClass('animate-events-two');
-    }, 350);
+    }, 370);
   }
 
   swipePrevEndOfRow() {
