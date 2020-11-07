@@ -795,7 +795,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   getEvents() {
-    this.loading = false;
+    this.loading = true;
     console.log('Get events task started');
 
     if (typeof Worker !== 'undefined') {
@@ -810,6 +810,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
       worker.onmessage = ({ data }) => {
         this.events = JSON.parse(data);
         console.log('Get events task finished.');
+        this.loading = false;
         this.showEvents();
       };
     } else {
@@ -835,6 +836,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
         }
         this.events = eventlist;
         console.log('Get events task finished.');
+        this.loading = false;
         this.showEvents();
       });
     }
@@ -856,7 +858,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.singleMonthEvents =  this.events.filter(event => {
       return moment(event.eventstart_date).isBefore(lastDay) && moment(event.eventstart_date).isAfter(firstDay); 
     })
-    this.loading = false;
     console.log('Filter events task finsihed.');
   }
 
@@ -1002,7 +1003,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
 
   // Delete an event
   deleteEvent(e) {
-    this.loading = true;
     // On click set the value of the form with the value of the button
     this.updateItemForm = new FormGroup({
       user_id: new FormControl(''),
@@ -1301,7 +1301,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   submitEvent() {
-    this.loading = true;
     console.log(this.addItemForm.value);
     this.dataService.createEvent(this.addItemForm.value)
       .subscribe((response) => {
@@ -1312,7 +1311,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   updateEvent() {
-    this.loading = true;
     console.log(this.updateItemForm.value);
     this.dataService.updatedEvent(this.updateItemForm.value)
       .subscribe((response) => {
