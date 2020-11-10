@@ -1,11 +1,11 @@
 <div id="calendar-wrapper" class="calendar-wrapper">
     <div class="calendar-navbar">
         <div class="controls">
-            <select name="select" class="month-selector selector" id="month" (change)="changeCal()">
+            <select name="select" class="month-selector selector" id="month" (change)="changeCalSelectors()">
                 <option *ngFor="let month of monthSelectorOptions" value="{{month.num}}"
                     [selected]="month.num === currentMonth">{{month.name}}</option>
             </select>
-            <select name="select" class="year-selector selector" id="year" (change)="changeCal()">
+            <select name="select" class="year-selector selector" id="year" (change)="changeCalSelectors()">
                 <option *ngFor="let year of yearSelectorOptions" value="{{year}}" [selected]="year === currentYear">
                     {{year}}</option>
             </select>

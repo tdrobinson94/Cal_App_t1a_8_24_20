@@ -352,6 +352,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     }
   }
 
+  changeCalSelectors() {
+    this.changeCal();
+    if (this.events !== undefined) {
+      this.showEvents();
+    }
+  }
+
   changeCal() {
     $('.current-day').removeClass('bouncing');
     $('.update-event-form').removeClass('show-update-form');
@@ -377,10 +384,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     // Save the current viewing month and year
     sessionStorage.setItem('cachedMonth', $(document).find('#month').val());
     sessionStorage.setItem('cachedYear', $(document).find('#year').val())
-
-    if (this.events !== undefined) {
-      this.showEvents();
-    }
   }
 
   prevClick() {
@@ -400,7 +403,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     $('.calendar-container').addClass('cal-swipe-left');
     this.changeCal();
     setTimeout(() => {
-      // this.showEvents();
+      this.showEvents();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 300);
   }
@@ -450,7 +453,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     $('.calendar-container').addClass('cal-swipe-right');
     this.changeCal();
     setTimeout(() => {
-      // this.showEvents();
+      this.showEvents();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     }, 300);
   }
@@ -871,17 +874,17 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     console.log('Show events task started');
     setTimeout(() => {
       if (this.singleMonthEvents !== undefined) {
-        for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
-          const day = $(weeks[dayIndex - 1]);
-          this.singleMonthEvents.forEach(event => {
+        this.singleMonthEvents.forEach(event => {
+          for (dayIndex = 0; dayIndex <= 42; dayIndex++) {
+            const day = $(weeks[dayIndex - 1]);
             if (day.find('.date-value').html() === event.eventstart_date) {
               day.find('.event-count').empty().hide();
               let event = day.find('.event[startDate="' + day.find('.date-value').html() + '"]');
               event.addClass('visible').parent().addClass('visible-parent');
               this.eachDayEventsCount();
             }
-          })
-        }
+          }
+        });
         console.log('Show events task finished.');
         $('.main-info-section').show();
         this.enableDefaultScrolling();
