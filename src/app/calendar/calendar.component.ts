@@ -374,6 +374,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     this.renderPrevMonthDays();
     this.renderMonth();
     this.selectedDay();
+
     //show popup background because we are in day view
     if ($('.day-box').hasClass('double-click')) {
       $('.popup-background').show();
@@ -403,8 +404,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     $('.calendar-container').addClass('cal-swipe-left');
     this.changeCal();
     setTimeout(() => {
-      this.showEvents();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
+      this.showEvents();
     }, 300);
   }
 
@@ -453,8 +454,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
     $('.calendar-container').addClass('cal-swipe-right');
     this.changeCal();
     setTimeout(() => {
-      this.showEvents();
       $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
+      this.showEvents();
     }, 300);
   }
 
@@ -870,6 +871,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentIni
   showEvents() {
     this.filterEvents();
     let dayIndex;
+    let monthEventsArray = [];
     const weeks = $(document).find('.weeks').children();
     console.log('Show events task started');
     setTimeout(() => {
