@@ -293,6 +293,27 @@
                         }
                     }
                 }
+
+                form {
+                    display: none;
+
+                    &.closed {
+                        position: fixed;
+                        top: 110% !important;
+                        transition: all .3s ease;
+
+                        @media screen and (min-width: $end-small) {
+                            top: 0 !important;
+                            right: -110% !important;
+                            transition: all .3s ease;
+                        }
+
+                        .submit-buttons {
+                            bottom: -110% !important;
+                            transition: all .2s ease;
+                        }
+                    }
+                }
             }
 
             &.disabled {
@@ -325,11 +346,263 @@
                 .number {
                     margin-top: 5px;
                     margin-bottom: 10px;
+
+                    &.event-opened {
+                        @media screen and (min-width: $end-small) {
+                            width: 50%;
+                            transition: all .3s ease;
+
+                            -webkit-transform: translateZ(0);
+                            -moz-transform: translateZ(0);
+                            -ms-transform: translateZ(0);
+                            -o-transform: translateZ(0);
+                            transform: translateZ(0);
+
+                            transition: all 0.3s ease;
+                            -moz-transition: all .3s ease;
+                            -webkit-transition: all .3s ease;
+                            -o-transition: all .3s ease;
+                        }
+                    }
                 }
 
                 .transactions {
-                    height: 88%;
-                    overflow: auto;
+                    top: 42px;
+                    overflow-y: auto;
+
+                    @media screen and (min-width: $end-small) {
+                        width: 100%;
+                        margin: 0;
+                    }
+
+                    form {
+                        padding: 5px 0;
+                        @media screen and (max-width: $end-small) {
+                            padding-bottom: 15px;
+                        }
+                    }
+
+                    .update-event-form {
+
+                        &.show-update-form {
+                            display: block;
+                            position: absolute;
+                            top: 0;
+                            width: 100%;
+                            bottom: 0;
+                            overflow: auto;
+                            background: $background;
+                            padding: 0;
+                            animation-name: grow-2;
+                            animation-duration: .2s;
+                            animation-timing-function: ease;
+                            overscroll-behavior: none;
+
+                            transition: all 0.3s ease;
+                            -moz-transition: all .3s ease;
+                            -webkit-transition: all .3s ease;
+                            -o-transition: all .3s ease;
+
+                            @media screen and (min-width: $end-small) {
+                                top: 0px;
+                                right: 0;
+                                border-radius: 0 5px 5px 0;
+                                height: calc(99% - 0px);
+                                width: 50%;
+                                animation-name: slide-left;
+                                animation-duration: .2s;
+                                animation-timing-function: ease;
+                            }
+
+                            .form-nav-bar {
+                                position: sticky;
+                                top: -1px;
+                                background: $background;
+                                h2 {
+                                    padding: 0 13px 4%;
+                                    margin: 0 0 15px;
+
+                                    input {
+                                        color: #fff;
+                                        font-size: 25px;
+                                        background: $background;
+                                        border: 0;
+                                        outline: 0;
+                                        font-family: "Noto Sans", sans-serif;
+                                        width: calc(100% - 40px);
+                                    }
+
+                                }
+
+                                .mobile-hide-helpers {
+                                    &:before {
+                                        display: none;
+                                    }
+                                }
+
+                                .close-form {
+                                    position: absolute;
+                                    display: inline;
+                                    top: 5px;
+                                    right: 1%;
+                                    background: transparent;
+                                    border-radius: 5px;
+                                    border: 0;
+                                    cursor: pointer;
+                                    color: $textwht;
+
+                                    &:before {
+                                        font-size: 20px;
+                                        height: 30px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+
+                                    &:active {
+                                        color: $textdrk;
+                                    }
+
+                                    &.mobile {
+                                        top: 10px;
+            
+                                        span {
+                                            font-size: 35px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .input-wrapper {
+                                margin: 0 4%;
+
+                                @media screen and (min-width: $end-small) {
+                                    margin: 0 6%;
+                                }
+
+                                &.invisible {
+                                    visibility: hidden;
+                                    height: 0;
+                                    width: 0;
+                                }
+                            }
+
+                            label {
+                                display: block;
+                                margin: 0;
+                                padding: 0;
+                                width: 100%;
+                                font-weight: bold;
+                                font-size: 15px;
+                                color: $textdrk;
+                            }
+
+                            select, .date-input-update input, .date-input-end-update input, .time-input-end-update input, .item-title-update input , .event-description-update textarea, .amount-input-update input, .location-input-update input, .time-input-update input {
+                                width: 100%;
+                                padding: 10px 0;
+                                border: 0;
+                                border-bottom: 1px solid #252525;
+                                margin: 10px 0;
+                                -webkit-box-sizing: border-box;
+                                -moz-box-sizing: border-box;
+                                box-sizing: border-box;
+                                font-size: 15px;
+                                transition: all .3s ease;
+                                background: $background;
+                                color: $textdrk;
+
+                                &:focus, &:active {
+                                    border: 0;
+                                    border-bottom: 1px solid $primary;
+                                    outline: 0;
+                                    transition: all .3s ease;
+                                    font-size: 16px;
+                                }
+                                &:-internal-autofill-selected {
+                                    box-shadow: inset 0 0 0 100px transparent;
+                                }
+                            }
+
+                            .time-all-day {
+                                &::after {
+                                    display: block;
+                                    content: "";
+                                    clear: both;
+                                }
+                                input {
+                                    float: right;
+                                    width: auto;
+                                }
+                                label {
+                                    width: auto;
+                                    float: right;
+                                }
+                            }
+
+                            textarea {
+                                height: 75px;
+                            }
+
+                            .submit-buttons {
+                                position: sticky;
+                                flex-direction: row-reverse;
+                                display: flex;
+                                justify-content: center;
+                                bottom: 0;
+                                background: $background;
+                                width: 100%;
+                                margin: 0;
+
+                                .submit-form, .delete-event {
+                                    background-color: $background;
+                                    color: $textwht;
+                                    padding: 20px 0;
+                                    border: 0;
+                                    font-size: 20px;
+                                    width: 50%;
+                                    transition: all .3s ease;
+
+                                    &:disabled {
+                                        opacity: .3;
+                                        transition: all .3s ease;
+                                    }
+
+                                    &:hover, &:focus {
+                                        opacity: .5;
+                                        transition: all .3s ease;
+                                    }
+                                }
+                            }
+
+                            &::-webkit-scrollbar {
+                                width: 2px;
+                            }
+                            &::-webkit-scrollbar-track {
+                                background: transparent;
+                            }
+                            &::-webkit-scrollbar-thumb {
+                                background: rgba(0, 0, 0, .2);
+                                border-radius: 50px;
+                            }
+                            &::-webkit-scrollbar-thumb:hover {
+                                background: rgba(126, 93, 93, 0.7); 
+                            }
+                        }
+
+                        @keyframes grow-2 {
+                            0%   { top: 100% }
+                            30%  { top: 0 }
+                            70%  { top: 10px }
+                            100% { top: 0 }
+                        }
+
+                        @keyframes slide-left {
+                            0%   { right: -100% }
+                            30%  { right: 0 }
+                            70%  { right: 10px }
+                            100% { right: 0 }
+                        }
+                    }
                 }
 
                 .event {
@@ -342,8 +615,16 @@
                     pointer-events: all;
                     color: $textdrk;
 
-                    @media screen and (min-width: $mid-small) {
-                        margin: 5px 7.5%;
+                    @media screen and (min-width: $end-small) {
+                        width: calc(50% - (4% + 18px));
+                        margin: 0 0 3px 8px !important;
+                        padding: 2px 0 4px 4% !important; 
+                    }
+
+                    &.selected {
+                        background: rgba(255,0,0,.7);
+                        border-radius: 5px;
+                        transition: all .3s ease;
                     }
 
                     .event-details {
