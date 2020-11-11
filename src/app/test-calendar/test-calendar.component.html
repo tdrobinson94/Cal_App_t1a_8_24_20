@@ -39,6 +39,43 @@
                 'selected-day': currentDay == day.day && currentMonthCheck == day.month || firstDay == day.day && currentMonthCheck != selectedMonth && selectedMonth == day.month
             }">
                 <span class="number">{{day.day}}</span>
+                <p class="balance">Beg Bal</p>
+
+                <div class="transactions" [attr.date]="day.date">
+                    <ng-container *ngFor="let event of getAllEvents">
+                        <div class="event" *ngIf="day.date === event.eventstart_date" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency">
+                            <p class="event-details title">
+                                {{event.eventtitle}}
+                            </p>
+                            <p class="event-details description">
+                                {{event.eventdesc}}
+                            </p>
+                            <p class="event-details location">
+                                {{event.eventlocation}}
+                            </p>
+
+                            <p class="event-details frequency">
+                                {{event.eventfrequency}}
+                            </p>
+
+                            <p class="event-details time">
+                                <span>{{event.eventstart_time}}</span> - <span>{{event.eventend_time}}</span>
+                            </p>
+
+                            <p class="event-details end">
+                                {{event.eventend_date}}
+                            </p>
+                            <button class="delete-event hidden" (click)="deleteEvent($event)"
+                            value="{{event.eventid}}">Delete</button>
+
+                            <p class="event-details item-type">
+                                {{event.itemtype}}
+                            </p>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <p class="balance">End Bal</p>
             </div>
         </ng-container>
 

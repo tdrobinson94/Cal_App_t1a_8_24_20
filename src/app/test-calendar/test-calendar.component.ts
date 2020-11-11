@@ -112,24 +112,24 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       if (i < 10) {
         i = '0' + i;
         this.month.push({
-          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i, 'YYYY/MM/DD'), 
+          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
           "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
           "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
           "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
         });
       } else if (i >= 10 && i <= monthDays) {
         this.month.push({
-          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i, 'YYYY/MM/DD'), 
+          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
           "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
           "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
           "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
         });
       } else if (i > monthDays && i <= (monthDays + nextMonthDayCount)) {
         this.month.push({
-          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays, 'YYYY/MM/DD').add((i - monthDays), 'days'),
+          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
           "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).format('D'),
-          "month": moment(selectedYear + '-' + (Number(selectedMonth) + 2) + '-' + (i - monthDays)).format('M'),
-          "year": moment(selectedYear + '-' + (Number(selectedMonth) + 2) + '-' + (i - monthDays)).format('Y')
+          "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('M'),
+          "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('Y')
         });
       } 
 
@@ -148,7 +148,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         });
       }
     }
-    // console.log(this.month);
+    console.log(this.month);
   }
 
   changeCalSelectors() {
@@ -252,7 +252,6 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       worker.onmessage = ({ data }) => {
         this.getAllEvents = JSON.parse(data);
         console.log(this.getAllEvents);
-        this.filterEvents();
         console.log('Get events task finished.');
       }
     } else {
@@ -282,44 +281,5 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
-  filterEvents() {
-    console.log('Filter events task started.');
-    let prevDays = $('.prev-month-days').length;
-    let nextDays = $('.next-month-days').length;
-    const lastDayBox = $('#year').val() + '-' + this.selectedMonth + '-' + $('.last-day-box').find('.number').html();
-    const firstDayBox = $('#year').val() + '-' + this.selectedMonth + '-' + $('.first-day-box').find('.number').html();
-
-    prevDays = prevDays + 1;
-    nextDays = nextDays + 1;
-
-    const lastDay = moment(lastDayBox).add(nextDays, 'days');
-    const firstDay = moment(firstDayBox).subtract(prevDays, 'days');
-
-    this.singleMonthEvents =  this.getAllEvents.filter(event => {
-      return moment(event.eventstart_date).isBefore(lastDay) && moment(event.eventstart_date).isAfter(firstDay); 
-    })
-    console.log(this.singleMonthEvents);
-    console.log('Filter events task finsihed.');
-  }
-
-  // showEvents() {
-  //   let dayIndex;
-  //   let monthEventsArray = [];
-  //   const weeks = $(document).find('.weeks').children();
-  //   console.log('Show events task started');
-  //   setTimeout(() => {
-  //     if (this.singleMonthEvents !== undefined) {
-  //       // console.log(this.singleMonthEvents)
-  //       for (var i = 0; i <= this.getEachMonthDays.length; i++) {
-  //         monthEventsArray.push(this.singleMonthEvents.filter(event => {
-  //           return this.getEachMonthDays[i] === event.eventstart_date;
-  //         }))
-  //       }
-  //       console.log(monthEventsArray);
-  //       this.eachDayEvents = monthEventsArray;
-  //     } 
-  //   }, 1);
-  // }
 
 }

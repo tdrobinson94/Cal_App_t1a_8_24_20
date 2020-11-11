@@ -170,6 +170,7 @@
             width: calc(14.2857142857% - 2px);
             height: calc(15.7% - 2px);
             border: 1px solid transparent;
+            overflow: hidden;
 
             @media screen and (min-height: 400px) {
                 height: calc(15% - 2px);
@@ -215,6 +216,73 @@
                 height: calc(16.4% - 2px);
             }
 
+            .transactions {
+                height: 55%;
+                overflow: hidden;
+                width: 85%;
+                margin: auto;
+    
+                .event {
+                    font-size: 8px;
+                    cursor: pointer;
+                    height: 12px;
+                    overflow: hidden;
+                    margin: 0 0 3px;
+                    padding: 2px 0 0 4%;
+                    transition: all .2s ease;
+                    position: relative;
+                    border-left: 2px solid rgba(255,0,0,.8);
+    
+                    @media screen and (min-width: $mid-small) {
+                        text-align: left;
+                        font-size: 9px;
+                        height: 13px;
+                    }
+    
+                    .event-details {
+                        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                        -webkit-tap-highlight-color: transparent;
+                        -webkit-touch-callout: none;
+                        -webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                        outline: none !important;
+    
+                        &.title {
+                            margin-top: 0;
+    
+                            span {
+                                display: none;
+                            }
+                        }
+                    }
+    
+                    button {
+                        display: none;
+                        background-color: $primary;
+                        color: $textwht;
+                        border-radius: 5px;
+                        border: 0;
+                        font-size: 12px;
+    
+                        &:hover {
+                            color: $textwht;
+                        }
+    
+                        &.edit-event {
+                            background-color: rgba(0, 0, 0, .8);
+                            transition: all .3s ease;
+                        }
+    
+                        &.delete-event {
+                            transition: all .4s ease;
+                        }
+                    }
+                }
+            }
+
             &.disabled {
                 opacity: .3;
                 pointer-events: none;
@@ -241,6 +309,73 @@
                 background: $background;
                 max-width: 800px;
                 border-radius: 10px;
+
+                .transactions {
+                    height: 90%;
+                }
+
+                .event {
+                    font-size: 16px !important;
+                    height: auto !important;
+                    overflow: initial !important;
+                    text-align: left;
+                    width: 80%;
+                    margin: 5px auto;
+                    padding: 2px 4% 4px;
+                    pointer-events: all;
+                    color: $textdrk;
+
+                    @media screen and (min-width: $mid-small) {
+                        margin: 5px 7.5%;
+                    }
+
+                    .event-details {
+                        margin: 2px 0 0 0;
+                        font-size: 11px;
+
+                        &.frequency, &.end {
+                            display: none;
+                        }
+
+                        &.location {
+                            display: none;
+                        }
+
+                        &:last-of-type {
+                            font-size: 11px;
+                            padding-bottom: 4px;
+                        }
+
+                        &.title {
+                            display: inline;
+                        }
+
+                        &.description {
+                            display: none;
+                            &:before {
+                                content: " - ";
+                            }
+                        }
+
+                        &.item-type {
+                            display: none;
+                        }
+
+                        &.title {
+                            font-weight: bold;
+                            font-size: 12px;
+
+                            span {
+                                display: inline;
+                                font-weight: initial;
+                                
+                                &:before {
+                                    content: '- '
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -271,6 +406,14 @@
             -ms-user-select: none;
             user-select: none;
             outline: none !important;
+        }
+
+        .balance {
+            font-size: 9px;
+            height: 13px;
+            overflow: hidden;
+            margin: 0;
+            text-align: center;
         }
     }
 
