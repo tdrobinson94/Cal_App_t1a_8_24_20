@@ -33,6 +33,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   nextMonth: any;
   firstDay = 1;
   lastDay: any;
+  currentDayBool = false;
 
   singleMonthEvents = [];
   getEachMonthDays: any;
@@ -153,6 +154,8 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   changeCalSelectors() {
     this.month = [];
     this.createCalendarGrid();
+
+    $('.opened-background').hide();
   }
 
   // Calendar Navigation
@@ -178,7 +181,8 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     let month = $(document).find('#month');
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
-
+      $('.day-box').removeClass('selected-day');
+      $('.current-day').addClass('selected-day');
     } else {
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();

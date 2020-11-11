@@ -240,6 +240,7 @@
                 z-index: 99;
                 background: $background;
                 max-width: 800px;
+                border-radius: 10px;
             }
         }
 
@@ -259,172 +260,17 @@
             display: block;
             margin: auto;
             text-align: center;
+            cursor: pointer;
             font-size: 10px;
-        }
-    }
-
-    .add-item-button {
-        padding: 15px;
-        position: fixed;
-        bottom: 60.9px;
-        font-size: 20px;
-        border-radius: 100%;
-        border: none;
-        background-color: $alert;
-        color: $textwht;
-        right: 20px;
-        z-index: 999;
-        transition: all .3s ease-in-out;
-        // box-shadow: 1px 1px 10px #333333;
-
-        &:hover {
-            &:before {
-                @media screen and (min-width: $mid-small) {
-                    color: #333333;
-                    opacity: .4;
-                    transition: all .2s ease-in-out;
-                }
-            }
-        }
-
-        @media screen and (min-width: $end-small) {
-            right: 50%;
-            transform: translateX(50%);
-        }
-    }
-
-
-    .add-item-container {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        height: 0;
-        width: 0;
-        transition: all .3s ease-in-out;
-        overflow: auto;
-
-        &::-webkit-scrollbar {
-            width: 4px;
-        }
-        &::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        &::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, .2);
-            border-radius: 50px;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-            background: rgba(126, 93, 93, 0.7); 
-        }
-
-        @media screen and (min-width: $end-small) {
-            right: 50% !important;
-            width: auto;
-            transform: translateX(50%);
-        }
-
-        &.show-form {
-            height: 100%;
-            width: 100%;
-            z-index: 9999;
-            background: $textwht;
-            transition: all .3s ease-in-out;
-            right: 0;
-
-            @media screen and (min-width: $end-small) {
-                bottom: 50%;
-                right: 50%;
-                transform: translate(50%, 50%);
-                height: 50%;
-                width: 100%;
-                max-width: 800px;
-                border: 1px solid #333333;
-                border-radius: 5px;
-            }
-        }
-
-        .form-nav-bar {
-            position: sticky;
-            top: 0;
-            margin: 0 4%;
-            background: $textwht;
-            h2 {
-                padding: 15px 0;
-                margin: 0;
-            }
-
-            .close-form {
-                position: absolute;
-                display: inline;
-                top: 13px;
-                right: 0;
-                background: transparent;
-                border-radius: 5px;
-                border: 0;
-                cursor: pointer;
-
-                &:before {
-                    font-size: 30px;
-                    height: 30px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-            }
-        }
-
-        .input-wrapper {
-            margin: 0 4%;
-        }
-
-        label {
-            display: block;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        select, .date-input input, .date-input-end input, .time-input-end input, .item-title input , .event-description textarea, .amount-input input, .location-input input, .time-input input {
-            width: 100%;
-            padding: 10px 0;
-            border: 0;
-            border-bottom: 1px solid #c4c7cc;
-            margin: 10px 0;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            font-size: 15px;
-            transition: all .3s ease-in-out;
-            background: transparent;
-            color: $textdrk;
-
-            &:focus, &:active {
-                border: 0;
-                border-bottom: 1px solid $primary;
-                outline: 0;
-                transition: all .3s ease-in-out;
-                font-size: 16px;
-            }
-            &:-internal-autofill-selected {
-                box-shadow: inset 0 0 0 100px transparent;
-            }
-        }
-
-        textarea {
-            height: 75px;
-        }
-
-        button.submit-form {
-            background-color: $alert;
-            color: $textwht;
-            border-radius: 10px;
-            padding: 10px;
-            border: 0;
-            font-size: 15px;
-            float: right;
-            margin: 20px 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            outline: none !important;
         }
     }
 
