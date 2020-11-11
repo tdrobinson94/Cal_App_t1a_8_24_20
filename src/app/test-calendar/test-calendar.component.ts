@@ -148,7 +148,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         });
       }
     }
-    console.log(this.month);
+    // console.log(this.month);
   }
 
   changeCalSelectors() {
@@ -251,7 +251,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
       worker.onmessage = ({ data }) => {
         this.getAllEvents = JSON.parse(data);
-        console.log(this.getAllEvents);
+        // console.log(this.getAllEvents);
         console.log('Get events task finished.');
       }
     } else {
@@ -276,7 +276,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
           };
         }
         this.getAllEvents = eventlist;
-        console.log(this.getAllEvents);
+        // console.log(this.getAllEvents);
         console.log('Get events task finished.');
       });
     }

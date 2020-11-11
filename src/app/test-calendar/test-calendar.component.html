@@ -39,7 +39,7 @@
                 'selected-day': currentDay == day.day && currentMonthCheck == day.month || firstDay == day.day && currentMonthCheck != selectedMonth && selectedMonth == day.month
             }">
                 <span class="number">{{day.day}}</span>
-                <p class="balance">Beg Bal</p>
+                <p class="balance beg">Beg Bal</p>
 
                 <div class="transactions" [attr.date]="day.date">
                     <ng-container *ngFor="let event of getAllEvents">
@@ -75,7 +75,7 @@
                     </ng-container>
                 </div>
 
-                <p class="balance">End Bal</p>
+                <p class="balance end">End Bal</p>
             </div>
         </ng-container>
 
