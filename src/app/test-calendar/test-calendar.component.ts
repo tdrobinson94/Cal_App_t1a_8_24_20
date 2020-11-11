@@ -34,6 +34,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   firstDay = 1;
   lastDay: any;
   currentDayBool = false;
+  loading = true;
 
   singleMonthEvents = [];
   getEachMonthDays: any;
@@ -99,8 +100,57 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     this.createNavBar();
   }
 
+  //Handling events
+  getEvents() {
+    console.log('Get events task started');
+
+    if (typeof Worker !== 'undefined') {
+      // Create a new
+      const worker = new Worker('../calendar/calendar.worker', { type: 'module' });
+
+      this.dataService.getEvents()
+      .subscribe((response) => {
+          worker.postMessage(response);
+        });
+
+      worker.onmessage = ({ data }) => {
+        this.getAllEvents = JSON.parse(data);
+        // console.log(this.getAllEvents);
+        console.log('Get events task finished.');
+      }
+    } else {
+      // Web workers are not supported in this environment.
+      this.dataService.getEvents()
+      .subscribe((response) => {
+        let i;
+        let eventlist = [];
+        for (i = 0; i < response.length; i++) {
+          eventlist[i] = {
+            eventid: response[i].id.toString(),
+            eventtitle: response[i].title,
+            eventstart_date: response[i].start_date.substring(0, 10),
+            eventend_date: response[i].end_date.substring(0, 10),
+            eventdesc: response[i].description,
+            eventlocation: response[i].location,
+            eventfrequency: response[i].frequency,
+            eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
+            eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
+            eventcreatedAt: moment(response[i].created_at).format(),
+            itemtype: response[i].item_type.toString()
+          };
+        }
+        this.getAllEvents = eventlist;
+        // console.log(this.getAllEvents);
+        console.log('Get events task finished.');
+      });
+    }
+  }
+
   ngAfterViewInit() {
     this.createCalendarGrid();
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   }
 
   createNavBar() {
@@ -198,12 +248,13 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   changeCalSelectors() {
     this.month = [];
     this.createCalendarGrid();
-
+    this.loading = false;
     $('.opened-background').hide();
   }
 
   // Calendar Navigation
   prevClick() {
+    this.loading = true;
     let year = $(document).find('#year');
     let month = $(document).find('#month');
     if (year.val() < (this.currentYear - 5)) {
@@ -217,7 +268,11 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         month.val(Number(month.val()) - 1).change();
       }
     }
-    this.changeCalSelectors();
+    $('.calendar-container').addClass('cal-swipe-left');
+    setTimeout(() => {
+      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
+      this.changeCalSelectors();
+    }, 300);
   }
 
   currentClick() {
@@ -233,14 +288,18 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         $('.current-day').addClass('selected-day day-opened');
       }
     } else {
+      this.loading = true;
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();
 
-      this.changeCalSelectors();
+      setTimeout(() => {
+        this.changeCalSelectors();
+      },)
     }
   }
 
   nextClick() {
+    this.loading = true
     let year = $(document).find('#year');
     let month = $(document).find('#month');
     if (year.val() > (this.currentYear + 5) && month.val() == 11) {
@@ -255,7 +314,11 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.changeCalSelectors();
+    $('.calendar-container').addClass('cal-swipe-right');
+    setTimeout(() => {
+      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
+      this.changeCalSelectors();
+    }, 300);
   }
 
 
@@ -285,7 +348,6 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       $('.event').removeClass('selected');
       $('.add-item-button, .add-item-container').hide();
       $('.prev-day, .next-day').addClass('hide');
-      $('.number').addClass('event-opened');
       console.log('event clicked');
       setTimeout(() => {
         if ($(e.target).hasClass('event')){
@@ -406,57 +468,6 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     }, 100);
     $('.add-item-button, .add-item-container').show();
     $('.prev-day, .next-day').removeClass('hide');
-  }
-
-
-
-
-
-
-  //Handling events
-  getEvents() {
-    console.log('Get events task started');
-
-    if (typeof Worker !== 'undefined') {
-      // Create a new
-      const worker = new Worker('../calendar/calendar.worker', { type: 'module' });
-
-      this.dataService.getEvents()
-      .subscribe((response) => {
-          worker.postMessage(response);
-        });
-
-      worker.onmessage = ({ data }) => {
-        this.getAllEvents = JSON.parse(data);
-        // console.log(this.getAllEvents);
-        console.log('Get events task finished.');
-      }
-    } else {
-      // Web workers are not supported in this environment.
-      this.dataService.getEvents()
-      .subscribe((response) => {
-        let i;
-        let eventlist = [];
-        for (i = 0; i < response.length; i++) {
-          eventlist[i] = {
-            eventid: response[i].id.toString(),
-            eventtitle: response[i].title,
-            eventstart_date: response[i].start_date.substring(0, 10),
-            eventend_date: response[i].end_date.substring(0, 10),
-            eventdesc: response[i].description,
-            eventlocation: response[i].location,
-            eventfrequency: response[i].frequency,
-            eventstart_time: moment(response[i].start_time, 'HH:mm:ss').format('h:mm A'),
-            eventend_time: moment(response[i].end_time, 'HH:mm:ss').format('h:mm A'),
-            eventcreatedAt: moment(response[i].created_at).format(),
-            itemtype: response[i].item_type.toString()
-          };
-        }
-        this.getAllEvents = eventlist;
-        // console.log(this.getAllEvents);
-        console.log('Get events task finished.');
-      });
-    }
   }
 
 }
