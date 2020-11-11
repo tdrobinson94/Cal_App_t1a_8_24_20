@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="calendar-container" #calendar>
+    <div class="calendar-container" #calendar (swipeleft)="onSwipeLeft($event)" (swiperight)="onSwipeRight($event)">
         <ng-container *ngFor="let day of month">
             <div class="day-box" (click)="selectDay($event)"
             [ngClass]="{

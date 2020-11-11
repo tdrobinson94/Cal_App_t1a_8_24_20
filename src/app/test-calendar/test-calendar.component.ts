@@ -457,6 +457,46 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     
   }
 
+
+  onSwipeLeft(e) {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      $('.day-opened').removeClass('bounce-left');
+      if (!$('.day-box').hasClass('day-opened')) {
+        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+          // Do nothing
+          console.log($(e.target));
+        } else {
+          this.nextClick();
+        }
+      } else {
+        
+      }
+    }
+  }
+
+  onSwipeRight(e) {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      $('.day-opened').removeClass('bounce-left');
+      if (!$('.day-box').hasClass('day-opened')) {
+        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+          // Do nothing
+          console.log($(e.target));
+        } else {
+          this.prevClick();
+        }
+      } else {
+        
+      }
+    }
+  }
+
+
+
+
   closeEventUpdateForm() {
     // window.navigator.vibrate(this.gestureVibration);
     $('.num-box').removeClass('event-opened');
@@ -468,6 +508,30 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     }, 100);
     $('.add-item-button, .add-item-container').show();
     $('.prev-day, .next-day').removeClass('hide');
+  }
+
+
+
+  //Helper functions
+  removeClassesForDayBox() {
+    $('.day-box').removeClass('selected-day day-opened swipe-left swipe-right bounce-right bounce-left');
+  }
+
+  swipeNextMonthAnimationOne() {
+    this.nextClick();
+    setTimeout(() => {
+      $('.opened-background').show();
+      $('.day-box').removeClass('selected-day');
+      $('.first-day-box').addClass('selected-day day-opened swipe-left');
+    }, 350);
+  }
+
+  swipeNextEndOfRow() {
+    $('.opened-background').show();
+  }
+
+  swipeNextDay() {
+    $('.opened-background').show();
   }
 
 }
