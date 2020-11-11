@@ -28,18 +28,23 @@
 
     <div class="calendar-container" #calendar>
         <ng-container *ngFor="let day of month">
-            <div class="day-box" 
+            <div class="day-box" (click)="selectDay($event)"
             [ngClass]="{
                 'disabled': selectedMonth != day.month,
                 'current-day': currentDay == day.day && currentMonthCheck == day.month && currentYearCheck == day.year,
                 'first-day-box': firstDay == day.day && selectedMonth == day.month,
                 'last-day-box': lastDay == day.day && selectedMonth == day.month,
                 'prev-month-days': prevMonth == day.month,
-                'next-month-days': nextMonth == day.month
+                'next-month-days': nextMonth == day.month,
+                'selected-day': currentDay == day.day && currentMonthCheck == day.month || firstDay == day.day && currentMonthCheck != selectedMonth && selectedMonth == day.month
             }">
                 <span class="number">{{day.day}}</span>
             </div>
         </ng-container>
+
+        <div class="opened-background" (click)="closeDay()">
+
+        </div>
     </div>
 
 </div> 

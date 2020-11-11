@@ -206,6 +206,27 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   }
 
 
+  // Calendar Gestures
+  selectDay(e) {
+    if (!$(e.currentTarget).hasClass('selected-day') && !$(e.currentTarget).hasClass('day-opened')) {
+      $('.day-box').removeClass('selected-day day-opened');
+      $(e.currentTarget).addClass('selected-day');
+    } else if ($(e.currentTarget).hasClass('selected-day')) {
+      $('.opened-background').show();
+      $(e.currentTarget).addClass('day-opened');
+    }
+  }
+
+  closeDay() {
+    $('.opened-background').hide();
+    $('.day-box').removeClass('day-opened');
+  }
+
+
+
+
+
+
   //Handling events
   getEvents() {
     console.log('Get events task started');
