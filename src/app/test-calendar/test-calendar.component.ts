@@ -181,8 +181,13 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     let month = $(document).find('#month');
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
-      $('.day-box').removeClass('selected-day');
-      $('.current-day').addClass('selected-day');
+      if (!$('.day-box').hasClass('day-opened')) {
+        $('.day-box').removeClass('selected-day');
+        $('.current-day').addClass('selected-day');
+      } else {
+        $('.day-box').removeClass('selected-day day-opened');
+        $('.current-day').addClass('selected-day day-opened');
+      }
     } else {
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();
