@@ -346,6 +346,7 @@
                 .number {
                     margin-top: 5px;
                     margin-bottom: 10px;
+                    font-weight: bold;
 
                     &.event-opened {
                         @media screen and (min-width: $end-small) {
