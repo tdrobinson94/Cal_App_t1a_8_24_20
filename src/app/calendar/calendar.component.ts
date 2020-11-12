@@ -192,6 +192,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.createCalendarGrid();
+    this.mobileHideElements();
     setTimeout(() => {
       this.loading = false;
     }, 1000);
@@ -293,6 +294,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.month = [];
     this.createCalendarGrid();
     this.loading = false;
+    this.mobileHideElements();
     $('.opened-background').hide();
     setTimeout(() => {
       if (!$('.day-box').hasClass('day-opened')) {
@@ -376,12 +378,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   // Calendar Gestures
   selectDay(e) {
-    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-      $('.next-day, .prev-day').addClass('hide');
-    } else {
-      $('.next-day, .prev-day').removeClass('hide');
-    }
+    this.mobileHideElements()
 
     $('.add-item-form').removeClass('show-form');
     $('.event').removeClass('selected');
@@ -683,7 +680,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           if (!$(e.target).parent().parent().prev().hasClass('disabled')) {
             this.removeClassesForDayBox();
             if ($(e.target).parent().parent().hasClass('first-day-box')) {
-              this.removeClassesForDayBox();
+              this.swipePrevMonthAnimationOne();
             } else if ($(e.target).parent().parent().prev().length === 0) {
               $(e.target).parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
               this.swipePrevEndOfRow();
@@ -698,7 +695,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           if (!$(e.target).parent().parent().parent().prev().hasClass('disabled')) {
             this.removeClassesForDayBox();
             if ($(e.target).parent().parent().parent().hasClass('first-day-box')) {
-              this.removeClassesForDayBox();
+              this.swipePrevMonthAnimationOne();
             } else if ($(e.target).parent().parent().parent().prev().length === 0) {
               $(e.target).parent().parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
               this.swipePrevEndOfRow();
@@ -1057,6 +1054,16 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if ($('.day-opened .transactions').height() <= $('.day-opened .event').last().position().top + 280) {
         $('.day-opened .transactions').addClass('normal-scrolling');
       }
+    }
+  }
+
+
+  mobileHideElements() {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.next-day, .prev-day').addClass('hide');
+    } else {
+      $('.next-day, .prev-day').removeClass('hide');
     }
   }
 
