@@ -810,7 +810,7 @@
                 &.swipe-right {
                     transition: none !important;
                     animation-name: swipeRightBounce;
-                    animation-duration: .2s;
+                    animation-duration: .1s;
                     animation-timing-function: ease-in-out;
 
                     @media screen and (min-width: $end-small) {
@@ -822,7 +822,7 @@
                 &.swipe-left {
                     transition: none !important;
                     animation-name: swipeLeftBounce;
-                    animation-duration: .2s;
+                    animation-duration: .1s;
                     animation-timing-function: ease-in-out;
 
                     @media screen and (min-width: $end-small) {
@@ -886,12 +886,12 @@
 
     .cal-swipe-right {
         animation-name: calSwipeRight;
-        animation-duration: .3s;
+        animation-duration: .2s;
         animation-timing-function: ease;
     }
     .cal-swipe-left {
         animation-name: calSwipeLeft;
-        animation-duration: .3s;
+        animation-duration: .2s;
         animation-timing-function: ease;
     }
 

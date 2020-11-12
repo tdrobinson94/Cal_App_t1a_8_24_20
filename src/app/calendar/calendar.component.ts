@@ -294,7 +294,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.createCalendarGrid();
     this.loading = false;
     $('.opened-background').hide();
-    $('.add-item-button, .add-item-container').removeClass('moved');
+    setTimeout(() => {
+      if (!$('.day-box').hasClass('day-opened')) {
+        $('.add-item-button, .add-item-container').removeClass('moved');
+      }
+    }, 50)
   }
 
   // Calendar Navigation
