@@ -90,7 +90,7 @@
                     <form class="update-event-form" [formGroup]="updateItemForm">
                         <div class="form-nav-bar" (swipedown)="onSwipeDownForm($event)">
                             <h2 class="form-title">
-                                <input type="text" placeholder="Title or name" formControlName="title" maxlength="32" autocomplete="off" required>
+                                <input class="update-title" type="text" placeholder="Title or name" formControlName="title" maxlength="32" autocomplete="off" required>
                             </h2>
                             <div class="close-form" (click)="closeEventUpdateForm()">
                                 <span class="material-icons">keyboard_arrow_down</span>

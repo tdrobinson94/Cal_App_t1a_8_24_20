@@ -713,7 +713,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       } else {
         if ($('.transactions').scrollTop() === 0) {
           if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
-            this.closeDay();
+            // this.closeDay();
           } else {
             this.closeDay();
           } 
