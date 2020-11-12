@@ -251,21 +251,21 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         i = '0' + i;
         this.month.push({
           "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
-          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
+          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(8,10),
           "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
           "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
         });
       } else if (i >= 10 && i <= monthDays) {
         this.month.push({
           "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
-          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
+          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(8,10),
           "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
           "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
         });
       } else if (i > monthDays && i <= (monthDays + nextMonthDayCount)) {
         this.month.push({
           "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
-          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).format('D'),
+          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).format().substring(8,10),
           "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('M'),
           "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('Y')
         });
