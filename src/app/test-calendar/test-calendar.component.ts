@@ -707,18 +707,18 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   swipeDayDown(e) {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-      console.log('swipe down');
-    //   $('.event').removeClass('selected');
-    //   console.log('swipe down')
-    //   if (!$('.day-box').hasClass('day-opened') || $('.update-event-form').hasClass('show-update-form')) {
-    //     // do nothing 
-    //   } else {
-    //     if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
-    //       // if ($('.day-opened .transactions').scrollTop() === 0){ 
-    //         this.closeDay();
-    //       // }
-    //     }
-    //   }
+      $('.event').removeClass('selected');
+      if (!$('.day-box').hasClass('day-opened') || $('.update-event-form').hasClass('show-update-form')) {
+        // do nothing 
+      } else {
+        if ($('.transactions').scrollTop() === 0) {
+          if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
+            this.closeDay();
+          } else {
+            this.closeDay();
+          } 
+        }
+      }
     }
   }
 
