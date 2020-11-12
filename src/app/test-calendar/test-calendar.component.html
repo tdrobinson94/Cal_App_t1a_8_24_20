@@ -38,6 +38,9 @@
                 'next-month-days': nextMonth == day.month,
                 'selected-day': currentDay == day.day && currentMonthCheck == day.month || firstDay == day.day && currentMonthCheck != selectedMonth && selectedMonth == day.month
             }">
+                <button class="close-day">
+                    <span class="material-icons close-day-icon">keyboard_arrow_down</span>
+                </button>
                 <span class="number">{{day.day}}</span>
                 <p class="balance beg">Beg Bal</p>
 
@@ -81,9 +84,9 @@
                             <h2 class="form-title">
                                 <input type="text" placeholder="Title or name" formControlName="title" maxlength="32" autocomplete="off" required>
                             </h2>
-                            <!-- <div class="close-form" (click)="closeEventUpdateForm()">
-                                <span class="material-icons">clear</span>
-                            </div> -->
+                            <div class="close-form" (click)="closeEventUpdateForm()">
+                                <span class="material-icons">keyboard_arrow_down</span>
+                            </div>
                         </div>
                         <div class="input-wrapper event-id-update invisible">
                             <input formControlName="id" type="text" name="id" />
@@ -169,9 +172,9 @@
                     <h2 class="form-title">
                         <input type="text" placeholder="Title" formControlName="title" maxlength="32" name="title" autocomplete="off" required>
                     </h2>
-                    <!-- <div class="close-form" (click)="closeForm()">
-                        <span class="material-icons">clear</span>
-                    </div> -->
+                    <div class="close-form" (click)="closeForm()">
+                        <span class="material-icons">keyboard_arrow_down</span>
+                    </div>
                 </div>
     
                 <div class="input-wrapper invisible">

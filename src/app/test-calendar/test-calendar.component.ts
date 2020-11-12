@@ -332,7 +332,9 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       if (!$('.day-box').hasClass('day-opened')) {
         $('.day-box').removeClass('selected-day');
         $('.current-day').addClass('selected-day');
+        $('.add-item-button, .add-item-container').removeClass('moved');
       } else {
+        $('.add-item-button, .add-item-container').addClass('moved');
         $('.day-box').removeClass('selected-day day-opened');
         $('.current-day').addClass('selected-day day-opened');
       }
@@ -375,7 +377,9 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   selectDay(e) {
     $('.add-item-form').removeClass('show-form');
     $('.event').removeClass('selected');
-    if (!$(e.currentTarget).hasClass('selected-day') && !$(e.currentTarget).hasClass('day-opened')) {
+    if ($(e.target).hasClass('close-day-icon')) {
+      this.closeDay();
+    } else if (!$(e.currentTarget).hasClass('selected-day') && !$(e.currentTarget).hasClass('day-opened')) {
       $('.day-box').removeClass('selected-day day-opened');
       $(e.currentTarget).addClass('selected-day');
     } else if ($(e.currentTarget).hasClass('selected-day')) {
@@ -414,7 +418,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
 
       setTimeout(() => {
-        $('.transactions').addClass('update-form-opened')
+        $('.transactions, .close-day').addClass('update-form-opened')
         $('.update-event-form').addClass('show-update-form').removeClass('closed');
       }, 200);
       $('.update-event-form').animate({ scrollTop: 0 }, 300);
@@ -688,7 +692,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   closeEventUpdateForm() {
     // window.navigator.vibrate(this.gestureVibration);
     $('.event').removeClass('selected');
-    $('.transactions').removeClass('update-form-opened')
+    $('.transactions, .close-day').removeClass('update-form-opened')
     $('.update-event-form').addClass('closed');
     // Delay for the Close animation
     setTimeout(() => {
@@ -705,7 +709,6 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     $('.add-item-container').animate({ scrollTop: 0 }, 300);
     this.openform = true;
     this.hideFormButton = true;
-    // window.navigator.vibrate(this.gestureVibration);
     $('.form-nav-bar, .add-item-form').addClass('animate-events-one');
     setTimeout(() => {
       $('.form-nav-bar, .add-item-form').addClass('animate-events-two');

@@ -234,6 +234,10 @@
                 height: calc(16.4% - 2px);
             }
 
+            button.close-day {
+                display: none;
+            }
+
             .transactions {
                 overflow: hidden;
                 width: 85%;
@@ -250,7 +254,7 @@
                 }
 
                 &.update-form-opened {
-                    width: 99%;
+                    width: 90%;
                 }
     
                 .event {
@@ -374,6 +378,40 @@
                 animation-timing-function: ease;
                 box-shadow: 5px 5px 40px black;
 
+                button.close-day {
+                    display: inline;
+                    position: absolute;
+                    top: 15px;
+                    right: 10px;
+                    background: transparent;
+                    border-radius: 5px;
+                    border: 0;
+                    cursor: pointer;
+                    outline: none;
+                    padding: 0;
+
+                    &.update-form-opened {
+                        display: none
+                    }
+
+                    span {
+                        font-size: 25px;
+                        color: #fff;
+                    }
+
+                    &:active {
+                        color: $primary;
+                    }
+
+                    &.mobile {
+                        top: 10px;
+
+                        span {
+                            font-size: 35px;
+                        }
+                    }
+                }
+
                 .number {
                     margin-top: 5px;
                     margin-bottom: 10px;
@@ -439,7 +477,7 @@
                                 background: $background;
                                 h2 {
                                     padding: 0 13px 4%;
-                                    margin: 0 0 15px;
+                                    margin: 0 4% 15px 4%;
 
                                     input {
                                         color: #fff;
@@ -448,7 +486,7 @@
                                         border: 0;
                                         outline: 0;
                                         font-family: "Noto Sans", sans-serif;
-                                        width: calc(100% - 40px);
+                                        width: calc(100% - 18px);
                                     }
 
                                 }
@@ -463,12 +501,18 @@
                                     position: absolute;
                                     display: inline;
                                     top: 5px;
-                                    right: 1%;
+                                    right: 10px;
                                     background: transparent;
                                     border-radius: 5px;
                                     border: 0;
                                     cursor: pointer;
                                     color: $textwht;
+
+                                    .material-icons {
+                                        @media screen and (min-width: $end-small) {
+                                            transform: rotate(270deg);
+                                        }
+                                    }
 
                                     &:before {
                                         font-size: 20px;
@@ -496,7 +540,7 @@
                                 margin: 0 4%;
 
                                 @media screen and (min-width: $end-small) {
-                                    margin: 0 6%;
+                                    margin: 0 8%;
                                 }
 
                                 &.invisible {
@@ -607,20 +651,6 @@
                                 background: rgba(126, 93, 93, 0.7); 
                             }
                         }
-
-                        @keyframes grow-2 {
-                            0%   { top: 100% }
-                            30%  { top: 0 }
-                            70%  { top: 10px }
-                            100% { top: 0 }
-                        }
-
-                        @keyframes slide-left {
-                            0%   { right: -100% }
-                            30%  { right: 0 }
-                            70%  { right: 10px }
-                            100% { right: 0 }
-                        }
                     }
                 }
 
@@ -635,8 +665,8 @@
                     color: $textdrk;
 
                     @media screen and (min-width: $end-small) {
-                        width: calc(50% - (4% + 18px));
-                        margin: 0 0 3px 8px !important;
+                        width: calc(50% - (8% + 18px));
+                        margin: 0 0 3px 4% !important;
                         padding: 2px 0 4px 4% !important; 
                     }
 
@@ -815,7 +845,7 @@
             right: 50%;
             transform: translateX(50%);
             &.moved {
-                bottom: 7%;
+                bottom: 11%;
             }
         }
     }
@@ -861,7 +891,7 @@
             border-radius: 100%;
             max-width: 800px;
             &.moved {
-                bottom: 8.5%;
+                bottom: 12.5%;
             }
         }
 
@@ -886,7 +916,6 @@
                 bottom: 50%;
                 right: 50%;
                 transform: translate(50%, 50%);
-                width: 100%;
                 max-width: 800px;
                 animation: none;
                 box-shadow: 5px 5px 40px black;
@@ -926,8 +955,8 @@
             .close-form {
                 position: absolute;
                 display: inline;
-                top: 17px;
-                right: 1%;
+                top: 16px;
+                right: 10px;
                 background: transparent;
                 border-radius: 5px;
                 border: 0;
@@ -1194,4 +1223,18 @@
     to {
         transform: scale(1, 1);
     }
+}
+
+@keyframes grow-2 {
+    0%   { top: 100% }
+    30%  { top: 0 }
+    70%  { top: 10px }
+    100% { top: 0 }
+}
+
+@keyframes slide-left {
+    0%   { right: -100% }
+    30%  { right: 0 }
+    70%  { right: 10px }
+    100% { right: 0 }
 }
