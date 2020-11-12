@@ -710,7 +710,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $('.event').removeClass('selected');
       if (!$('.day-box').hasClass('day-opened') || $('.update-event-form').hasClass('show-update-form')) {
         // do nothing 
-      } else {
+      } else if ($('.day-box').hasClass('day-opened')) {
         if ($('.transactions').scrollTop() === 0) {
           if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
             // this.closeDay();
