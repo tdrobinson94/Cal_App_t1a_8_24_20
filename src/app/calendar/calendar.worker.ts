@@ -9,8 +9,8 @@ addEventListener('message', ({ data }) => {
     eventlist[i] = {
       eventid: data[i].id.toString(),
       eventtitle: data[i].title,
-      eventstart_date: data[i].start_date.substring(0, 10),
-      eventend_date: data[i].end_date.substring(0, 10),
+      eventstart_date: data[i].start_date.substring(0, 10).replace(/-/g, "/"),
+      eventend_date: data[i].end_date.substring(0, 10).replace(/-/g, "/"),
       eventdesc: data[i].description,
       eventlocation: data[i].location,
       eventfrequency: data[i].frequency,
