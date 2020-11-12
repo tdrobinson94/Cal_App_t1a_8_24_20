@@ -382,6 +382,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
       $('.add-item-button, .add-item-container').addClass('moved');
+      this.enableDefaultScrolling();
     }
   }
 
@@ -389,6 +390,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     $('.opened-background').hide();
     $('.day-box').removeClass('day-opened swipe-left swipe-right');
     $('.add-item-button, .add-item-container').removeClass('moved');
+    $('.transactions').removeClass('normal-scrolling');
     this.closeForm();
     this.closeEventUpdateForm();
   }
@@ -400,7 +402,6 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       $('.event').removeClass('selected');
       $('.add-item-button, .add-item-container').hide();
       $('.prev-day, .next-day').addClass('hide');
-      console.log('event clicked');
       setTimeout(() => {
         if ($(e.target).hasClass('event')){
           $(e.target).addClass('selected');
@@ -580,6 +581,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
           }
         }
       }
+      // this.enableDefaultScrolling();
     }
   }
 
@@ -652,20 +654,24 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
           }
         }
       }
+      // this.enableDefaultScrolling();
     }
   }
 
   swipeDayDown(e) {
+    // console.log('swipe down')
     // if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     // || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
     //   $('.event').removeClass('selected');
+    //   console.log('swipe down')
     //   if (!$('.day-box').hasClass('day-opened') || $('.update-event-form').hasClass('show-update-form')) {
     //     // do nothing 
     //   } else {
     //     if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
-    //       this.closeDay();
-    //       console.log($('.transactions').offset().top)
-    //     } 
+    //       // if ($('.day-opened .transactions').scrollTop() === 0){ 
+    //         this.closeDay();
+    //       // }
+    //     }
     //   }
     // }
   }
@@ -978,6 +984,9 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
   swipeNextDay() {
     $('.opened-background').show();
+    setTimeout(() => {
+      this.enableDefaultScrolling();
+    }, 300);
   }
 
   swipePrevMonthAnimationOne() {
@@ -995,6 +1004,17 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
   swipePrevDay() {
     $('.opened-background').show();
+    setTimeout(() => {
+      this.enableDefaultScrolling();
+    }, 300);
+  }
+
+  enableDefaultScrolling() {
+    if ($('.day-opened .event').last().position() !== undefined) {
+      if ($('.day-opened .transactions').height() <= $('.day-opened .event').last().position().top + 280) {
+        $('.day-opened .transactions').addClass('normal-scrolling');
+      }
+    }
   }
 
 }
