@@ -428,6 +428,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
       $('.add-item-button, .add-item-container').addClass('moved');
+      // this.swipeDayDown(e);
       this.enableDefaultScrolling();
     }
   }
@@ -705,30 +706,17 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   swipeDayDown(e) {
-    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-      $('.event').removeClass('selected');
-      if (!$('.day-box').hasClass('day-opened') || $('.update-event-form').hasClass('show-update-form')) {
-        // do nothing 
-      } else if ($('.day-box').hasClass('day-opened')) {
-        if ($('.transactions').scrollTop() === 0) {
-          if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
-            // this.closeDay();
-          } else {
-            this.closeDay();
-          } 
-        }
-      }
-    }
-  }
-
-  onSwipeDownForm(e) {
-    e.preventDefault();
-    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
-      || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-      this.closeForm();
-      this.closeEventUpdateForm();
-    }
+    // if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    // || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+    //   $('.event').removeClass('selected');
+    //   if (!$('.day-box').hasClass('day-opened')) {
+    //     // do nothing 
+    //   } else {
+    //     if ($('.transactions').scrollTop() === 0) {
+    //       this.closeDay();
+    //     }
+    //   }
+    // }
   }
 
   closeEventUpdateForm() {

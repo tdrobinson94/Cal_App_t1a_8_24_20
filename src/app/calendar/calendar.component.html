@@ -90,7 +90,7 @@
                     <input formControlName="id" type="text" name="id" class="event_input" />
                 </form>
                 <form class="update-event-form" [formGroup]="updateItemForm">
-                    <div class="form-nav-bar" (swipedown)="onSwipeDownForm($event)">
+                    <div class="form-nav-bar">
                         <h2 class="form-title">
                             <input class="update-title" type="text" placeholder="Title or name" formControlName="title" maxlength="32" autocomplete="off" required>
                         </h2>
@@ -177,7 +177,7 @@
     
         <div class="add-item-container" #form [ngClass]="{'show-form': openform}">
             <form class="add-item-form" [formGroup]="addItemForm" (ngSubmit)="submitEvent()">
-                <div class="form-nav-bar" (swipedown)="onSwipeDownForm($event)">
+                <div class="form-nav-bar">
                     <h2 class="form-title">
                         <input type="text" placeholder="Title" formControlName="title" maxlength="32" name="title" autocomplete="off" required>
                     </h2>
