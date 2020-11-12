@@ -140,7 +140,7 @@
                 text-align: center;
                 position: relative;
                 background: $primary;
-                padding: 4px 0;
+                // padding: 4px 0;
                 color: $background;
                 opacity: .8;
                 font-size: 14px;
@@ -815,7 +815,8 @@
 
                     @media screen and (min-width: $end-small) {
                         animation-name: swipeRight;
-                        animation-timing-function: ease-in-out;
+                        animation-duration: .2s;
+                        animation-timing-function: ease;
                     }
                 }
 
@@ -827,7 +828,8 @@
 
                     @media screen and (min-width: $end-small) {
                         animation-name: swipeLeft;
-                        animation-timing-function: ease-in-out;
+                        animation-duration: .2s;
+                        animation-timing-function: ease;
                     }
                 }
             }
