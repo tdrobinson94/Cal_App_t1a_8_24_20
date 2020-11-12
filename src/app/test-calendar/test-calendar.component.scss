@@ -234,6 +234,17 @@
                 height: calc(16.4% - 2px);
             }
 
+            .event-count {
+                position: absolute;
+                font-size: 7px;
+                left: 5%;
+                top: 8px;
+                border-radius: 100%;
+                color: #fff;
+                background-color: red;
+                padding: 0px 1px;
+            }
+
             button.close-day, .next-day, .prev-day {
                 display: none;
             }
@@ -377,6 +388,13 @@
                 animation-duration: .3s;
                 animation-timing-function: ease;
                 box-shadow: 5px 5px 40px black;
+
+                .event-count {
+                    top: 20px;
+                    left: 2%;
+                    font-size: 9px;
+                    padding: 2px 4px;
+                }
 
                 button.close-day {
                     display: inline;

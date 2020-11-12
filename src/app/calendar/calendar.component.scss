@@ -168,17 +168,665 @@
     .calendar-container {
 
         width: 100%;
-        height: calc(100% - 133px);
-        padding: 5px 0;
+        height: calc(100% - 126px);
         position: relative;
-        top: 74px;
+        top: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
 
         @media screen and (min-width: $end-small) {
-            height: calc(100% - 188px);
-            overflow: hidden;
+            top: 72px;
+            height: calc(100% - 176px);
         }
 
-        .popup-background {
+        .day-box {
+            display: inline-block;
+            color: #fff;
+            width: calc(14.2857142857% - 2px);
+            height: calc(15.7% - 2px);
+            border: 1px solid transparent;
+            overflow: hidden;
+            position: relative;
+
+            @media screen and (min-height: 400px) {
+                height: calc(15% - 2px);
+            }
+
+            @media screen and (min-height: 500px) {
+                height: calc(15.3% - 2px);
+            }
+
+            @media screen and (min-height: 600px) {
+                height: calc(15.5% - 2px);
+            }
+
+            @media screen and (min-height: 700px) {
+                height: calc(15.65% - 2px); 
+            }
+
+            @media screen and (min-height: $end-small) {
+                height: calc(15.8% - 2px);
+            }
+
+            @media screen and (min-height: $end-small) {
+                height: calc(15.9% - 2px);
+            }
+
+            @media screen and (min-height: 1000px) {
+                height: calc(16% - 2px);
+            }
+
+            @media screen and (min-height: 1100px) {
+                height: calc(16.1% - 2px);
+            }
+
+            @media screen and (min-height: 1200px) {
+                height: calc(16.2% - 2px);
+            }
+
+            @media screen and (min-height: 1300px) {
+                height: calc(16.3% - 2px);
+            }
+
+            @media screen and (min-height: 1400px) {
+                height: calc(16.4% - 2px);
+            }
+
+            .event-count {
+                position: absolute;
+                font-size: 7px;
+                left: 5%;
+                top: 8px;
+                border-radius: 100%;
+                color: #fff;
+                background-color: red;
+                padding: 0px 1px;
+            }
+
+            button.close-day, .next-day, .prev-day {
+                display: none;
+            }
+
+            .transactions {
+                overflow: hidden;
+                width: 85%;
+                margin: auto;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 15px;
+                top: 26px;
+
+                &.normal-scrolling {
+                    touch-action: pan-y !important;
+                    overscroll-behavior: none;
+                }
+
+                &.update-form-opened {
+                    width: 90%;
+                }
+    
+                .event {
+                    font-size: 8px;
+                    cursor: pointer;
+                    height: 12px;
+                    overflow: hidden;
+                    margin: 0 0 3px;
+                    padding: 2px 0 0 4%;
+                    transition: all .2s ease;
+                    position: relative;
+                    border-left: 2px solid rgba(255,0,0,.8);
+                    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                    -webkit-tap-highlight-color: transparent;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    user-select: none;
+                    outline: none !important;
+    
+                    @media screen and (min-width: $mid-small) {
+                        text-align: left;
+                        font-size: 9px;
+                        height: 13px;
+                    }
+    
+                    .event-details {
+                        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                        -webkit-tap-highlight-color: transparent;
+                        -webkit-touch-callout: none;
+                        -webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                        outline: none !important;
+    
+                        &.title {
+                            margin-top: 0;
+    
+                            span {
+                                display: none;
+                            }
+                        }
+                    }
+    
+                    button {
+                        display: none;
+                        background-color: $primary;
+                        color: $textwht;
+                        border-radius: 5px;
+                        border: 0;
+                        font-size: 12px;
+    
+                        &:hover {
+                            color: $textwht;
+                        }
+    
+                        &.edit-event {
+                            background-color: rgba(0, 0, 0, .8);
+                            transition: all .3s ease;
+                        }
+    
+                        &.delete-event {
+                            transition: all .4s ease;
+                        }
+                    }
+                }
+
+                form {
+                    display: none;
+
+                    &.closed {
+                        position: fixed;
+                        top: 110% !important;
+                        transition: all .3s ease;
+
+                        @media screen and (min-width: $end-small) {
+                            top: 0 !important;
+                            right: -110% !important;
+                            transition: all .3s ease;
+                        }
+
+                        .submit-buttons {
+                            bottom: -110% !important;
+                            transition: all .2s ease;
+                        }
+                    }
+                }
+            }
+
+            &.disabled {
+                opacity: .3;
+                pointer-events: none;
+            }
+
+            &.current-day {
+
+                .number {
+                    color: red;
+                    font-weight: 700;
+                }
+            }
+
+            &.selected-day {
+                border: 1px solid #fff;
+                border-radius: 5px;
+            }
+
+            &.day-opened {
+                position: absolute;
+                height: 80%;
+                width: 80%;
+                z-index: 99;
+                background: $background;
+                max-width: 800px;
+                border-radius: 10px;
+                border: 1px solid $textdrk;
+                animation-name: grow;
+                animation-duration: .3s;
+                animation-timing-function: ease;
+                box-shadow: 5px 5px 40px black;
+
+                .event-count {
+                    top: 20px;
+                    left: 2%;
+                    font-size: 9px;
+                    padding: 2px 4px;
+                }
+
+                button.close-day {
+                    display: inline;
+                    position: absolute;
+                    top: 15px;
+                    right: 10px;
+                    background: transparent;
+                    border-radius: 5px;
+                    border: 0;
+                    cursor: pointer;
+                    outline: none;
+                    padding: 0;
+
+                    &.update-form-opened {
+                        display: none
+                    }
+
+                    span {
+                        font-size: 25px;
+                        color: #fff;
+                    }
+
+                    &:active {
+                        color: $primary;
+                    }
+
+                    &.mobile {
+                        top: 10px;
+
+                        span {
+                            font-size: 35px;
+                        }
+                    }
+                }
+
+                .next-day, .prev-day {
+                    display: block;
+                    position: absolute;
+                    top: 45%;
+                    color: $textdrk;
+                    background: transparent;
+                    border-radius: 5px;
+                    border: 0;
+                    font-size: 20px;
+                    align-items: center;
+                    outline: 0;
+                    transform: translateY(-50%);
+                    padding: 0;
+                    z-index: 999;
+                    cursor: pointer;
+
+                    &.hide {
+                        display: none;
+                    }
+
+                    @media screen and (min-width: $mid-small) {
+                        display: flex;
+                    }
+
+                    @media screen and (min-width: $end-small) {
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+
+                    @media screen and (min-height: 600px) {
+                        top: 50%;
+                    }
+
+                    span {
+                        font-size: 30px !important;
+                    }
+                }
+
+                .hide {
+                    display: none !important;
+                }
+
+                .next-day {
+                    right: 0;
+                }
+
+                .prev-day {
+                    left: 0;
+                }
+
+                .number {
+                    margin-top: 5px;
+                    margin-bottom: 10px;
+                    font-weight: bold;
+                    font-size: 12px;
+                }
+
+                .transactions {
+                    top: 42px;
+                    overflow-y: auto;
+
+                    &::-webkit-scrollbar {
+                        width: 0px;
+                    }
+
+                    @media screen and (min-width: $end-small) {
+                        width: 100%;
+                        margin: 0;
+                    }
+
+                    form {
+                        padding: 5px 0;
+                        @media screen and (max-width: $end-small) {
+                            padding-bottom: 15px;
+                        }
+                    }
+
+                    .update-event-form {
+
+                        &.show-update-form {
+                            display: block;
+                            position: absolute;
+                            top: 0;
+                            width: 100%;
+                            bottom: 0;
+                            overflow: auto;
+                            background: $background;
+                            padding: 0;
+                            animation-name: grow-2;
+                            animation-duration: .2s;
+                            animation-timing-function: ease;
+                            overscroll-behavior: none;
+
+                            transition: all 0.3s ease;
+                            -moz-transition: all .3s ease;
+                            -webkit-transition: all .3s ease;
+                            -o-transition: all .3s ease;
+
+                            &::-webkit-scrollbar {
+                                width: 0px;
+                            }
+
+                            @media screen and (min-width: $end-small) {
+                                top: 0px;
+                                right: 0;
+                                border-radius: 0 5px 5px 0;
+                                height: calc(99% - 0px);
+                                width: 50%;
+                                animation-name: slide-left;
+                                animation-duration: .2s;
+                                animation-timing-function: ease;
+                            }
+
+                            .form-nav-bar {
+                                position: sticky;
+                                top: -1px;
+                                background: $background;
+                                h2 {
+                                    padding: 0 13px 4%;
+                                    margin: 0 0 15px 0;
+
+                                    @media screen and (min-width: $end-small) {
+                                        margin: 0 4% 15px 4%;
+                                    }
+
+                                    input {
+                                        color: #fff;
+                                        font-size: 25px;
+                                        background: $background;
+                                        border: 0;
+                                        outline: 0;
+                                        font-family: "Noto Sans", sans-serif;
+                                        width: calc(100% - 18px);
+                                    }
+
+                                }
+
+                                .mobile-hide-helpers {
+                                    &:before {
+                                        display: none;
+                                    }
+                                }
+
+                                .close-form {
+                                    position: absolute;
+                                    display: inline;
+                                    top: 5px;
+                                    right: 10px;
+                                    background: transparent;
+                                    border-radius: 5px;
+                                    border: 0;
+                                    cursor: pointer;
+                                    color: $textwht;
+
+                                    .material-icons {
+                                        @media screen and (min-width: $end-small) {
+                                            transform: rotate(270deg);
+                                        }
+                                    }
+
+                                    &:before {
+                                        font-size: 20px;
+                                        height: 30px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+
+                                    &:active {
+                                        color: $textdrk;
+                                    }
+
+                                    &.mobile {
+                                        top: 10px;
+            
+                                        span {
+                                            font-size: 35px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .input-wrapper {
+                                margin: 0 4%;
+
+                                @media screen and (min-width: $end-small) {
+                                    margin: 0 8%;
+                                }
+
+                                &.invisible {
+                                    visibility: hidden;
+                                    height: 0;
+                                    width: 0;
+                                }
+                            }
+
+                            label {
+                                display: block;
+                                margin: 0;
+                                padding: 0;
+                                width: 100%;
+                                font-weight: bold;
+                                font-size: 15px;
+                                color: $textdrk;
+                            }
+
+                            select, .date-input-update input, .date-input-end-update input, .time-input-end-update input, .item-title-update input , .event-description-update textarea, .amount-input-update input, .location-input-update input, .time-input-update input {
+                                width: 100%;
+                                padding: 10px 0;
+                                border: 0;
+                                border-bottom: 1px solid #252525;
+                                margin: 10px 0;
+                                -webkit-box-sizing: border-box;
+                                -moz-box-sizing: border-box;
+                                box-sizing: border-box;
+                                font-size: 15px;
+                                transition: all .3s ease;
+                                background: $background;
+                                color: $textdrk;
+
+                                &:focus, &:active {
+                                    border: 0;
+                                    border-bottom: 1px solid $primary;
+                                    outline: 0;
+                                    transition: all .3s ease;
+                                    font-size: 16px;
+                                }
+                                &:-internal-autofill-selected {
+                                    box-shadow: inset 0 0 0 100px transparent;
+                                }
+                            }
+
+                            .time-all-day {
+                                &::after {
+                                    display: block;
+                                    content: "";
+                                    clear: both;
+                                }
+                                input {
+                                    float: right;
+                                    width: auto;
+                                }
+                                label {
+                                    width: auto;
+                                    float: right;
+                                }
+                            }
+
+                            textarea {
+                                height: 75px;
+                            }
+
+                            .submit-buttons {
+                                position: sticky;
+                                flex-direction: row-reverse;
+                                display: flex;
+                                justify-content: center;
+                                bottom: -2px;
+                                background: $background;
+                                width: 100%;
+                                margin: 0;
+
+                                .submit-form, .delete-event {
+                                    background-color: $background;
+                                    color: $textwht;
+                                    padding: 20px 0;
+                                    border: 0;
+                                    font-size: 20px;
+                                    width: 50%;
+                                    transition: all .3s ease;
+
+                                    &:disabled {
+                                        opacity: .3;
+                                        transition: all .3s ease;
+                                    }
+
+                                    &:hover, &:focus {
+                                        opacity: .5;
+                                        transition: all .3s ease;
+                                    }
+                                }
+                            }
+
+                            &::-webkit-scrollbar {
+                                width: 2px;
+                            }
+                            &::-webkit-scrollbar-track {
+                                background: transparent;
+                            }
+                            &::-webkit-scrollbar-thumb {
+                                background: rgba(0, 0, 0, .2);
+                                border-radius: 50px;
+                            }
+                            &::-webkit-scrollbar-thumb:hover {
+                                background: rgba(126, 93, 93, 0.7); 
+                            }
+                        }
+                    }
+                }
+
+                .event {
+                    font-size: 16px !important;
+                    height: auto !important;
+                    overflow: initial !important;
+                    text-align: left;
+                    margin: 5px auto;
+                    padding: 2px 4% 4px;
+                    pointer-events: all;
+                    color: $textdrk;
+
+                    @media screen and (min-width: $end-small) {
+                        width: calc(50% - (8% + 18px));
+                        margin: 0 0 3px 4% !important;
+                        padding: 2px 0 4px 4% !important; 
+                    }
+
+                    &.selected {
+                        background: rgba(255,0,0,.7);
+                        border-radius: 5px;
+                        transition: all .3s ease;
+                    }
+
+                    .event-details {
+                        margin: 2px 0 0 0;
+                        font-size: 11px;
+
+                        &.frequency, &.end {
+                            display: none;
+                        }
+
+                        &.location {
+                            display: none;
+                        }
+
+                        &:last-of-type {
+                            font-size: 11px;
+                            padding-bottom: 4px;
+                        }
+
+                        &.title {
+                            display: inline;
+                        }
+
+                        &.description {
+                            display: none;
+                            &:before {
+                                content: " - ";
+                            }
+                        }
+
+                        &.item-type {
+                            display: none;
+                        }
+
+                        &.title {
+                            font-weight: bold;
+                            font-size: 12px;
+
+                            span {
+                                display: inline;
+                                font-weight: initial;
+                                
+                                &:before {
+                                    content: '- '
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.swipe-right {
+                    transition: none !important;
+                    animation-name: swipeRightBounce;
+                    animation-duration: .2s;
+                    animation-timing-function: ease-in-out;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-name: swipeRight;
+                        animation-timing-function: ease-in-out;
+                    }
+                }
+
+                &.swipe-left {
+                    transition: none !important;
+                    animation-name: swipeLeftBounce;
+                    animation-duration: .2s;
+                    animation-timing-function: ease-in-out;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-name: swipeLeft;
+                        animation-timing-function: ease-in-out;
+                    }
+                }
+            }
+        }
+
+        .opened-background {
             display: none;
             background: rgba(0,0,0,.5);
             position: absolute;
@@ -190,840 +838,43 @@
             backdrop-filter: blur(3px);
         }
 
-        .row {
+        .number {
+            display: block;
+            margin: auto;
+            text-align: center;
+            cursor: pointer;
+            font-size: 10px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            outline: none !important;
+        }
 
-            width: 100%;
-            height: 16.1%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 1px 0;
-            padding: 1px 0;
+        .balance {
+            font-size: 9px;
+            height: 13px;
             overflow: hidden;
-
-            .day-box {
-                width: calc(14.2857142857% - 2px);
-                height: 100%;
-                transition: height .3s ease !important;
-                position: relative;
-                border: 1px solid transparent;
-
-                button.close-day {
-                    display: none;
-                }
-
-                .next-day, .prev-day {
-                    display: none;
-                }
-
-                .date-value, .excel-date {
-                    display: none;
-                }
-
-                .event-count {
-                    position: absolute;
-                    font-size: 7px;
-                    left: 5%;
-                    top: 8px;
-                    border-radius: 100%;
-                    color: #fff;
-                    background-color: red;
-                    padding: 0px 1px;
-                }
-
-                .num-box {
-                    display: flex;
-                    width: 11.5px;
-                    margin: auto;
-                    padding: 3px 5px;
-                    border-radius: 100%;
-                    position: relative;
-                    top: 3px;
-                    pointer-events: none;
-                    color: $textdrk;
-
-                    @media screen and (min-width: $end-small) {
-                        width: 17px;
-                    }
-
-                    .num-date {
-                        cursor: pointer;
-                        font-size: 10px;
-                        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-                        -webkit-tap-highlight-color: transparent;
-                        -webkit-touch-callout: none;
-                        -webkit-user-select: none;
-                        -khtml-user-select: none;
-                        -moz-user-select: none;
-                        -ms-user-select: none;
-                        user-select: none;
-                        outline: none !important;
-
-                        @media screen and (min-width: $end-small) {
-                            font-size: 12px;
-                        }
-                    }
-
-                    &.current-day {
-                        color: $primary;
-                        font-weight: bold;
-                    }
-
-                    &.bouncing {
-                        animation: bouncing;
-                        animation-duration: .75s;
-                        animation-iteration-count: 4;
-                        animation-timing-function: ease;
-                    }
-
-                    @keyframes bouncing {
-                        0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
-                        40% {transform: translateY(-5px);} 
-                        60% {transform: translateY(-1px);} 
-                    }
-                }
-
-                .main-info-section {
-                    overflow: hidden;
-                    height: calc(100% - 40px);
-                    padding: 5px 10%;
-
-                    @media screen and (min-width: $mid-small) {
-                        padding: 5px;
-                    }
-
-                    &::-webkit-scrollbar {
-                        width: 0px;
-                    }
-
-                    &.animate-events-one {
-                        height: 0;
-                    }
-
-                    &.animate-events-two {
-                        height: calc(100% - 60px);
-
-                        @media screen and (min-width: $end-small) {
-                            height: calc(100% - 65px);
-                        }
-    
-                        @media screen and (min-height: 800px) and (max-width: $end-small) {
-                            height: calc(100% - 58px);
-                        }
-    
-                        @media screen and (min-height: 900px) and (max-width: $end-small) {
-                            height: calc(100% - 65px);
-                        }
-
-                        .event {
-
-                            &:hover, &:focus {
-                                input {
-                                    display: inline;
-                                    background: transparent;
-                                    border: 0;
-                                    position: absolute;
-                                    right: 4%;
-                                    top: -1px;
-                                    font-size: 20px;
-                                    cursor: pointer;
-                                }
-                            }
-                        }
-                    }
-
-                    .event {
-                        font-size: 8px;
-                        cursor: pointer;
-                        height: 12px;
-                        overflow: hidden;
-                        margin: 0 0 3px;
-                        padding: 2px 0 0 4%;
-                        transition: all .2s ease;
-                        position: relative;
-                        display: none;
-
-                        &.visible {
-                            display: block;
-                            border-left: 2px solid rgba(255,0,0,.8);
-                            transition: all .2s ease;
-                            pointer-events: none;
-                            color: $textdrk;
-
-                            &.selected-event {
-                                background: rgba(255,0,0,.7);
-                                border-radius: 5px;
-                                transition: all .3s ease;
-                            }
-                        }
-
-                        @media screen and (min-width: $mid-small) {
-                            text-align: left;
-                            font-size: 9px;
-                            height: 13px;
-                        }
-
-                        .event-details {
-                            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-                            -webkit-tap-highlight-color: transparent;
-                            -webkit-touch-callout: none;
-                            -webkit-user-select: none;
-                            -khtml-user-select: none;
-                            -moz-user-select: none;
-                            -ms-user-select: none;
-                            user-select: none;
-                            outline: none !important;
-
-                            &.title {
-                                margin-top: 0;
-
-                                span {
-                                    display: none;
-                                }
-                            }
-                        }
-
-                        button {
-                            display: none;
-                            background-color: $primary;
-                            color: $textwht;
-                            border-radius: 5px;
-                            border: 0;
-                            font-size: 12px;
-
-                            &:hover {
-                                color: $textwht;
-                            }
-
-                            &.edit-event {
-                                background-color: rgba(0, 0, 0, .8);
-                                transition: all .3s ease;
-                            }
-
-                            &.delete-event {
-                                transition: all .4s ease;
-                            }
-                        }
-                    }
-
-                    form {
-                        display: none;
-
-                        &.closed {
-                            position: fixed;
-                            top: 110% !important;
-                            transition: all .3s ease;
-
-                            @media screen and (min-width: $end-small) {
-                                top: 0 !important;
-                                right: -110% !important;
-                                transition: all .3s ease;
-                            }
-
-                            .submit-buttons {
-                                bottom: -110% !important;
-                                transition: all .2s ease;
-                            }
-                        }
-                    }
-
-                    @keyframes shrink-2{
-                        from  {
-                            top: default;
-                        }
-
-                        to {
-                            top: 100%;
-                        }
-                    }
-                }
-
-                &.dead-month-color {
-                    opacity: .3;
-                    pointer-events: none;
-                }
-
-                &.clicked-day {
-                    border: 1px solid darkgray;
-                    border-radius: 5px;
-                    transition: all .3s ease;
-                    animation-name: shrink-1;
-                    animation-duration: .3s;
-                    animation-timing-function: ease;
-
-                    .num-date {
-                        font-weight: bold;
-                    }
-                }
-
-                @keyframes shrink-1 {
-                    25% {transform: scale(.5, .5);}
-                }
-
-                &.double-click {
-                    background: $background;
-                    position: absolute;
-                    top: 5%;
-                    bottom: 5%;
-                    height: 90%;
-                    width: 90%;
-                    border-radius: 15px;
-                    max-width: 800px;
-                    z-index: 99;
-                    border: 1px solid $textdrk;
-                    animation-name: grow;
-                    animation-duration: .3s;
-                    animation-timing-function: ease;
-                    box-shadow: 5px 5px 40px black;
-                    overflow-y: auto;
-                    overflow-x: hidden;
-
-                    button.close-day {
-                        display: inline;
-                        position: absolute;
-                        top: 15px;
-                        right: 0%;
-                        background: transparent;
-                        border-radius: 5px;
-                        border: 0;
-                        cursor: pointer;
-                        outline: none;
-
-                        span {
-                            font-size: 25px;
-                            color: #fff;
-                        }
-
-                        &:active {
-                            color: $primary;
-                        }
-
-                        &.mobile {
-                            top: 10px;
-
-                            span {
-                                font-size: 35px;
-                            }
-                        }
-                    }
-
-                    .mobile-hide {
-                        display: none !important;
-                    }
-
-                    .next-day, .prev-day {
-                        display: block;
-                        position: absolute;
-                        top: 45%;
-                        color: $textdrk;
-                        background: transparent;
-                        border-radius: 5px;
-                        border: 0;
-                        font-size: 20px;
-                        align-items: center;
-                        outline: 0;
-                        //transform: translateY(-100%);
-                        padding: 0;
-                        z-index: 999;
-                        cursor: pointer;
-
-                        &.hide {
-                            display: none;
-                        }
-
-                        @media screen and (min-width: $mid-small) {
-                            display: flex;
-                        }
-
-                        @media screen and (min-width: $end-small) {
-                            top: 50%;
-                            transform: translateY(-50%);
-                        }
-
-                        @media screen and (min-height: 600px) {
-                            top: 50%;
-                        }
-
-                        span {
-                            font-size: 35px !important;
-                        }
-                    }
-                    .hide {
-                        display: none !important;
-                    }
-                    .next-day {
-                        right: 0;
-                    }
-                    .prev-day {
-                        left: 0;
-                    }
-
-                    .event-count {
-                        top: 20px;
-                        left: 2%;
-                        font-size: 9px;
-                        padding: 2px 4px;
-                    }
-
-                    .num-box {
-                        margin-bottom: 21px;
-                        margin-top: 14px;
-                        transition: all .3s ease;
-                        .num-date {
-                            font-size: 12px;
-                        }
-
-                        .mobile-hide-helpers {
-                            &:before {
-                                display: none;
-                            }
-                        }
-                    }
-
-                    .event-opened {
-                        @media screen and (min-width: $end-small) {
-                            width: 50%;
-                            transition: all .3s ease;
-
-                            -webkit-transform: translateZ(0);
-                            -moz-transform: translateZ(0);
-                            -ms-transform: translateZ(0);
-                            -o-transform: translateZ(0);
-                            transform: translateZ(0);
-
-                            transition: all 0.3s ease;
-                            -moz-transition: all .3s ease;
-                            -webkit-transition: all .3s ease;
-                            -o-transition: all .3s ease;
-                        }
-                    }
-
-                    .main-info-section {
-                        padding: 0;
-                        overflow: auto;
-                        touch-action: pinch-zoom !important;
-
-                        @media screen and (min-width: $end-small) {
-                            width: 50%;
-                        }
-
-                        form {
-                            padding: 5px 0;
-                            @media screen and (max-width: $end-small) {
-                                padding-bottom: 15px;
-                            }
-                        }
-
-                        .event-container {
-                            width: 90%;
-                            margin: auto;
-
-                            @media screen and (min-width: $end-small) {
-                                width: 100%;
-                            }
-                        }
-
-                        .event {
-                            font-size: 16px !important;
-                            height: auto !important;
-                            overflow: initial !important;
-                            text-align: left;
-                            width: 80%;
-                            margin: 5px auto;
-                            padding: 2px 4% 4px;
-                            pointer-events: all;
-                            color: $textdrk;
-
-                            @media screen and (min-width: $mid-small) {
-                                margin: 5px 7.5%;
-                            }
-
-                            .event-details {
-                                margin: 2px 0 0 0;
-                                font-size: 11px;
-
-                                &.frequency, &.end {
-                                    display: none;
-                                }
-
-                                &.location {
-                                    display: none;
-                                }
-
-                                &:last-of-type {
-                                    font-size: 11px;
-                                    padding-bottom: 4px;
-                                }
-
-                                &.title {
-                                    display: inline;
-                                }
-
-                                &.description {
-                                    display: none;
-                                    &:before {
-                                        content: " - ";
-                                    }
-                                }
-
-                                &.item-type {
-                                    display: none;
-                                }
-
-                                &.title {
-                                    font-weight: bold;
-                                    font-size: 12px;
-
-                                    span {
-                                        display: inline;
-                                        font-weight: initial;
-                                        
-                                        &:before {
-                                            content: '- '
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        .update-event-form {
-
-                            &.show-update-form {
-                                display: block;
-                                position: absolute;
-                                top: 0;
-                                width: 100%;
-                                bottom: 0;
-                                border-radius: 15px;
-                                overflow: auto;
-                                background: $background;
-                                padding: 0;
-                                animation-name: grow-2;
-                                animation-duration: .2s;
-                                animation-timing-function: ease;
-                                overscroll-behavior: none;
-
-                                transition: all 0.3s ease;
-                                -moz-transition: all .3s ease;
-                                -webkit-transition: all .3s ease;
-                                -o-transition: all .3s ease;
-
-                                @media screen and (min-width: $end-small) {
-                                    top: 0px;
-                                    right: 0;
-                                    border-radius: 0 5px 5px 0;
-                                    height: calc(99% - 0px);
-                                    width: 50%;
-                                    animation-name: slide-left;
-                                    animation-duration: .2s;
-                                    animation-timing-function: ease;
-                                }
-
-                                .form-nav-bar {
-                                    position: sticky;
-                                    top: -1px;
-                                    background: $background;
-                                    h2 {
-                                        padding: 13px 4%;
-                                        margin: 0 0 15px;
-
-                                        input {
-                                            color: #fff;
-                                            font-size: 25px;
-                                            background: $background;
-                                            border: 0;
-                                            outline: 0;
-                                            font-family: "Noto Sans", sans-serif;
-                                            width: calc(100% - 40px);
-                                        }
-
-                                    }
-
-                                    .mobile-hide-helpers {
-                                        &:before {
-                                            display: none;
-                                        }
-                                    }
-
-                                    .close-form {
-                                        position: absolute;
-                                        display: inline;
-                                        top: 17px;
-                                        right: 1%;
-                                        background: transparent;
-                                        border-radius: 5px;
-                                        border: 0;
-                                        cursor: pointer;
-                                        color: $textwht;
-
-                                        &:before {
-                                            font-size: 20px;
-                                            height: 30px;
-                                            display: flex;
-                                            align-items: center;
-                                            justify-content: center;
-                                        }
-
-                                        &:active {
-                                            color: $textdrk;
-                                        }
-
-                                        &.mobile {
-                                            top: 10px;
-                
-                                            span {
-                                                font-size: 35px;
-                                            }
-                                        }
-                                    }
-                                }
-
-                                .input-wrapper {
-                                    margin: 0 4%;
-
-                                    @media screen and (min-width: $end-small) {
-                                        margin: 0 6%;
-                                    }
-
-                                    &.invisible {
-                                        visibility: hidden;
-                                        height: 0;
-                                        width: 0;
-                                    }
-                                }
-
-                                label {
-                                    display: block;
-                                    margin: 0;
-                                    padding: 0;
-                                    width: 100%;
-                                    font-weight: bold;
-                                    font-size: 15px;
-                                    color: $textdrk;
-                                }
-
-                                select, .date-input-update input, .date-input-end-update input, .time-input-end-update input, .item-title-update input , .event-description-update textarea, .amount-input-update input, .location-input-update input, .time-input-update input {
-                                    width: 100%;
-                                    padding: 10px 0;
-                                    border: 0;
-                                    border-bottom: 1px solid #252525;
-                                    margin: 10px 0;
-                                    -webkit-box-sizing: border-box;
-                                    -moz-box-sizing: border-box;
-                                    box-sizing: border-box;
-                                    font-size: 15px;
-                                    transition: all .3s ease;
-                                    background: $background;
-                                    color: $textdrk;
-
-                                    &:focus, &:active {
-                                        border: 0;
-                                        border-bottom: 1px solid $primary;
-                                        outline: 0;
-                                        transition: all .3s ease;
-                                        font-size: 16px;
-                                    }
-                                    &:-internal-autofill-selected {
-                                        box-shadow: inset 0 0 0 100px transparent;
-                                    }
-                                }
-
-                                .time-all-day {
-                                    &::after {
-                                        display: block;
-                                        content: "";
-                                        clear: both;
-                                    }
-                                    input {
-                                        float: right;
-                                        width: auto;
-                                    }
-                                    label {
-                                        width: auto;
-                                        float: right;
-                                    }
-                                }
-
-                                textarea {
-                                    height: 75px;
-                                }
-
-                                .submit-buttons {
-                                    position: sticky;
-                                    flex-direction: row-reverse;
-                                    display: flex;
-                                    justify-content: center;
-                                    bottom: 0;
-                                    background: $background;
-                                    width: 100%;
-                                    margin: 0;
-
-                                    .submit-form, .delete-event {
-                                        background-color: $background;
-                                        color: $textwht;
-                                        padding: 20px 0;
-                                        border: 0;
-                                        font-size: 20px;
-                                        width: 50%;
-                                        transition: all .3s ease;
-
-                                        &:disabled {
-                                            opacity: .3;
-                                            transition: all .3s ease;
-                                        }
-
-                                        &:hover, &:focus {
-                                            opacity: .5;
-                                            transition: all .3s ease;
-                                        }
-                                    }
-                                }
-
-                                &::-webkit-scrollbar {
-                                    width: 2px;
-                                }
-                                &::-webkit-scrollbar-track {
-                                    background: transparent;
-                                }
-                                &::-webkit-scrollbar-thumb {
-                                    background: rgba(0, 0, 0, .2);
-                                    border-radius: 50px;
-                                }
-                                &::-webkit-scrollbar-thumb:hover {
-                                    background: rgba(126, 93, 93, 0.7); 
-                                }
-                            }
-
-                            @keyframes grow-2 {
-                                0%   { top: 100% }
-                                30%  { top: 0 }
-                                70%  { top: 10px }
-                                100% { top: 0 }
-                            }
-
-                            @keyframes slide-left {
-                                0%   { right: -100% }
-                                30%  { right: 0 }
-                                70%  { right: 10px }
-                                100% { right: 0 }
-                            }
-                        }
-                    }
-
-                    .normal-scrolling {
-                        touch-action: pan-y !important;
-                        overscroll-behavior: none;
-                    }
-                }
-
-                &.swipe-right {
-                    transition: none !important;
-                    animation-name: swipeRightBounce;
-                    animation-duration: .3s;
-                    animation-timing-function: ease;
-
-                    @media screen and (min-width: $end-small) {
-                        animation-name: swipeRight;
-                        animation-timing-function: ease-in-out;
-                    }
-                }
-
-                &.swipe-left {
-                    transition: none !important;
-                    animation-name: swipeLeftBounce;
-                    animation-duration: .3s;
-                    animation-timing-function: ease;
-
-                    @media screen and (min-width: $end-small) {
-                        animation-name: swipeLeft;
-                        animation-timing-function: ease-in-out;
-                    }
-                }
-
-                &.bounce-right {
-                    animation-name: bounceRight;
-                    animation-duration: .3s;
-                    animation-timing-function: ease;
-                }
-
-                &.bounce-left {
-                    animation-name: bounceLeft;
-                    animation-duration: .3s;
-                    animation-timing-function: ease;
-                }
-
-                @keyframes swipeRightBounce {
-                    0%   { left: -100% }
-                    85%  { left: 0 }
-                    90%  { left: 10px }
-                    100% { left: 0 }
-                }
-
-                @keyframes swipeLeftBounce {
-                    0%   { right: -100% }
-                    85%  { right: 0 }
-                    90%  { right: 10px }
-                    100% { right: 0 }
-                }
-
-                @keyframes swipeRight {
-                    0%   { left: -100% }
-                    100% { left: 0 }
-                }
-
-                @keyframes swipeLeft {
-                    0%   { right: -100% }
-                    100% { right: 0 }
-                }
-
-                @keyframes bounceRight {
-                    0% {
-                        left: 0;
-                    }
-
-                    50% {
-                        left: 15%;
-                    }
-
-                    100% {
-                        left: 0;
-                    }
-                }
-                
-                @keyframes bounceLeft {
-                    0% {
-                        right: 0;
-                    }
-
-                    50% {
-                        right: 15%;
-                    }
-
-                    100% {
-                        right: 0;
-                    }
-                }
-
-                @keyframes grow {
-                    from {
-                        transform: scale(.5, .5);
-                    }
-
-                    to {
-                        transform: scale(1, 1);
-                    }
-                }
-
+            margin: 0;
+            text-align: center;
+            position: absolute;
+            visibility: hidden;
+
+            &.beg {
+                left: 0;
+                right: 0;
             }
 
-
+            &.end {
+                left: 0;
+                right: 0;
+                bottom: 2px;
+            }
         }
-
-        .bottom-of-cal-fix {
-            height: 53px;
-        }
-
-
     }
 
     .cal-swipe-right {
@@ -1037,14 +888,6 @@
         animation-timing-function: ease;
     }
 
-    @keyframes calSwipeLeft {
-        0%   { left: -100% }
-        100% { left: 0 }
-    }
-    @keyframes calSwipeRight {
-        0%   { right: -100% }
-        100% { right: 0 }
-    }
 
     .add-item-button {
         padding: 15px;
@@ -1065,8 +908,8 @@
         @media screen and (max-width: $end-small) {
             &.moved {
                 display: flex;
-                bottom: 6%;
-                right: 7%;
+                bottom: 11%;
+                right: 11.5%;
             }
         }
 
@@ -1078,7 +921,7 @@
             right: 50%;
             transform: translateX(50%);
             &.moved {
-                bottom: 7%;
+                bottom: 11%;
             }
         }
     }
@@ -1112,8 +955,8 @@
 
         @media screen and (max-width: $end-small) {
             &.moved {
-                bottom: 7.5%;
-                right: 9.5%;
+                bottom: 12%;
+                right: 13.5%;
             }
         }
 
@@ -1124,18 +967,18 @@
             border-radius: 100%;
             max-width: 800px;
             &.moved {
-                bottom: 8.5%;
+                bottom: 12.5%;
             }
         }
 
         &.show-form {
-            height: 90%;
-            width: 90%;
+            height: 80%;
+            width: 80%;
             background: #121212;
-            right: 4.7%;
-            bottom: 4.7%;
+            right: 10%;
+            bottom: 10%;
             z-index: 99999;
-            border-radius: 15px;
+            border-radius: 10px;
             border: 1px solid $textdrk;
             color: #fff;
             overflow-y: auto;
@@ -1149,7 +992,6 @@
                 bottom: 50%;
                 right: 50%;
                 transform: translate(50%, 50%);
-                width: 100%;
                 max-width: 800px;
                 animation: none;
                 box-shadow: 5px 5px 40px black;
@@ -1189,8 +1031,8 @@
             .close-form {
                 position: absolute;
                 display: inline;
-                top: 17px;
-                right: 1%;
+                top: 16px;
+                right: 10px;
                 background: transparent;
                 border-radius: 5px;
                 border: 0;
@@ -1348,67 +1190,127 @@
             }
         }
     }
+
 }
 
 .loading-container {
-  position: fixed;
-  top: 74px;
-  left: 0;
-  right: 0;
-  bottom: 56px;
-  background: rgba(0,0,0,.5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);  
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999999;
-  flex-direction: column-reverse;
-  transition: all .3s ease;
-
-  &.show {
-      display: flex;
-
-      touch-action: none;
-      user-select: none;
-      -webkit-user-drag: none;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 74px;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+    background: rgba(0,0,0,.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    flex-direction: column-reverse;
+    transition: all .3s ease;
+  
+    &.show {
+        display: flex;
+  
+        touch-action: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+  
+    @media screen and (min-width: $end-small) {
+      top: calc(70px + 53.6px);
+      bottom: 53.6px;
+    }
+  
+      div.loading-text {
+          color: $textdrk;
+          font-size: 20px;
+  
+          span {
+              margin: 0 3px;
+              display: inline-block;
+              animation-duration: .7s;
+              animation-timing-function: ease;
+              animation-iteration-count: infinite;
+              animation-name: bouncy;
+  
+              &:nth-child(2) {
+                  animation-delay: .2s
+              }
+  
+              &:last-child {
+                  animation-delay: .3s;
+              }
+          }
+  
+          @keyframes bouncy { 
+              0% {transform: translateY(0);}
+              50% {transform: translateY(-5px);}
+              100% {transform: translateY(0);}
+          } 
+      }
+  
+    img {
+      width: 100%;
+    }
   }
 
-  @media screen and (min-width: $end-small) {
-    top: calc(74px + 54px);
-    bottom: 54px;
-  }
+//animations
 
-    div.loading-text {
-        color: $textdrk;
-        font-size: 20px;
+@keyframes calSwipeLeft {
+    0%   { left: -100% }
+    100% { left: 0 }
+}
+@keyframes calSwipeRight {
+    0%   { right: -100% }
+    100% { right: 0 }
+}
 
-        span {
-            margin: 0 3px;
-            display: inline-block;
-            animation-duration: .7s;
-            animation-timing-function: ease;
-            animation-iteration-count: infinite;
-            animation-name: bouncy;
+@keyframes swipeRightBounce {
+    0%   { left: -100% }
+    // 85%  { left: 0 }
+    // 90%  { left: 10px }
+    100% { left: 0 }
+}
 
-            &:nth-child(2) {
-                animation-delay: .2s
-            }
+@keyframes swipeLeftBounce {
+    0%   { right: -100% }
+    // 85%  { right: 0 }
+    // 90%  { right: 10px }
+    100% { right: 0 }
+}
 
-            &:last-child {
-                animation-delay: .3s;
-            }
-        }
+@keyframes swipeRight {
+    0%   { left: -100% }
+    100% { left: 0 }
+}
 
-        @keyframes bouncy { 
-            0% {transform: translateY(0);}
-            50% {transform: translateY(-5px);}
-            100% {transform: translateY(0);}
-        } 
+@keyframes swipeLeft {
+    0%   { right: -100% }
+    100% { right: 0 }
+}
+
+@keyframes grow {
+    from {
+        transform: scale(.5, .5);
     }
 
-  img {
-    width: 100%;
-  }
+    to {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes grow-2 {
+    0%   { top: 100% }
+    30%  { top: 0 }
+    70%  { top: 10px }
+    100% { top: 0 }
+}
+
+@keyframes slide-left {
+    0%   { right: -100% }
+    30%  { right: 0 }
+    70%  { right: 10px }
+    100% { right: 0 }
 }

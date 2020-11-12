@@ -2,12 +2,10 @@
     <div class="calendar-navbar">
         <div class="controls">
             <select name="select" class="month-selector selector" id="month" (change)="changeCalSelectors()">
-                <option *ngFor="let month of monthSelectorOptions" value="{{month.num}}"
-                    [selected]="month.num === currentMonth">{{month.name}}</option>
+                <option *ngFor="let month of monthSelectorOptions" value="{{month.num}}" [selected]="month.num === currentMonth">{{month.name}}</option>
             </select>
             <select name="select" class="year-selector selector" id="year" (change)="changeCalSelectors()">
-                <option *ngFor="let year of yearSelectorOptions" value="{{year}}" [selected]="year === currentYear">
-                    {{year}}</option>
+                <option *ngFor="let year of yearSelectorOptions" value="{{year}}" [selected]="year === currentYear">{{year}}</option>
             </select>
 
             <div class="calendar-controls">
@@ -28,27 +26,35 @@
         </div>
     </div>
 
-    <div class="calendar-container" #calendar
-    (swipeleft)="onSwipeLeft($event)" (swiperight)="onSwipeRight($event)" (swipeup)="onSwipeUp($event)">
-        <div class="weeks row" *ngFor="let row of rows">
-            <div id="day-box" class="day-box" *ngFor="let week of weekDays" #daybox (click)="clickonDay($event)" (swipedown)="onSwipeDown($event)">
+    <div class="calendar-container" #calendar (swipeleft)="onSwipeLeft($event)" (swiperight)="onSwipeRight($event)">
+        <ng-container *ngFor="let day of month">
+            <div class="day-box" #daybox (click)="selectDay($event)" (swipedown)="swipeDayDown($event)"
+            [ngClass]="{
+                'disabled': selectedMonth != day.month,
+                'current-day': currentDay == day.day && currentMonthCheck == day.month && currentYearCheck == day.year,
+                'first-day-box': firstDay == day.day && selectedMonth == day.month,
+                'last-day-box': lastDay == day.day && selectedMonth == day.month,
+                'prev-month-days': prevMonth == day.month,
+                'next-month-days': nextMonth == day.month,
+                'selected-day': currentDay == day.day && currentMonthCheck == day.month || firstDay == day.day && currentMonthCheck != selectedMonth && selectedMonth == day.month
+            }">
+                <!-- <span class="event-count"></span> -->
                 <button class="close-day">
-                    <span class="material-icons close-day-icon">clear</span>
+                    <span class="material-icons close-day-icon">keyboard_arrow_down</span>
                 </button>
-                <span class="event-count"></span>
-                <div class="num-box">
-                    <span class="num-date"></span>
-                </div>
-                <div class="date-value"></div>
+                <span class="number">{{day.day}}</span>
+                <p class="balance beg">Beg Bal</p>
+
                 <button class="prev-day">
                     <span class="material-icons prev-day-icon">keyboard_arrow_left</span>
                 </button>
                 <button class="next-day">
                     <span class="material-icons next-day-icon">keyboard_arrow_right</span>
                 </button>
-                <div class="main-info-section">
-                    <div class="event-container" *ngFor="let event of singleMonthEvents">
-                        <div class="event" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency" (click)="selectEvent($event)">
+
+                <div class="transactions" [attr.date]="day.date" (swipeleft)="swipeDayLeft($event)" (swiperight)="swipeDayRight($event)">
+                    <ng-container *ngFor="let event of getAllEvents">
+                        <div class="event" *ngIf="day.date === event.eventstart_date" (click)="selectEvent($event)" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency">
                             <p class="event-details title">
                                 {{event.eventtitle}}
                             </p>
@@ -77,7 +83,7 @@
                                 {{event.itemtype}}
                             </p>
                         </div>
-                    </div>
+                    </ng-container>
                     <form [formGroup]="deleteItemForm">
                         <input formControlName="id" type="text" name="id" class="event_input" />
                     </form>
@@ -87,7 +93,7 @@
                                 <input type="text" placeholder="Title or name" formControlName="title" maxlength="32" autocomplete="off" required>
                             </h2>
                             <div class="close-form" (click)="closeEventUpdateForm()">
-                                <span class="material-icons">clear</span>
+                                <span class="material-icons">keyboard_arrow_down</span>
                             </div>
                         </div>
                         <div class="input-wrapper event-id-update invisible">
@@ -156,14 +162,13 @@
                         </div>
                         
                     </form>
-
                 </div>
+
+                <p class="balance end">End Bal</p>
             </div>
-        </div>
+        </ng-container>
 
-        <div class="popup-background" (click)="closeAll()">
-
-        </div>
+        <div class="opened-background" (click)="closeDay()"></div>
 
         <button class="add-item-button" (click)="openForm()" [ngStyle]="{display: hideFormButton ? 'none' : 'flex'}">
             <span class="material-icons">add</span>
@@ -176,7 +181,7 @@
                         <input type="text" placeholder="Title" formControlName="title" maxlength="32" name="title" autocomplete="off" required>
                     </h2>
                     <div class="close-form" (click)="closeForm()">
-                        <span class="material-icons">clear</span>
+                        <span class="material-icons">keyboard_arrow_down</span>
                     </div>
                 </div>
     
@@ -256,8 +261,7 @@
         </div>
     </div>
 
-</div>
-
+</div> 
 
 <div class="loading-container" [ngClass]="{show: loading}">
     <div class="loading-text">

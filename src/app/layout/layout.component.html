@@ -36,7 +36,7 @@
             <li class="logo-icon"><a href="#" routerLink="/" (click)="clickFooterLink()"><img src="./assets/icons/icon-128x128.png" alt="" /></a></li>
             <li *ngIf="!dataService.loggedIn()"><a href="#" routerLink="/signup" (click)="clickFooterLink()"><span class="material-icons">create</span></a></li>
             <li *ngIf="!dataService.loggedIn()"><a href="#" routerLink="/login" (click)="clickFooterLink()"><span class="material-icons">login</span></a></li>
-            <li *ngIf="dataService.loggedIn()"><a href="#" routerLink="/test-cal" (click)="clickLink()"><span class="material-icons">calendar_today</span></a></li>
+            <!-- <li *ngIf="dataService.loggedIn()"><a href="#" routerLink="/test-cal" (click)="clickLink()"><span class="material-icons">calendar_today</span></a></li> -->
             <li *ngIf="dataService.loggedIn()"><a href="#" routerLink="/settings" (click)="clickFooterLink()"><span class="material-icons settings">settings</span></a></li>
 
             <li *ngIf="dataService.loggedIn()" class="profile-link"><a href="#"
