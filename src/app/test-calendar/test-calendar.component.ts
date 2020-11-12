@@ -413,6 +413,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
 
       setTimeout(() => {
+        $('.transactions').addClass('update-form-opened')
         $('.update-event-form').addClass('show-update-form').removeClass('closed');
       }, 200);
       $('.update-event-form').animate({ scrollTop: 0 }, 300);
@@ -680,7 +681,8 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
   closeEventUpdateForm() {
     // window.navigator.vibrate(this.gestureVibration);
-    $('.num-box').removeClass('event-opened');
+    $('.event').removeClass('selected');
+    $('.transactions').removeClass('update-form-opened')
     $('.update-event-form').addClass('closed');
     // Delay for the Close animation
     setTimeout(() => {

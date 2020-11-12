@@ -243,6 +243,10 @@
                 right: 0;
                 bottom: 15px;
                 top: 26px;
+
+                &.update-form-opened {
+                    width: 99%;
+                }
     
                 .event {
                     font-size: 8px;
