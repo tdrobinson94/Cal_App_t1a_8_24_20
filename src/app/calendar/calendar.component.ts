@@ -441,6 +441,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.day-box').removeClass('day-opened swipe-left swipe-right');
     $('.add-item-button, .add-item-container').removeClass('moved');
     $('.transactions').removeClass('normal-scrolling');
+    setTimeout(() => {
+      $('.transactions').animate({ scrollTop: 0 }, 200);
+    }, 300);
     this.closeForm();
     this.closeEventUpdateForm();
   }
