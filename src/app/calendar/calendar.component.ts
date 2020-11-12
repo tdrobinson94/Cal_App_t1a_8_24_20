@@ -375,6 +375,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   // Calendar Gestures
   selectDay(e) {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.next-day, .prev-day').addClass('hide');
+    } else {
+      $('.next-day, .prev-day').removeClass('hide');
+    }
+    
     $('.add-item-form').removeClass('show-form');
     $('.event').removeClass('selected');
     if ($(e.target).hasClass('prev-day-icon')) {
@@ -428,7 +435,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
       $('.add-item-button, .add-item-container').addClass('moved');
-      // this.swipeDayDown(e);
       this.enableDefaultScrolling();
     }
   }
