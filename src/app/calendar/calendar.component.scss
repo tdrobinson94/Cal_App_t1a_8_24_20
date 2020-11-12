@@ -372,6 +372,9 @@
             &.selected-day {
                 border: 1px solid #fff;
                 border-radius: 5px;
+                animation-name: shrink-1;
+                animation-duration: .3s;
+                animation-timing-function: ease;
             }
 
             &.day-opened {
@@ -563,7 +566,7 @@
                                     border: 0;
                                     outline: 0;
                                     font-family: "Noto Sans", sans-serif;
-                                    width: calc(100% - 18px);
+                                    width: calc(100% - 30px);
                                 }
 
                             }
@@ -1303,6 +1306,10 @@
     to {
         transform: scale(1, 1);
     }
+}
+
+@keyframes shrink-1 {
+    25% {transform: scale(.5, .5);}
 }
 
 @keyframes grow-2 {
