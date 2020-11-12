@@ -679,6 +679,30 @@
                         }
                     }
                 }
+
+                &.swipe-right {
+                    transition: none !important;
+                    animation-name: swipeRightBounce;
+                    animation-duration: .2s;
+                    animation-timing-function: ease;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-name: swipeRight;
+                        animation-timing-function: ease-in-out;
+                    }
+                }
+
+                &.swipe-left {
+                    transition: none !important;
+                    animation-name: swipeLeftBounce;
+                    animation-duration: .2s;
+                    animation-timing-function: ease;
+
+                    @media screen and (min-width: $end-small) {
+                        animation-name: swipeLeft;
+                        animation-timing-function: ease-in-out;
+                    }
+                }
             }
         }
 
@@ -820,3 +844,29 @@
       width: 100%;
     }
   }
+
+  //animations
+
+@keyframes swipeRightBounce {
+    0%   { left: -100% }
+    // 85%  { left: 0 }
+    // 90%  { left: 10px }
+    100% { left: 0 }
+}
+
+@keyframes swipeLeftBounce {
+    0%   { right: -100% }
+    // 85%  { right: 0 }
+    // 90%  { right: 10px }
+    100% { right: 0 }
+}
+
+@keyframes swipeRight {
+    0%   { left: -100% }
+    100% { left: 0 }
+}
+
+@keyframes swipeLeft {
+    0%   { right: -100% }
+    100% { right: 0 }
+}

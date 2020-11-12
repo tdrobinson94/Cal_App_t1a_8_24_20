@@ -41,7 +41,7 @@
                 <span class="number">{{day.day}}</span>
                 <p class="balance beg">Beg Bal</p>
 
-                <div class="transactions" [attr.date]="day.date">
+                <div class="transactions" [attr.date]="day.date" (swipeleft)="swipeDayLeft($event)" (swiperight)="swipeDayRight($event)">
                     <ng-container *ngFor="let event of getAllEvents">
                         <div class="event" *ngIf="day.date === event.eventstart_date" (click)="selectEvent($event)" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency">
                             <p class="event-details title">

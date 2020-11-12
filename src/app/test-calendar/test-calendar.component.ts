@@ -459,43 +459,136 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
 
   onSwipeLeft(e) {
-    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-      $('.event').removeClass('selected');
-      $('.day-opened').removeClass('bounce-left');
-      if (!$('.day-box').hasClass('day-opened')) {
-        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
-          // Do nothing
-          console.log($(e.target));
-        } else {
-          this.nextClick();
-        }
+    $('.event').removeClass('selected');
+    $('.day-opened').removeClass('bounce-left');
+    if (!$('.day-box').hasClass('day-opened')) {
+      if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+        // Do nothing
+        console.log($(e.target));
       } else {
-        
+        this.nextClick();
+      }
+    } 
+  }
+
+  swipeDayLeft(e) {
+    $('.event').removeClass('selected');
+    $('.day-opened').removeClass('bounce-left');
+    if ($('.day-box').hasClass('day-opened')) {
+      if ($(e.target).hasClass('transactions')) {
+        if (!$(e.target).parent().next().hasClass('disabled')) {
+          this.removeClassesForDayBox();
+          if ($(e.target).parent().hasClass('last-day-box')) {
+            this.swipeNextMonthAnimationOne();
+          } else if ($(e.target).parent().next().length === 0) {
+            $(e.target).parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
+            this.swipeNextEndOfRow();
+          } else {
+            $(e.target).parent().next().addClass('selected-day day-opened swipe-left');
+            this.swipeNextDay();
+          }
+        } else {
+          this.swipeNextMonthAnimationOne();
+        }
+      } else if ($(e.target).hasClass('event')) {
+        if (!$(e.target).parent().parent().next().hasClass('disabled')) {
+          this.removeClassesForDayBox();
+          if ($(e.target).parent().parent().hasClass('last-day-box')) {
+            this.removeClassesForDayBox();
+          } else if ($(e.target).parent().parent().next().length === 0) {
+            $(e.target).parent().parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
+            this.swipeNextEndOfRow();
+          } else {
+            $(e.target).parent().parent().next().addClass('selected-day day-opened swipe-left');
+            this.swipeNextDay();
+          }
+        } else {
+          this.swipeNextMonthAnimationOne();
+        }
+      } else if ($(e.target).hasClass('event-details')) {
+        if (!$(e.target).parent().parent().parent().next().hasClass('disabled')) {
+          this.removeClassesForDayBox();
+          if ($(e.target).parent().parent().parent().hasClass('last-day-box')) {
+            this.removeClassesForDayBox();
+          } else if ($(e.target).parent().parent().parent().next().length === 0) {
+            $(e.target).parent().parent().parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
+            this.swipeNextEndOfRow();
+          } else {
+            $(e.target).parent().parent().parent().next().addClass('selected-day day-opened swipe-left');
+            this.swipeNextDay();
+          }
+        } else {
+          this.swipeNextMonthAnimationOne();
+        }
       }
     }
   }
 
   onSwipeRight(e) {
-    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-      $('.event').removeClass('selected');
-      $('.day-opened').removeClass('bounce-left');
-      if (!$('.day-box').hasClass('day-opened')) {
-        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
-          // Do nothing
-          console.log($(e.target));
-        } else {
-          this.prevClick();
-        }
+    $('.event').removeClass('selected');
+    $('.day-opened').removeClass('bounce-right');
+    if (!$('.day-box').hasClass('day-opened')) {
+      if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+        // Do nothing
+        console.log($(e.target));
       } else {
-        
+        this.prevClick();
       }
     }
   }
 
-
-
+  swipeDayRight(e) {
+    $('.event').removeClass('selected');
+    $('.day-opened').removeClass('bounce-right');
+    if ($('.day-box').hasClass('day-opened')) {
+      if ($(e.target).hasClass('transactions')) {
+        if (!$(e.target).parent().prev().hasClass('disabled')) {
+          this.removeClassesForDayBox();
+          if ($(e.target).parent().hasClass('first-day-box')) {
+            this.swipePrevMonthAnimationOne();
+          } else if ($(e.target).parent().prev().length === 0) {
+            $(e.target).parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
+            this.swipePrevEndOfRow();
+          } else {
+            $(e.target).parent().prev().addClass('selected-day day-opened swipe-right');
+            this.swipePrevDay();
+          }
+        } else {
+          this.swipePrevMonthAnimationOne();
+        }
+      } else if ($(e.target).hasClass('event')) {
+        if (!$(e.target).parent().parent().prev().hasClass('disabled')) {
+          this.removeClassesForDayBox();
+          if ($(e.target).parent().parent().hasClass('first-day-box')) {
+            this.removeClassesForDayBox();
+          } else if ($(e.target).parent().parent().prev().length === 0) {
+            $(e.target).parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
+            this.swipePrevEndOfRow();
+          } else {
+            $(e.target).parent().parent().prev().addClass('selected-day day-opened swipe-right');
+            this.swipePrevDay();
+          }
+        } else {
+          this.swipePrevMonthAnimationOne();
+        }
+      } else if ($(e.target).hasClass('event-details')) {
+        if (!$(e.target).parent().parent().parent().prev().hasClass('disabled')) {
+          this.removeClassesForDayBox();
+          if ($(e.target).parent().parent().parent().hasClass('first-day-box')) {
+            this.removeClassesForDayBox();
+          } else if ($(e.target).parent().parent().parent().prev().length === 0) {
+            $(e.target).parent().parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
+            this.swipePrevEndOfRow();
+          } else {
+            $(e.target).parent().parent().parent().prev().addClass('selected-day day-opened swipe-right');
+            this.swipePrevDay();
+          }
+        } else {
+          this.swipePrevMonthAnimationOne();
+        }
+      }
+    }
+  }
 
   closeEventUpdateForm() {
     // window.navigator.vibrate(this.gestureVibration);
@@ -531,6 +624,23 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   }
 
   swipeNextDay() {
+    $('.opened-background').show();
+  }
+
+  swipePrevMonthAnimationOne() {
+    this.prevClick();
+    setTimeout(() => {
+      $('.opened-background').show();
+      $('.day-box').removeClass('selected-day');
+      $('.last-day-box').addClass('selected-day day-opened swipe-right');
+    }, 350);
+  }
+
+  swipePrevEndOfRow() {
+    $('.opened-background').show();
+  }
+
+  swipePrevDay() {
     $('.opened-background').show();
   }
 
