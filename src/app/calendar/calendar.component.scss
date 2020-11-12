@@ -816,7 +816,7 @@
                     @media screen and (min-width: $end-small) {
                         animation-name: swipeRight;
                         animation-duration: .2s;
-                        animation-timing-function: ease;
+                        animation-timing-function: linear;
                     }
                 }
 
@@ -829,7 +829,7 @@
                     @media screen and (min-width: $end-small) {
                         animation-name: swipeLeft;
                         animation-duration: .2s;
-                        animation-timing-function: ease;
+                        animation-timing-function: linear;
                     }
                 }
             }
