@@ -54,10 +54,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   getAllEvents = [];
 
-
-
-
-
   //Forms
    // Delete event form
    deleteItemForm = new FormGroup({
@@ -298,6 +294,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.createCalendarGrid();
     this.loading = false;
     $('.opened-background').hide();
+    $('.add-item-button, .add-item-container').removeClass('moved');
   }
 
   // Calendar Navigation
@@ -381,7 +378,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     } else {
       $('.next-day, .prev-day').removeClass('hide');
     }
-    
+
     $('.add-item-form').removeClass('show-form');
     $('.event').removeClass('selected');
     if ($(e.target).hasClass('prev-day-icon')) {
