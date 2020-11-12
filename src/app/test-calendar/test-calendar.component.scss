@@ -234,7 +234,7 @@
                 height: calc(16.4% - 2px);
             }
 
-            button.close-day {
+            button.close-day, .next-day, .prev-day {
                 display: none;
             }
 
@@ -412,6 +412,56 @@
                     }
                 }
 
+                .next-day, .prev-day {
+                    display: block;
+                    position: absolute;
+                    top: 45%;
+                    color: $textdrk;
+                    background: transparent;
+                    border-radius: 5px;
+                    border: 0;
+                    font-size: 20px;
+                    align-items: center;
+                    outline: 0;
+                    transform: translateY(-50%);
+                    padding: 0;
+                    z-index: 999;
+                    cursor: pointer;
+
+                    &.hide {
+                        display: none;
+                    }
+
+                    @media screen and (min-width: $mid-small) {
+                        display: flex;
+                    }
+
+                    @media screen and (min-width: $end-small) {
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+
+                    @media screen and (min-height: 600px) {
+                        top: 50%;
+                    }
+
+                    span {
+                        font-size: 30px !important;
+                    }
+                }
+
+                .hide {
+                    display: none !important;
+                }
+
+                .next-day {
+                    right: 0;
+                }
+
+                .prev-day {
+                    left: 0;
+                }
+
                 .number {
                     margin-top: 5px;
                     margin-bottom: 10px;
@@ -460,6 +510,10 @@
                             -webkit-transition: all .3s ease;
                             -o-transition: all .3s ease;
 
+                            &::-webkit-scrollbar {
+                                width: 0px;
+                            }
+
                             @media screen and (min-width: $end-small) {
                                 top: 0px;
                                 right: 0;
@@ -477,7 +531,11 @@
                                 background: $background;
                                 h2 {
                                     padding: 0 13px 4%;
-                                    margin: 0 4% 15px 4%;
+                                    margin: 0 0 15px 0;
+
+                                    @media screen and (min-width: $end-small) {
+                                        margin: 0 4% 15px 4%;
+                                    }
 
                                     input {
                                         color: #fff;
