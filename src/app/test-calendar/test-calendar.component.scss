@@ -359,6 +359,11 @@
                 background: $background;
                 max-width: 800px;
                 border-radius: 10px;
+                border: 1px solid $textdrk;
+                animation-name: grow;
+                animation-duration: .3s;
+                animation-timing-function: ease;
+                box-shadow: 5px 5px 40px black;
 
                 .number {
                     margin-top: 5px;
@@ -684,7 +689,7 @@
                     transition: none !important;
                     animation-name: swipeRightBounce;
                     animation-duration: .2s;
-                    animation-timing-function: ease;
+                    animation-timing-function: ease-in-out;
 
                     @media screen and (min-width: $end-small) {
                         animation-name: swipeRight;
@@ -696,7 +701,7 @@
                     transition: none !important;
                     animation-name: swipeLeftBounce;
                     animation-duration: .2s;
-                    animation-timing-function: ease;
+                    animation-timing-function: ease-in-out;
 
                     @media screen and (min-width: $end-small) {
                         animation-name: swipeLeft;
@@ -768,17 +773,309 @@
         animation-timing-function: ease;
     }
 
-    @keyframes calSwipeLeft {
-        0%   { left: -100% }
-        100% { left: 0 }
+
+    .add-item-button {
+        padding: 15px;
+        position: absolute;
+        bottom: 10px;
+        font-size: 20px;
+        border-radius: 100%;
+        border: none;
+        background-color: $alert;
+        color: $textwht;
+        right: 10px;
+        z-index: 9999;
+        transition: all .3s ease;
+        display: flex;
+        box-shadow: 2px 5px 15px black;
+        cursor: pointer;
+
+        @media screen and (max-width: $end-small) {
+            &.moved {
+                display: flex;
+                bottom: 11%;
+                right: 11.5%;
+            }
+        }
+
+        &:active {
+            color: $textdrk;
+        }
+
+        @media screen and (min-width: $end-small) {
+            right: 50%;
+            transform: translateX(50%);
+            &.moved {
+                bottom: 7%;
+            }
+        }
     }
-    @keyframes calSwipeRight {
-        0%   { right: -100% }
-        100% { right: 0 }
+
+
+    .add-item-container {
+        position: absolute;
+        bottom: 17px;
+        right: 17px;
+        height: 40px;
+        width: 40px;
+        z-index: 99;
+        border-radius: 100%;
+        color: transparent;
+        overflow: hidden;
+        transition: all 0.2s ease;
+
+        &::-webkit-scrollbar {
+            width: 2px;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, .2);
+            border-radius: 50px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgba(126, 93, 93, 0.7); 
+        }
+
+        @media screen and (max-width: $end-small) {
+            &.moved {
+                bottom: 12%;
+                right: 13.5%;
+            }
+        }
+
+        @media screen and (min-width: $end-small) {
+            right: 50% !important;
+            transform: translateX(50%);
+            overflow: hidden;
+            border-radius: 100%;
+            max-width: 800px;
+            &.moved {
+                bottom: 8.5%;
+            }
+        }
+
+        &.show-form {
+            height: 80%;
+            width: 80%;
+            background: #121212;
+            right: 10%;
+            bottom: 10%;
+            z-index: 99999;
+            border-radius: 10px;
+            border: 1px solid $textdrk;
+            color: #fff;
+            overflow-y: auto;
+
+            transition: all 0.2s ease;
+            -moz-transition: all .2s ease;
+            -webkit-transition: all .2s ease;
+            -o-transition: all .2s ease;
+
+            @media screen and (min-width: $end-small) {
+                bottom: 50%;
+                right: 50%;
+                transform: translate(50%, 50%);
+                width: 100%;
+                max-width: 800px;
+                animation: none;
+                box-shadow: 5px 5px 40px black;
+            }
+        }
+
+        .normal-scrolling {
+            touch-action: pan-y !important;
+            overscroll-behavior: none;
+        }
+
+        .form-nav-bar {
+            position: sticky;
+            top: -1px;
+            background: $background;
+            h2 {
+                padding: 13px 4%;
+                margin: 0 0 15px;
+                
+                input {
+                    color: #fff;
+                    font-size: 25px;
+                    background: $background;
+                    border: 0;
+                    outline: 0;
+                    font-family: "Noto Sans", sans-serif;
+                    width: calc(100% - 40px);
+                }
+            }
+
+            .mobile-hide-helpers {
+                &:before {
+                    display: none;
+                }
+            }
+
+            .close-form {
+                position: absolute;
+                display: inline;
+                top: 17px;
+                right: 1%;
+                background: transparent;
+                border-radius: 5px;
+                border: 0;
+                cursor: pointer;
+                color: $textwht;
+
+                &:before {
+                    font-size: 20px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                &:active {
+                    color: $textdrk;
+                }
+
+                &.mobile {
+                    top: 10px;
+
+                    span {
+                        font-size: 35px;
+                    }
+                }
+            }
+        }
+
+        .animate-events-one {
+            display: none;
+            &.form-nav-bar {
+                display: block;
+                
+                @media screen and (min-width: $end-small) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .animate-events-two {
+            display: block;
+
+            @media screen and (min-width: $end-small) {
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
+
+        .input-wrapper {
+            margin: 0 4%;
+
+            @media screen and (min-width: $end-small) {
+                width: 42%;
+            }
+
+            &.invisible {
+                visibility: hidden;
+                height: 0;
+                width: 0;
+                display: none;
+            }
+        }
+
+        label {
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-weight: bold;
+            font-size: 15px;
+            color: $textdrk;
+        }
+
+        select, .date-input input, .date-input-end input, .time-input-end input, .item-title input , .event-description textarea, .amount-input input, .location-input input, .time-input input {
+            width: 100%;
+            padding: 10px 0;
+            border: 0;
+            border-bottom: 1px solid #252525;
+            margin: 10px 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: all .3s ease;
+            background: $background;
+            color: $textdrk;
+
+            &:focus, &:active {
+                border: 0;
+                border-bottom: 1px solid $primary;
+                outline: 0;
+                transition: all .3s ease;
+                font-size: 16px;
+            }
+            &:-internal-autofill-selected {
+                box-shadow: inset 0 0 0 100px transparent;
+            }
+        }
+
+        .input-wrapper {
+            &.time-all-day {
+                display: block;
+                align-items: center;
+                width: 100%;
+                float: right;
+
+                &::after {
+                    display: block;
+                    content: "";
+                    clear: both;
+                }
+                input {
+                    float: right;
+                    width: auto;
+                    margin-right: 5px;
+                }
+                label {
+                    width: auto;
+                    float: right;
+                }
+            }
+        }
+
+        textarea {
+            height: 75px;
+        }
+
+        .submit-buttons {
+            position: sticky;
+            justify-content: center;
+            bottom: -1px;
+            background: $background;
+            width: 100%;
+            margin: 0;
+
+            .submit-form {
+                background-color: $background;
+                color: $textwht;
+                padding: 20px 0;
+                border: 0;
+                font-size: 20px;
+                width: 100%;
+                opacity: 1;
+                transition: all .3s ease;
+
+                &:disabled {
+                    opacity: .3;
+                    transition: all .3s ease;
+                }
+
+                &:hover, &:focus {
+                    opacity: .5;
+                    transition: all .3s ease;
+                }
+            }
+        }
     }
-
-
-
 
 }
 
@@ -845,7 +1142,16 @@
     }
   }
 
-  //animations
+//animations
+
+@keyframes calSwipeLeft {
+    0%   { left: -100% }
+    100% { left: 0 }
+}
+@keyframes calSwipeRight {
+    0%   { right: -100% }
+    100% { right: 0 }
+}
 
 @keyframes swipeRightBounce {
     0%   { left: -100% }
@@ -869,4 +1175,14 @@
 @keyframes swipeLeft {
     0%   { right: -100% }
     100% { right: 0 }
+}
+
+@keyframes grow {
+    from {
+        transform: scale(.5, .5);
+    }
+
+    to {
+        transform: scale(1, 1);
+    }
 }

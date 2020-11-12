@@ -35,6 +35,8 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   lastDay: any;
   currentDayBool = false;
   loading = true;
+  openform = false;
+  hideFormButton = false;
 
   singleMonthEvents = [];
   getEachMonthDays: any;
@@ -144,6 +146,52 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         console.log('Get events task finished.');
       });
     }
+  }
+
+  submitEvent() {
+    console.log(this.addItemForm.value);
+    this.dataService.createEvent(this.addItemForm.value)
+      .subscribe((response) => {
+        this.addItemForm.reset();
+        this.closeForm();
+        this.getEvents();
+      });
+  }
+
+  updateEvent() {
+    console.log(this.updateItemForm.value);
+    this.dataService.updatedEvent(this.updateItemForm.value)
+      .subscribe((response) => {
+        this.closeEventUpdateForm();
+        this.getEvents();
+      });
+  }
+
+  deleteEvent(e) {
+    // On click set the value of the form with the value of the button
+    this.updateItemForm = new FormGroup({
+      user_id: new FormControl(''),
+      group_id: new FormControl(''),
+      id: new FormControl(this.updateItemForm.value.id),
+      item_type: new FormControl(''),
+      frequency: new FormControl(''),
+      title: new FormControl(''),
+      description: new FormControl(''),
+      start_date: new FormControl(''),
+      end_date: new FormControl(''),
+      start_time: new FormControl(''),
+      end_time: new FormControl(''),
+      all_day: new FormControl(''),
+      location: new FormControl(''),
+    });
+
+    this.closeForm();
+    // Delete the event
+    this.dataService.deleteEvent(this.updateItemForm.value)
+      .subscribe((response) => {
+        this.closeEventUpdateForm();
+        this.getEvents();
+      });
   }
 
   ngAfterViewInit() {
@@ -278,6 +326,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   currentClick() {
     let year = $(document).find('#year');
     let month = $(document).find('#month');
+    $('.add-item-button, .add-item-container').removeClass('moved');
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
       if (!$('.day-box').hasClass('day-opened')) {
@@ -332,12 +381,15 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     } else if ($(e.currentTarget).hasClass('selected-day')) {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
+      $('.add-item-button, .add-item-container').addClass('moved');
     }
   }
 
   closeDay() {
     $('.opened-background').hide();
-    $('.day-box').removeClass('day-opened');
+    $('.day-box').removeClass('day-opened swipe-left swipe-right');
+    $('.add-item-button, .add-item-container').removeClass('moved');
+    this.closeForm();
     this.closeEventUpdateForm();
   }
 
@@ -459,134 +511,170 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
 
   onSwipeLeft(e) {
-    $('.event').removeClass('selected');
-    $('.day-opened').removeClass('bounce-left');
-    if (!$('.day-box').hasClass('day-opened')) {
-      if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
-        // Do nothing
-        console.log($(e.target));
-      } else {
-        this.nextClick();
-      }
-    } 
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      $('.day-opened').removeClass('bounce-left');
+      if (!$('.day-box').hasClass('day-opened')) {
+        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+          // Do nothing
+          console.log($(e.target));
+        } else {
+          this.nextClick();
+        }
+      } 
+    }
   }
 
   swipeDayLeft(e) {
-    $('.event').removeClass('selected');
-    $('.day-opened').removeClass('bounce-left');
-    if ($('.day-box').hasClass('day-opened')) {
-      if ($(e.target).hasClass('transactions')) {
-        if (!$(e.target).parent().next().hasClass('disabled')) {
-          this.removeClassesForDayBox();
-          if ($(e.target).parent().hasClass('last-day-box')) {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      $('.day-opened').removeClass('bounce-left');
+      if ($('.day-box').hasClass('day-opened')) {
+        if ($(e.target).hasClass('transactions')) {
+          if (!$(e.target).parent().next().hasClass('disabled')) {
+            this.removeClassesForDayBox();
+            if ($(e.target).parent().hasClass('last-day-box')) {
+              this.swipeNextMonthAnimationOne();
+            } else if ($(e.target).parent().next().length === 0) {
+              $(e.target).parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
+              this.swipeNextEndOfRow();
+            } else {
+              $(e.target).parent().next().addClass('selected-day day-opened swipe-left');
+              this.swipeNextDay();
+            }
+          } else {
             this.swipeNextMonthAnimationOne();
-          } else if ($(e.target).parent().next().length === 0) {
-            $(e.target).parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
-            this.swipeNextEndOfRow();
-          } else {
-            $(e.target).parent().next().addClass('selected-day day-opened swipe-left');
-            this.swipeNextDay();
           }
-        } else {
-          this.swipeNextMonthAnimationOne();
-        }
-      } else if ($(e.target).hasClass('event')) {
-        if (!$(e.target).parent().parent().next().hasClass('disabled')) {
-          this.removeClassesForDayBox();
-          if ($(e.target).parent().parent().hasClass('last-day-box')) {
+        } else if ($(e.target).hasClass('event')) {
+          if (!$(e.target).parent().parent().next().hasClass('disabled')) {
             this.removeClassesForDayBox();
-          } else if ($(e.target).parent().parent().next().length === 0) {
-            $(e.target).parent().parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
-            this.swipeNextEndOfRow();
+            if ($(e.target).parent().parent().hasClass('last-day-box')) {
+              this.removeClassesForDayBox();
+            } else if ($(e.target).parent().parent().next().length === 0) {
+              $(e.target).parent().parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
+              this.swipeNextEndOfRow();
+            } else {
+              $(e.target).parent().parent().next().addClass('selected-day day-opened swipe-left');
+              this.swipeNextDay();
+            }
           } else {
-            $(e.target).parent().parent().next().addClass('selected-day day-opened swipe-left');
-            this.swipeNextDay();
+            this.swipeNextMonthAnimationOne();
           }
-        } else {
-          this.swipeNextMonthAnimationOne();
-        }
-      } else if ($(e.target).hasClass('event-details')) {
-        if (!$(e.target).parent().parent().parent().next().hasClass('disabled')) {
-          this.removeClassesForDayBox();
-          if ($(e.target).parent().parent().parent().hasClass('last-day-box')) {
+        } else if ($(e.target).hasClass('event-details')) {
+          if (!$(e.target).parent().parent().parent().next().hasClass('disabled')) {
             this.removeClassesForDayBox();
-          } else if ($(e.target).parent().parent().parent().next().length === 0) {
-            $(e.target).parent().parent().parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
-            this.swipeNextEndOfRow();
+            if ($(e.target).parent().parent().parent().hasClass('last-day-box')) {
+              this.removeClassesForDayBox();
+            } else if ($(e.target).parent().parent().parent().next().length === 0) {
+              $(e.target).parent().parent().parent().parent().next().children().eq(0).addClass('selected-day day-opened swipe-left');
+              this.swipeNextEndOfRow();
+            } else {
+              $(e.target).parent().parent().parent().next().addClass('selected-day day-opened swipe-left');
+              this.swipeNextDay();
+            }
           } else {
-            $(e.target).parent().parent().parent().next().addClass('selected-day day-opened swipe-left');
-            this.swipeNextDay();
+            this.swipeNextMonthAnimationOne();
           }
-        } else {
-          this.swipeNextMonthAnimationOne();
         }
       }
     }
   }
 
   onSwipeRight(e) {
-    $('.event').removeClass('selected');
-    $('.day-opened').removeClass('bounce-right');
-    if (!$('.day-box').hasClass('day-opened')) {
-      if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
-        // Do nothing
-        console.log($(e.target));
-      } else {
-        this.prevClick();
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      $('.day-opened').removeClass('bounce-right');
+      if (!$('.day-box').hasClass('day-opened')) {
+        if ($(e.target).parent().parent().parent().hasClass('show-form') || $(e.target).parent().parent().parent().parent().hasClass('show-form')) {
+          // Do nothing
+          console.log($(e.target));
+        } else {
+          this.prevClick();
+        }
       }
     }
   }
 
   swipeDayRight(e) {
-    $('.event').removeClass('selected');
-    $('.day-opened').removeClass('bounce-right');
-    if ($('.day-box').hasClass('day-opened')) {
-      if ($(e.target).hasClass('transactions')) {
-        if (!$(e.target).parent().prev().hasClass('disabled')) {
-          this.removeClassesForDayBox();
-          if ($(e.target).parent().hasClass('first-day-box')) {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      $('.day-opened').removeClass('bounce-right');
+      if ($('.day-box').hasClass('day-opened')) {
+        if ($(e.target).hasClass('transactions')) {
+          if (!$(e.target).parent().prev().hasClass('disabled')) {
+            this.removeClassesForDayBox();
+            if ($(e.target).parent().hasClass('first-day-box')) {
+              this.swipePrevMonthAnimationOne();
+            } else if ($(e.target).parent().prev().length === 0) {
+              $(e.target).parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
+              this.swipePrevEndOfRow();
+            } else {
+              $(e.target).parent().prev().addClass('selected-day day-opened swipe-right');
+              this.swipePrevDay();
+            }
+          } else {
             this.swipePrevMonthAnimationOne();
-          } else if ($(e.target).parent().prev().length === 0) {
-            $(e.target).parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
-            this.swipePrevEndOfRow();
-          } else {
-            $(e.target).parent().prev().addClass('selected-day day-opened swipe-right');
-            this.swipePrevDay();
           }
-        } else {
-          this.swipePrevMonthAnimationOne();
-        }
-      } else if ($(e.target).hasClass('event')) {
-        if (!$(e.target).parent().parent().prev().hasClass('disabled')) {
-          this.removeClassesForDayBox();
-          if ($(e.target).parent().parent().hasClass('first-day-box')) {
+        } else if ($(e.target).hasClass('event')) {
+          if (!$(e.target).parent().parent().prev().hasClass('disabled')) {
             this.removeClassesForDayBox();
-          } else if ($(e.target).parent().parent().prev().length === 0) {
-            $(e.target).parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
-            this.swipePrevEndOfRow();
+            if ($(e.target).parent().parent().hasClass('first-day-box')) {
+              this.removeClassesForDayBox();
+            } else if ($(e.target).parent().parent().prev().length === 0) {
+              $(e.target).parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
+              this.swipePrevEndOfRow();
+            } else {
+              $(e.target).parent().parent().prev().addClass('selected-day day-opened swipe-right');
+              this.swipePrevDay();
+            }
           } else {
-            $(e.target).parent().parent().prev().addClass('selected-day day-opened swipe-right');
-            this.swipePrevDay();
+            this.swipePrevMonthAnimationOne();
           }
-        } else {
-          this.swipePrevMonthAnimationOne();
-        }
-      } else if ($(e.target).hasClass('event-details')) {
-        if (!$(e.target).parent().parent().parent().prev().hasClass('disabled')) {
-          this.removeClassesForDayBox();
-          if ($(e.target).parent().parent().parent().hasClass('first-day-box')) {
+        } else if ($(e.target).hasClass('event-details')) {
+          if (!$(e.target).parent().parent().parent().prev().hasClass('disabled')) {
             this.removeClassesForDayBox();
-          } else if ($(e.target).parent().parent().parent().prev().length === 0) {
-            $(e.target).parent().parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
-            this.swipePrevEndOfRow();
+            if ($(e.target).parent().parent().parent().hasClass('first-day-box')) {
+              this.removeClassesForDayBox();
+            } else if ($(e.target).parent().parent().parent().prev().length === 0) {
+              $(e.target).parent().parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
+              this.swipePrevEndOfRow();
+            } else {
+              $(e.target).parent().parent().parent().prev().addClass('selected-day day-opened swipe-right');
+              this.swipePrevDay();
+            }
           } else {
-            $(e.target).parent().parent().parent().prev().addClass('selected-day day-opened swipe-right');
-            this.swipePrevDay();
+            this.swipePrevMonthAnimationOne();
           }
-        } else {
-          this.swipePrevMonthAnimationOne();
         }
       }
+    }
+  }
+
+  swipeDayDown(e) {
+    // if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    // || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+    //   $('.event').removeClass('selected');
+    //   if (!$('.day-box').hasClass('day-opened') || $('.update-event-form').hasClass('show-update-form')) {
+    //     // do nothing 
+    //   } else {
+    //     if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
+    //       this.closeDay();
+    //       console.log($('.transactions').offset().top)
+    //     } 
+    //   }
+    // }
+  }
+
+  onSwipeDownForm(e) {
+    e.preventDefault();
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      this.closeForm();
+      this.closeEventUpdateForm();
     }
   }
 
@@ -601,6 +689,269 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     }, 100);
     $('.add-item-button, .add-item-container').show();
     $('.prev-day, .next-day').removeClass('hide');
+  }
+
+  openForm() {
+    //show popup background because we are in day view
+    $('.opened-background').show();
+    $('.add-item-container').animate({ scrollTop: 0 }, 300);
+    this.openform = true;
+    this.hideFormButton = true;
+    // window.navigator.vibrate(this.gestureVibration);
+    $('.form-nav-bar, .add-item-form').addClass('animate-events-one');
+    setTimeout(() => {
+      $('.form-nav-bar, .add-item-form').addClass('animate-events-two');
+      // $('input[name=title]').focus();
+    }, 450);
+
+    const day = $('.selected-day .transactions').attr('date');
+    let minutes: any = Number(String(this.clock.getMinutes()).padStart(2, '0'));
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+      minutes.toString();
+    }
+    let hours: any = Number(String(this.clock.getHours()).padStart(2, '0'));
+    if (hours === 24 && minutes > 0) {
+      hours = '00';
+    } else if (hours < 10) {
+      hours = '0' + hours;
+      hours.toString();
+    }
+    let extraHour: any = Number(String(this.clock.getHours() + 1).padStart(2, '0'));
+    if (extraHour === 24 && minutes > 0) {
+      extraHour = '00';
+    } else if (extraHour < 10) {
+      extraHour = '0' + extraHour;
+      extraHour.toString();
+    }
+    const currentTime = hours.toString() + ':' + minutes.toString();
+    const endTime = (extraHour) + ':' + minutes;
+
+    const userID = sessionStorage.getItem('userId');
+
+    $('.date-input-end').show();
+    this.addItemForm = new FormGroup({
+      user_id: new FormControl(userID),
+      group_id: new FormControl(''),
+      item_type: new FormControl(''),
+      frequency: new FormControl(''),
+      title: new FormControl(''),
+      description: new FormControl(''),
+      start_date: new FormControl(day),
+      end_date: new FormControl(day),
+      start_time: new FormControl(currentTime),
+      end_time: new FormControl(endTime),
+      all_day: new FormControl(false),
+      location: new FormControl(''),
+    });
+  }
+
+  closeForm() {
+    if (!$('.day-box').hasClass('day-opened')) {
+      $('.opened-background').hide();
+    }
+    this.addItemForm.reset();
+    this.openform = false;
+    $('.form-nav-bar, .add-item-form').removeClass('animate-events-one animate-events-two');
+    setTimeout(() => {
+      this.hideFormButton = false;
+    }, 200);
+  }
+
+
+  onStartDateChange(e) {
+
+    this.addItemForm = new FormGroup({
+      user_id: new FormControl(this.addItemForm.value.user_id),
+      group_id: new FormControl(this.updateItemForm.value.group_id),
+      item_type: new FormControl(this.addItemForm.value.item_type),
+      frequency: new FormControl(this.addItemForm.value.frequency),
+      title: new FormControl(this.addItemForm.value.title),
+      description: new FormControl(this.addItemForm.value.description),
+      start_date: new FormControl(e.target.value),
+      end_date: new FormControl(e.target.value),
+      start_time: new FormControl(this.addItemForm.value.start_time),
+      end_time: new FormControl(this.addItemForm.value.end_time),
+      all_day: new FormControl(this.addItemForm.value.all_day),
+      location: new FormControl(this.addItemForm.value.location),
+    });
+
+    this.updateItemForm = new FormGroup({
+      user_id: new FormControl(this.updateItemForm.value.user_id),
+      group_id: new FormControl(this.updateItemForm.value.group_id),
+      id: new FormControl(this.updateItemForm.value.id),
+      item_type: new FormControl(this.updateItemForm.value.item_type),
+      frequency: new FormControl(this.updateItemForm.value.frequency),
+      title: new FormControl(this.updateItemForm.value.title),
+      description: new FormControl(this.updateItemForm.value.description),
+      start_date: new FormControl(e.target.value),
+      end_date: new FormControl(e.target.value),
+      start_time: new FormControl(this.updateItemForm.value.start_time),
+      end_time: new FormControl(this.updateItemForm.value.end_time),
+      all_day: new FormControl(this.updateItemForm.value.all_day),
+      location: new FormControl(this.updateItemForm.value.location),
+    });
+  }
+
+  onStartTimeChange(e) {
+    let minutes: any = Number(String(e.target.value).slice(-2));
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+      minutes.toString();
+    }
+
+    let hours: any = Number(String(e.target.value).substring(0, 2)) + 1;
+    if (hours === 24 && minutes > 0) {
+      hours = '00';
+    } else if (hours < 10) {
+      hours = '0' + hours;
+      hours.toString();
+    }
+
+    const endTime = hours + ':' + minutes;
+
+    this.addItemForm = new FormGroup({
+        user_id: new FormControl(this.addItemForm.value.user_id),
+        group_id: new FormControl(this.updateItemForm.value.group_id),
+        item_type: new FormControl(this.addItemForm.value.item_type),
+        frequency: new FormControl(this.addItemForm.value.frequency),
+        title: new FormControl(this.addItemForm.value.title),
+        description: new FormControl(this.addItemForm.value.description),
+        start_date: new FormControl(this.addItemForm.value.start_date),
+        end_date: new FormControl(this.addItemForm.value.end_date),
+        start_time: new FormControl(e.target.value),
+        end_time: new FormControl(endTime),
+        all_day: new FormControl(this.addItemForm.value.all_day),
+        location: new FormControl(this.addItemForm.value.location),
+      });
+
+    this.updateItemForm = new FormGroup({
+      user_id: new FormControl(this.updateItemForm.value.user_id),
+      group_id: new FormControl(this.updateItemForm.value.group_id),
+      id: new FormControl(this.updateItemForm.value.id),
+      item_type: new FormControl(this.updateItemForm.value.item_type),
+      frequency: new FormControl(this.updateItemForm.value.frequency),
+      title: new FormControl(this.updateItemForm.value.title),
+      description: new FormControl(this.updateItemForm.value.description),
+      start_date: new FormControl(this.updateItemForm.value.start_date),
+      end_date: new FormControl(this.updateItemForm.value.end_date),
+      start_time: new FormControl(e.target.value),
+      end_time: new FormControl(endTime),
+      all_day: new FormControl(this.updateItemForm.value.all_day),
+      location: new FormControl(this.updateItemForm.value.location),
+    });
+  }
+
+  frequencyChange(e) {
+    console.log(this.addItemForm.value.frequency);
+    if (this.addItemForm.value.frequency == 2) {
+      $('.date-input-end, .date-input-end-update').hide();
+      this.addItemForm = new FormGroup({
+        user_id: new FormControl(this.addItemForm.value.user_id),
+        group_id: new FormControl(''),
+        item_type: new FormControl(this.addItemForm.value.item_type),
+        frequency: new FormControl(this.addItemForm.value.frequency),
+        title: new FormControl(this.addItemForm.value.title),
+        description: new FormControl(this.addItemForm.value.description),
+        start_date: new FormControl(this.addItemForm.value.start_date),
+        end_date: new FormControl(this.addItemForm.value.end_date),
+        start_time: new FormControl(this.addItemForm.value.start_time),
+        end_time: new FormControl(this.addItemForm.value.end_time),
+        all_day: new FormControl(this.addItemForm.value.all_day),
+        location: new FormControl(this.addItemForm.value.location),
+      });
+
+      this.updateItemForm = new FormGroup({
+        user_id: new FormControl(this.updateItemForm.value.user_id),
+        group_id: new FormControl(''),
+        id: new FormControl(this.updateItemForm.value.id),
+        item_type: new FormControl(this.updateItemForm.value.item_type),
+        frequency: new FormControl(this.updateItemForm.value.frequency),
+        title: new FormControl(this.updateItemForm.value.title),
+        description: new FormControl(this.updateItemForm.value.description),
+        start_date: new FormControl(this.updateItemForm.value.start_date),
+        end_date: new FormControl(this.updateItemForm.value.end_date),
+        start_time: new FormControl(this.updateItemForm.value.start_time),
+        end_time: new FormControl(this.updateItemForm.value.end_time),
+        all_day: new FormControl(this.updateItemForm.value.all_day),
+        location: new FormControl(this.updateItemForm.value.location),
+      });
+    } else {
+      let i = 1;
+      const groupID = i;
+      $('.date-input-end, .date-input-end-update').show();
+      this.addItemForm = new FormGroup({
+        user_id: new FormControl(this.addItemForm.value.user_id),
+        group_id: new FormControl(groupID),
+        item_type: new FormControl(this.addItemForm.value.item_type),
+        frequency: new FormControl(this.addItemForm.value.frequency),
+        title: new FormControl(this.addItemForm.value.title),
+        description: new FormControl(this.addItemForm.value.description),
+        start_date: new FormControl(this.addItemForm.value.start_date),
+        end_date: new FormControl(this.addItemForm.value.end_date),
+        start_time: new FormControl(this.addItemForm.value.start_time),
+        end_time: new FormControl(this.addItemForm.value.end_time),
+        all_day: new FormControl(this.addItemForm.value.all_day),
+        location: new FormControl(this.addItemForm.value.location),
+      });
+
+      this.updateItemForm = new FormGroup({
+        user_id: new FormControl(this.updateItemForm.value.user_id),
+        group_id: new FormControl(groupID),
+        item_type: new FormControl(this.updateItemForm.value.item_type),
+        frequency: new FormControl(this.updateItemForm.value.frequency),
+        title: new FormControl(this.updateItemForm.value.title),
+        description: new FormControl(this.updateItemForm.value.description),
+        start_date: new FormControl(this.updateItemForm.value.start_date),
+        end_date: new FormControl(this.updateItemForm.value.end_date),
+        start_time: new FormControl(this.updateItemForm.value.start_time),
+        end_time: new FormControl(this.updateItemForm.value.end_time),
+        all_day: new FormControl(this.updateItemForm.value.all_day),
+        location: new FormControl(this.updateItemForm.value.location),
+      });
+    }
+  }
+
+  allDaySelected(e) {
+    const endTime = 23 + ':' + 59;
+    const startTime = '00' + ':' + '00';
+
+    if (e.target.checked === true) {
+      this.allDay = true;
+    } else {
+      this.allDay = false;
+    }
+
+    this.addItemForm = new FormGroup({
+      user_id: new FormControl(this.addItemForm.value.user_id),
+      group_id: new FormControl(''),
+      item_type: new FormControl(this.addItemForm.value.item_type),
+      frequency: new FormControl(this.addItemForm.value.frequency),
+      title: new FormControl(this.addItemForm.value.title),
+      description: new FormControl(this.addItemForm.value.description),
+      start_date: new FormControl(this.addItemForm.value.start_date),
+      end_date: new FormControl(this.addItemForm.value.end_date),
+      start_time: new FormControl(startTime),
+      end_time: new FormControl(endTime),
+      all_day: new FormControl(this.addItemForm.value.all_day),
+      location: new FormControl(this.addItemForm.value.location),
+    });
+
+    this.updateItemForm = new FormGroup({
+      user_id: new FormControl(this.updateItemForm.value.user_id),
+      group_id: new FormControl(''),
+      id: new FormControl(this.updateItemForm.value.id),
+      item_type: new FormControl(this.updateItemForm.value.item_type),
+      frequency: new FormControl(this.updateItemForm.value.frequency),
+      title: new FormControl(this.updateItemForm.value.title),
+      description: new FormControl(this.updateItemForm.value.description),
+      start_date: new FormControl(this.updateItemForm.value.start_date),
+      end_date: new FormControl(this.updateItemForm.value.end_date),
+      start_time: new FormControl(startTime),
+      end_time: new FormControl(endTime),
+      all_day: new FormControl(this.updateItemForm.value.all_day),
+      location: new FormControl(this.updateItemForm.value.location),
+    });
   }
 
 
