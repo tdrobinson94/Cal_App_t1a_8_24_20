@@ -42,7 +42,7 @@
                 <button class="close-day">
                     <span class="material-icons close-day-icon">keyboard_arrow_down</span>
                 </button>
-                <span class="number">{{day.day}}</span>
+                <span class="number" [ngClass]="{'notice-me': currentDay == day.day && currentMonthCheck == day.month && currentYearCheck == day.year}">{{day.day}}</span>
                 <p class="balance beg">Beg Bal</p>
 
                 <button class="prev-day">

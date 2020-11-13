@@ -34,9 +34,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   firstDay = 1;
   lastDay: any;
   currentDayBool = false;
-  loading = true;
+  loading = false;
   openform = false;
   hideFormButton = false;
+
+  cachedMonth: any = sessionStorage.getItem('cachedMonth');
+  cachedYear: any = sessionStorage.getItem('cachedYear');
 
   singleMonthEvents = [];
   getEachMonthDays: any;
@@ -194,11 +197,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.loading = true;
+    if (this.cachedMonth && this.cachedYear) {
+      $(document).find('#month').val(this.cachedMonth);
+      $(document).find('#year').val(this.cachedYear);
+    } 
+
     this.createCalendarGrid();
     this.mobileHideElements();
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
   }
 
   createNavBar() {
@@ -294,12 +300,18 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
     }
     // console.log(this.month);
+
+    // Save the current viewing month and year
+    sessionStorage.setItem('cachedMonth', $(document).find('#month').val());
+    sessionStorage.setItem('cachedYear', $(document).find('#year').val())
+
+    this.loading = false;
   }
 
   changeCalSelectors() {
+    $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     this.month = [];
     this.createCalendarGrid();
-    this.loading = false;
     $('.opened-background').hide();
     setTimeout(() => {
       this.mobileHideElements();
@@ -327,9 +339,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
-      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCalSelectors();
-    }, 300);
+    }, 200);
   }
 
   currentClick() {
@@ -352,9 +363,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();
 
-      setTimeout(() => {
-        this.changeCalSelectors();
-      },)
+      this.changeCalSelectors();
     }
   }
 
@@ -376,9 +385,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
-      $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
       this.changeCalSelectors();
-    }, 300);
+    }, 200);
   }
 
 
