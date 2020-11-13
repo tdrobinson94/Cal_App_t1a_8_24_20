@@ -719,17 +719,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   swipeDayDown(e) {
-    // if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
-    // || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
-    //   $('.event').removeClass('selected');
-    //   if (!$('.day-box').hasClass('day-opened')) {
-    //     // do nothing 
-    //   } else {
-    //     if ($('.transactions').scrollTop() === 0) {
-    //       this.closeDay();
-    //     }
-    //   }
-    // }
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      if (!$('.day-box').hasClass('day-opened')) {
+        // do nothing 
+        this.getEvents();
+      }
+    }
   }
 
   closeEventUpdateForm() {
