@@ -197,13 +197,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.loading = true;
     if (this.cachedMonth && this.cachedYear) {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
     } 
 
     this.createCalendarGrid();
+    this.loading = false;
     this.mobileHideElements();
   }
 
@@ -232,6 +232,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   createCalendarGrid() {
+    this.loading = true;
     MONTHS[1].days = Number($('#year').val()) % 4 == 0 ? 29 : 28;
     let selectedMonth = $(document).find('#month').val();
     let selectedYear = $(document).find('#year').val();
@@ -304,14 +305,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     // Save the current viewing month and year
     sessionStorage.setItem('cachedMonth', $(document).find('#month').val());
     sessionStorage.setItem('cachedYear', $(document).find('#year').val())
-
-    this.loading = false;
   }
 
   changeCalSelectors() {
     $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     this.month = [];
     this.createCalendarGrid();
+    this.loading = false;
     $('.opened-background').hide();
     setTimeout(() => {
       this.mobileHideElements();
@@ -337,10 +337,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         month.val(Number(month.val()) - 1).change();
       }
     }
-    $('.calendar-container').addClass('cal-swipe-left');
-    setTimeout(() => {
-      this.changeCalSelectors();
-    }, 200);
+    this.changeCalSelectors();
+    // setTimeout(() => {
+      $('.calendar-container').addClass('cal-swipe-left');
+    // }, 200);
   }
 
   currentClick() {
@@ -383,10 +383,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
     }
 
-    $('.calendar-container').addClass('cal-swipe-right');
-    setTimeout(() => {
-      this.changeCalSelectors();
-    }, 200);
+    this.changeCalSelectors();
+    // setTimeout(() => {
+      $('.calendar-container').addClass('cal-swipe-right');
+    // }, 200);
   }
 
 
