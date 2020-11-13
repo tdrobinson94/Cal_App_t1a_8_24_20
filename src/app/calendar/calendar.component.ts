@@ -294,9 +294,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.month = [];
     this.createCalendarGrid();
     this.loading = false;
-    this.mobileHideElements();
     $('.opened-background').hide();
     setTimeout(() => {
+      this.mobileHideElements();
       if (!$('.day-box').hasClass('day-opened')) {
         $('.add-item-button, .add-item-container').removeClass('moved');
       }
