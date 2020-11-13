@@ -242,9 +242,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
     } 
+    this.loading = false;
     this.createCalendarGrid();
     this.mobileHideElements();
-    this.loading = false;
   }
 
   createNavBar() {
@@ -359,7 +359,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if (!$('.day-box').hasClass('day-opened')) {
         $('.add-item-button, .add-item-container').removeClass('moved');
       }
-    }, 50)
+    }, 250)
   }
 
   // Calendar Navigation
