@@ -380,7 +380,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
       this.changeCalSelectors();
-    }, 100)
+    }, 120)
   }
 
   currentClick() {
@@ -426,7 +426,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
       this.changeCalSelectors();
-    }, 100)
+    }, 120)
   }
 
 
