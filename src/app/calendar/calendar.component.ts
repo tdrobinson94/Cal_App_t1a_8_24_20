@@ -117,7 +117,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       worker.onmessage = ({ data }) => {
         this.getAllEvents = JSON.parse(data);
         // console.log(this.getAllEvents);
-        // this.filterEvents();
+        this.loading = false;
         console.log('Get events task finished.');
       }
     } else {
@@ -143,7 +143,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         }
         this.getAllEvents = eventlist;
         // console.log(this.getAllEvents);
-        // this.filterEvents();
+        this.loading = false;
         console.log('Get events task finished.');
       });
     }
@@ -242,7 +242,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
     } 
-    this.loading = false;
     this.createCalendarGrid();
     this.mobileHideElements();
   }
