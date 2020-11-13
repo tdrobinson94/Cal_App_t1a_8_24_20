@@ -323,7 +323,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   // Calendar Navigation
   prevClick() {
-    this.loading = true;
+    // this.loading = true;
     let year = $(document).find('#year');
     let month = $(document).find('#month');
     if (year.val() < (this.currentYear - 5)) {
@@ -359,7 +359,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         $('.current-day').addClass('selected-day day-opened');
       }
     } else {
-      this.loading = true;
+      // this.loading = true;
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();
 
@@ -368,7 +368,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   nextClick() {
-    this.loading = true
+    // this.loading = true
     let year = $(document).find('#year');
     let month = $(document).find('#month');
     if (year.val() > (this.currentYear + 5) && month.val() == 11) {
