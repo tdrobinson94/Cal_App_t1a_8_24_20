@@ -147,10 +147,6 @@
                 font-weight: bold;
                 height: 19.2px;
 
-                @media screen and (max-width: $end-small) {
-                    font-size: 16px;
-                }
-
                 &.show-current-weekday {
                     color: $textwht;
                     opacity: 1;
