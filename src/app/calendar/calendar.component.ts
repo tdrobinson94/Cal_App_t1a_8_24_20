@@ -151,6 +151,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.addItemForm.reset();
         this.closeForm();
         this.getEvents();
+        this.mobileHideElements();
       });
   }
 
@@ -160,6 +161,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       .subscribe((response) => {
         this.closeEventUpdateForm();
         this.getEvents();
+        this.mobileHideElements();
       });
   }
 
@@ -187,6 +189,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       .subscribe((response) => {
         this.closeEventUpdateForm();
         this.getEvents();
+        this.mobileHideElements();
       });
   }
 
