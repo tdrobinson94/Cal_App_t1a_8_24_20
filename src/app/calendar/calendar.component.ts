@@ -34,7 +34,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   firstDay = 1;
   lastDay: any;
   currentDayBool = false;
-  loading = false;
+  loading = true;
   openform = false;
   hideFormButton = false;
 
@@ -243,8 +243,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $(document).find('#year').val(this.cachedYear);
     } 
     this.createCalendarGrid();
-    this.loading = false;
     this.mobileHideElements();
+    this.loading = false;
   }
 
   createNavBar() {
@@ -348,13 +348,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   changeCalSelectors() {
+    this.loading = true;
     $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
     this.month = [];
     this.createCalendarGrid();
-    this.loading = false;
     $('.opened-background').hide();
     setTimeout(() => {
       this.mobileHideElements();
+      this.loading = false;
       if (!$('.day-box').hasClass('day-opened')) {
         $('.add-item-button, .add-item-container').removeClass('moved');
       }
@@ -363,7 +364,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   // Calendar Navigation
   prevClick() {
-    // this.loading = true;
+    this.loading = true;
     let year = $(document).find('#year');
     let month = $(document).find('#month');
     if (year.val() < (this.currentYear - 5)) {
@@ -399,7 +400,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         $('.current-day').addClass('selected-day day-opened');
       }
     } else {
-      // this.loading = true;
+      this.loading = true;
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();
 
@@ -408,7 +409,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   nextClick() {
-    // this.loading = true
+    this.loading = true
     let year = $(document).find('#year');
     let month = $(document).find('#month');
     if (year.val() > (this.currentYear + 5) && month.val() == 11) {
