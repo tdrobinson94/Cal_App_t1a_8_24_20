@@ -182,33 +182,33 @@
             display: inline-block;
             color: #fff;
             width: calc(14.2857142857% - 2px);
-            height: calc(15.7% - 2px);
+            height: calc(15.7% - 8px);
             border: 1px solid transparent;
             overflow: hidden;
             position: relative;
 
             @media screen and (min-height: 400px) {
-                height: calc(15% - 2px);
+                height: calc(15% - 8px);
             }
 
             @media screen and (min-height: 500px) {
-                height: calc(15.3% - 2px);
+                height: calc(15.3% - 8px);
             }
 
             @media screen and (min-height: 600px) {
-                height: calc(15.5% - 2px);
+                height: calc(15.5% - 8px);
             }
 
             @media screen and (min-height: 700px) {
-                height: calc(15.65% - 2px); 
+                height: calc(15.65% - 8px); 
             }
 
             @media screen and (min-height: $end-small) {
-                height: calc(15.8% - 2px);
+                height: calc(15.8% - 8px);
             }
 
             @media screen and (min-height: $end-small) {
-                height: calc(15.9% - 2px);
+                height: calc(15.9% - 8px);
             }
 
             @media screen and (min-height: 1000px) {
