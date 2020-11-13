@@ -117,6 +117,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       worker.onmessage = ({ data }) => {
         this.getAllEvents = JSON.parse(data);
         // console.log(this.getAllEvents);
+        // this.filterEvents();
         console.log('Get events task finished.');
       }
     } else {
@@ -142,9 +143,49 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         }
         this.getAllEvents = eventlist;
         // console.log(this.getAllEvents);
+        // this.filterEvents();
         console.log('Get events task finished.');
       });
     }
+  }
+
+  filterEvents() {
+    console.log('Filter events task started.');
+    let i;
+    let singleMonthEvents = [];
+    let prevDays = $('.prev-month-days').length;
+    let nextDays = $('.next-month-days').length;
+    const lastDayBox = $('.last-day-box .transactions').attr('date');
+    const firstDayBox = $('.first-day-box .transactions').attr('date');
+
+    prevDays = prevDays + 1;
+    nextDays = nextDays + 1;
+
+    const lastDay = moment(lastDayBox).add(13, 'days');
+    const firstDay = moment(firstDayBox).subtract(8, 'days');
+
+    for (i = 0; i < this.getAllEvents.length; i++) {
+      let forecast_date = moment(this.getAllEvents[i].eventstart_date);
+      if (forecast_date.isBefore(lastDay) && forecast_date.isAfter(firstDay)) {
+        singleMonthEvents[i] = {
+          eventid: this.getAllEvents[i].eventid,
+          eventtitle: this.getAllEvents[i].eventtitle,
+          eventstart_date: this.getAllEvents[i].eventstart_date,
+          eventend_date: this.getAllEvents[i].eventend_date,
+          eventdesc: this.getAllEvents[i].eventdesc,
+          eventlocation: this.getAllEvents[i].eventlocation,
+          eventfrequency: this.getAllEvents[i].eventfrequency,
+          eventstart_time: moment(this.getAllEvents[i].eventstart_time, 'HH:mm:ss').format('h:mm A'),
+          eventend_time: moment(this.getAllEvents[i].eventend_time, 'HH:mm:ss').format('h:mm A'),
+          eventcreatedAt: moment(this.getAllEvents[i].eventcreated_at).format(),
+          itemtype: this.getAllEvents[i].itemtype
+        }
+      }
+    } 
+
+    this.singleMonthEvents = singleMonthEvents.filter(event => event);
+    console.log(this.singleMonthEvents);
+    console.log('Filter events task finsihed.');
   }
 
   submitEvent() {
@@ -201,7 +242,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
     } 
-
     this.createCalendarGrid();
     this.loading = false;
     this.mobileHideElements();
@@ -337,10 +377,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         month.val(Number(month.val()) - 1).change();
       }
     }
-    this.changeCalSelectors();
-    // setTimeout(() => {
-      $('.calendar-container').addClass('cal-swipe-left');
-    // }, 200);
+    $('.calendar-container').addClass('cal-swipe-left');
+    setTimeout(() => {
+      this.changeCalSelectors();
+    }, 100)
   }
 
   currentClick() {
@@ -383,10 +423,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.changeCalSelectors();
-    // setTimeout(() => {
-      $('.calendar-container').addClass('cal-swipe-right');
-    // }, 200);
+    $('.calendar-container').addClass('cal-swipe-right');
+    setTimeout(() => {
+      this.changeCalSelectors();
+    }, 100)
   }
 
 
