@@ -254,7 +254,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if (i < 10) {
         i = '0' + i;
         this.month.push({
-          "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, "/"), 
+          "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, "/"),
+          "date1": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
           "day": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
           "month": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
           "year": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
@@ -262,6 +263,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       } else if (i >= 10 && i <= monthDays) {
         this.month.push({
           "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, "/"), 
+          "date1": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
           "day": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
           "month": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
           "year": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
@@ -269,6 +271,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       } else if (i > monthDays && i <= (monthDays + nextMonthDayCount)) {
         this.month.push({
           "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + monthDays).add((i - monthDays), 'days').format().substring(0, 10).replace(/-/g, "/"),
+          "date1": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
           "day": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).format('D'),
           "month": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('M'),
           "year": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('Y')
@@ -455,7 +458,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   selectEvent(e) {
     if ($('.day-box').hasClass('day-opened')) {
-      const day = $('.selected-day .transactions').attr('date');
+      const day = $('.selected-day .transactions').attr('date1');
       $('.event').removeClass('selected');
       $('.add-item-button, .add-item-container').hide();
       $('.prev-day, .next-day').addClass('hide');
@@ -539,7 +542,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           title: new FormControl(e.currentTarget.childNodes[0].innerHTML.trim()),
           description: new FormControl(e.currentTarget.childNodes[1].innerHTML.trim()),
           start_date: new FormControl(day),
-          end_date: new FormControl(endDay),
+          end_date: new FormControl(day),
           start_time: new FormControl(eCurrentTime),
           end_time: new FormControl(eEndTime),
           all_day: new FormControl(true),
@@ -556,7 +559,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           title: new FormControl(e.currentTarget.childNodes[0].innerHTML.trim()),
           description: new FormControl(e.currentTarget.childNodes[1].innerHTML.trim()),
           start_date: new FormControl(day),
-          end_date: new FormControl(endDay),
+          end_date: new FormControl(day),
           start_time: new FormControl(eCurrentTime),
           end_time: new FormControl(eEndTime),
           all_day: new FormControl(false),
@@ -755,7 +758,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       // $('input[name=title]').focus();
     }, 450);
 
-    const day = $('.selected-day .transactions').attr('date');
+    const day = $('.selected-day .transactions').attr('date1');
     let minutes: any = Number(String(this.clock.getMinutes()).padStart(2, '0'));
     if (minutes < 10) {
       minutes = '0' + minutes;
