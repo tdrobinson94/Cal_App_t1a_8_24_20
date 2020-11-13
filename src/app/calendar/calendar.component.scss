@@ -9,6 +9,7 @@
         position: fixed;
         width: 100%;
         background: red;
+        background: $background;
         z-index: 99;
         display: flex;
         justify-content: center;
@@ -36,6 +37,7 @@
                 display: inline;
                 margin-left: 10px;
                 background-color: $primary;
+                background-color: $background;
                 border: none;
                 outline: none;
                 font-size: 25px;
@@ -139,10 +141,9 @@
                 max-width: 14.285714285714286%;
                 text-align: center;
                 position: relative;
-                background: $primary;
-                // padding: 4px 0;
-                color: $background;
-                opacity: .8;
+                // background: $primary;
+                color: $textdrk;
+                opacity: 0.4;
                 font-size: 14px;
                 font-weight: bold;
 

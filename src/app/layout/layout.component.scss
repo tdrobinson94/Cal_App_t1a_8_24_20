@@ -154,7 +154,7 @@ header {
 
 
 footer {
-    background: $primary;
+    background: $background;
     padding: 5px 0;
     position: fixed;
     width: 100%;
@@ -201,7 +201,8 @@ footer {
                 padding: 10px;
                 border-radius: 100%;
                 font-size: 15px;
-                background: rgba(0,0,0,.2);
+                background: $textdrk;
+                color: $primary;
                 font-weight: bold;
                 display: inline-block;
             }
