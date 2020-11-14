@@ -111,11 +111,17 @@
               width: 100%;
 
               &:disabled {
-                opacity: .3;
+                opacity: .3 !important;
+                color: $textwht !important;
+                background-color: $background !important;
+                transition: all .3s ease;
               }
 
               &:hover, &:focus {
-                opacity: .5;
+                  background-color: $primary-contrast;
+                  color: $background;
+                  opacity: 1;
+                  transition: all .3s ease;
               }
           }
       }

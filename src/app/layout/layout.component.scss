@@ -83,15 +83,13 @@ header {
             color: #fff;
             text-decoration: none;
             font-weight: bold;
-            &:active {
-                color: $textdrk;
-            }
+            transition: all .3s ease-in-out;
         }
 
         a.profile-logo {
             padding: 8px;
             border-radius: 100%;
-            background: rgba(0,0,0,.2);
+            background: $primary-contrast;
             font-size: 18px;
             position: absolute;
             left: 0;
@@ -133,10 +131,13 @@ header {
                 color: #fff;
                 text-decoration: none;
                 font-weight: bold;
+                transition: all .3s ease-in-out;
                 
                 &:hover {
-                    background: darken($primary, 10%);
+                    background: $primary-contrast;
+                    color: $background;
                     border-radius: 5px;
+                    transition: all .3s ease-in-out;
                 }
 
                 &:active {
@@ -208,6 +209,13 @@ footer {
                 font-weight: bold;
                 display: inline-block;
                 border: 2px solid white;
+                transition: all .3s ease-in-out;
+
+                &:hover, &:active {
+                    background: $primary-contrast;
+                    color: $textwht !important;
+                    transition: all .3s ease-in-out;
+                }
             }
         }
 
@@ -238,10 +246,19 @@ footer {
         -webkit-tap-highlight-color: hsla(0,0,0,0); /* transparent with hsla */
         -webkit-tap-highlight-color: #00000000; /* transparent with hex with alpha */
         -webkit-tap-highlight-color: #0000; /* transparent with short hex with alpha */
+
+        transition: all .3s ease-in-out;
+
+        &:hover, &:active {
+            span {
+                color: $primary-contrast;
+                transition: all .3s ease-in-out;
+            }
+        }
     }
 
     span {
-        font-size: 25px;
+        font-size: 34px;
         display: inline-block;
         &.settings {
             // animation: spin 10s ease 1;

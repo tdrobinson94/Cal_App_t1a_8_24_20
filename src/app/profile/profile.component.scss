@@ -129,10 +129,21 @@
             width: 100%;
             text-align: center;
             cursor: pointer;
+            border-radius: 5px;
+            margin: 10px 0px;
+
+            &:disabled {
+                opacity: .3 !important;
+                color: $textwht !important;
+                background-color: $background !important;
+                transition: all .3s ease;
+            }
 
             &:hover, &:focus {
-              opacity: .5;
-              transition: all .3s ease-in-out;
+                background-color: $primary-contrast;
+                color: $background;
+                opacity: 1;
+                transition: all .3s ease;
             }
           }
 
@@ -173,15 +184,21 @@
               width: 50%;
               transition: all .3s ease-in-out;
               cursor: pointer;
+              border-radius: 5px;
+              margin: 10px 0px;
 
               &:disabled {
-                  opacity: .3;
-                  transition: all .3s ease-in-out;
+                opacity: .3 !important;
+                color: $textwht !important;
+                background-color: $background !important;
+                transition: all .3s ease;
               }
 
               &:hover, &:focus {
-                opacity: .5;
-                transition: all .3s ease-in-out;
+                  background-color: $primary-contrast;
+                  color: $background;
+                  opacity: 1;
+                  transition: all .3s ease;
               }
             }
           }
@@ -212,13 +229,17 @@
             cursor: pointer;
 
             &:disabled {
-              opacity: .3;
-              transition: all .3s ease-in-out;
+              opacity: .3 !important;
+              color: $textwht !important;
+              background-color: $background !important;
+              transition: all .3s ease;
             }
 
             &:hover, &:focus {
-              opacity: .5;
-              transition: all .3s ease-in-out;
+                background-color: $primary-contrast;
+                color: $background;
+                opacity: 1;
+                transition: all .3s ease;
             }
           }
         }
@@ -283,15 +304,23 @@
                 width: 100%;
                 text-align: center;
                 transition: all .3s ease-in-out;
+                border-radius: 5px;
+                @media screen and (min-width: 600px) {
+                  width: 50%;
+                }
 
                 &:disabled {
-                  opacity: .3;
-                  transition: all .3s ease-in-out;
+                  opacity: .3 !important;
+                  color: $textwht !important;
+                  background-color: $background !important;
+                  transition: all .3s ease;
                 }
 
                 &:hover, &:focus {
-                  opacity: .5;
-                  transition: all .3s ease-in-out;
+                    background-color: $primary-contrast;
+                    color: $background;
+                    opacity: 1;
+                    transition: all .3s ease;
                 }
             }
         }

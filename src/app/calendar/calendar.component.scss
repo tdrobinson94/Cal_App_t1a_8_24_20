@@ -109,6 +109,7 @@
                             border: 3px solid white;
                             border-radius: 5px;
                             font-size: 18px !important;
+                            color: $primary-contrast;
                         }
                     }
 
@@ -238,7 +239,7 @@
                 top: 8px;
                 border-radius: 100%;
                 color: #fff;
-                background-color: red;
+                background-color: $primary red;
                 padding: 0px 1px;
             }
 
@@ -273,7 +274,7 @@
                     margin: 0 0 3px;
                     padding: 2px 0 0 4%;
                     position: relative;
-                    border-left: 2px solid rgba(255,0,0,.8);
+                    border-left: 2px solid $primary;
                     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
                     -webkit-tap-highlight-color: transparent;
                     -webkit-touch-callout: none;
@@ -361,7 +362,7 @@
             &.current-day {
 
                 .number {
-                    color: red;
+                    color: $primary-contrast;
                     font-weight: 700;
 
                     &.notice-me {
@@ -572,6 +573,15 @@
                                     outline: 0;
                                     font-family: "Noto Sans", sans-serif;
                                     width: calc(100% - 30px);
+                                    border-bottom: 1px solid $background;
+
+                                    &:focus, &:active {
+                                        border: 0;
+                                        border-bottom: 1px solid $primary-contrast;
+                                        outline: 0;
+                                        transition: all .3s ease;
+                                        font-size: 16px;
+                                    }
                                 }
 
                             }
@@ -653,7 +663,7 @@
                             width: 100%;
                             padding: 10px 0;
                             border: 0;
-                            border-bottom: 1px solid #252525;
+                            border-bottom: 1px solid $background;
                             margin: 10px 0;
                             -webkit-box-sizing: border-box;
                             -moz-box-sizing: border-box;
@@ -665,7 +675,7 @@
 
                             &:focus, &:active {
                                 border: 0;
-                                border-bottom: 1px solid $primary;
+                                border-bottom: 1px solid $primary-contrast;
                                 outline: 0;
                                 transition: all .3s ease;
                                 font-size: 16px;
@@ -700,7 +710,7 @@
                             flex-direction: row-reverse;
                             display: flex;
                             justify-content: center;
-                            bottom: -2px;
+                            bottom: 0px;
                             background: $background;
                             width: 100%;
                             margin: 0;
@@ -713,31 +723,26 @@
                                 font-size: 20px;
                                 width: 50%;
                                 transition: all .3s ease;
+                                border-radius: 5px;
 
                                 &:disabled {
-                                    opacity: .3;
+                                    opacity: .3 !important;
+                                    color: $textwht !important;
+                                    background-color: $background !important;
                                     transition: all .3s ease;
                                 }
-
+                
                                 &:hover, &:focus {
-                                    opacity: .5;
+                                    background-color: $primary-contrast;
+                                    color: $background;
+                                    opacity: 1;
                                     transition: all .3s ease;
                                 }
                             }
                         }
 
                         &::-webkit-scrollbar {
-                            width: 2px;
-                        }
-                        &::-webkit-scrollbar-track {
-                            background: transparent;
-                        }
-                        &::-webkit-scrollbar-thumb {
-                            background: rgba(0, 0, 0, .2);
-                            border-radius: 50px;
-                        }
-                        &::-webkit-scrollbar-thumb:hover {
-                            background: rgba(126, 93, 93, 0.7); 
+                            width: 0px;
                         }
                     }
                 }
@@ -910,7 +915,7 @@
         font-size: 20px;
         border-radius: 100%;
         border: none;
-        background-color: $alert;
+        background-color: $primary-contrast;
         color: $textwht;
         right: 10px;
         z-index: 9999;
@@ -954,17 +959,7 @@
         transition: all 0.2s ease;
 
         &::-webkit-scrollbar {
-            width: 2px;
-        }
-        &::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        &::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, .2);
-            border-radius: 50px;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-            background: rgba(126, 93, 93, 0.7); 
+            width: 0px;
         }
 
         @media screen and (max-width: $end-small) {
@@ -1029,10 +1024,19 @@
                     color: #fff;
                     font-size: 25px;
                     background: $background;
+                    border-bottom: 1px solid $background;
                     border: 0;
                     outline: 0;
                     font-family: "Noto Sans", sans-serif;
                     width: calc(100% - 40px);
+
+                    &:focus, &:active {
+                        border: 0;
+                        border-bottom: 1px solid $primary-contrast;
+                        outline: 0;
+                        transition: all .3s ease;
+                        font-size: 16px;
+                    }
                 }
             }
 
@@ -1124,7 +1128,7 @@
             width: 100%;
             padding: 10px 0;
             border: 0;
-            border-bottom: 1px solid #252525;
+            border-bottom: 1px solid $background;
             margin: 10px 0;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -1136,7 +1140,7 @@
 
             &:focus, &:active {
                 border: 0;
-                border-bottom: 1px solid $primary;
+                border-bottom: 1px solid $primary-contrast;
                 outline: 0;
                 transition: all .3s ease;
                 font-size: 16px;
@@ -1191,14 +1195,21 @@
                 width: 100%;
                 opacity: 1;
                 transition: all .3s ease;
+                display: flex;
+                justify-content: center;
+                border-radius: 5px;
 
                 &:disabled {
-                    opacity: .3;
+                    opacity: .3 !important;
+                    color: $textwht !important;
+                    background-color: $background !important;
                     transition: all .3s ease;
                 }
 
                 &:hover, &:focus {
-                    opacity: .5;
+                    background-color: $primary-contrast;
+                    color: $background;
+                    opacity: 1;
                     transition: all .3s ease;
                 }
             }
