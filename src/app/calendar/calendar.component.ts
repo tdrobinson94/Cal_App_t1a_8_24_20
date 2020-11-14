@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { EventDataService } from '../services/eventdata.service';
 import { MONTHS } from './months.constant';
+import { CookieService } from 'ngx-cookie-service';
 import $ from 'jquery';
 import _ from 'lodash';
 import * as moment from 'moment';
@@ -14,7 +15,7 @@ import 'hammerjs';
 })
 export class CalendarComponent implements OnInit, AfterViewInit {
 
-  constructor(private dataService: EventDataService) { 
+  constructor(private dataService: EventDataService, private cookieService: CookieService) { 
     this.getEvents();
   }
 
@@ -27,6 +28,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   currentDay = this.clock.getDate();
   currentDayofWeek = this.clock.getDay();
   isCurrentWeekday = false;
+  time = this.clock.getTime();
   month: any = [];
   selectedMonth: any;
   prevMonth: any;
@@ -38,8 +40,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   openform = false;
   hideFormButton = false;
 
-  cachedMonth: any = sessionStorage.getItem('cachedMonth');
-  cachedYear: any = sessionStorage.getItem('cachedYear');
+  cachedMonth: any = this.cookieService.get('cachedMonth');
+  cachedYear: any = this.cookieService.get('cachedYear');
+  cachedDate: any = this.cookieService.get('cachedDate').replace(/%2F/g, "/");
+  cachedDay: any = this.cookieService.get('cachedDay');
 
   singleMonthEvents = [];
   getEachMonthDays: any;
@@ -244,6 +248,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     } 
     this.createCalendarGrid();
     this.mobileHideElements();
+    console.log(this.cachedDate);
   }
 
   createNavBar() {
@@ -341,9 +346,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
     // console.log(this.month);
 
+    const exp = this.time + (60 * 60 * 24 * 1000 * 1)
     // Save the current viewing month and year
-    sessionStorage.setItem('cachedMonth', $(document).find('#month').val());
-    sessionStorage.setItem('cachedYear', $(document).find('#year').val())
+    this.cookieService.set('cachedMonth', $(document).find('#month').val(), 1);
+    this.cookieService.set('cachedYear', $(document).find('#year').val(), 1);
   }
 
   changeCalSelectors() {
@@ -358,6 +364,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if (!$('.day-box').hasClass('day-opened')) {
         $('.add-item-button, .add-item-container').removeClass('moved');
       }
+      const date = $('#year').val() + '/' + this.selectedMonth + '/' + $('.selected-day').attr('day');
+      this.cookieService.set('cachedDate', date.toString(), 1);
+      this.cookieService.set('cachedDay', $('.selected-day').attr('day'))
     }, 250)
   }
 
@@ -483,6 +492,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     } else if (!$(e.currentTarget).hasClass('selected-day') && !$(e.currentTarget).hasClass('day-opened')) {
       $('.day-box').removeClass('selected-day day-opened');
       $(e.currentTarget).addClass('selected-day');
+      const date = $('#year').val() + '/' + this.selectedMonth + '/' + $('.selected-day').attr('day');
+      this.cookieService.set('cachedDate', date.toString(), 1);
+      this.cookieService.set('cachedDay', $('.selected-day').attr('day'))
     } else if ($(e.currentTarget).hasClass('selected-day')) {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
