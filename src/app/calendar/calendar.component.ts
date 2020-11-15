@@ -406,6 +406,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   currentClick() {
+    this.loading = true;
     let year = $(document).find('#year');
     let month = $(document).find('#month');
     $('.add-item-button, .add-item-container').removeClass('moved');
@@ -421,7 +422,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         $('.current-day').addClass('selected-day day-opened');
       }
     } else {
-      this.loading = true;
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();
 
