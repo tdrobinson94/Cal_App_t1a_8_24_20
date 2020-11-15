@@ -532,11 +532,6 @@
                         animation-timing-function: ease;
                         overscroll-behavior: none;
 
-                        transition: all 0.3s ease;
-                        -moz-transition: all .3s ease;
-                        -webkit-transition: all .3s ease;
-                        -o-transition: all .3s ease;
-
                         &::-webkit-scrollbar {
                             width: 0px;
                         }
