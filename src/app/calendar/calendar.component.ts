@@ -426,7 +426,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       month.val(this.currentMonth).change();
       year.val(this.currentYear).change();
 
-      this.changeCalSelectors();
+      setTimeout(() => {
+        this.changeCalSelectors();
+      }, 20)
     }
   }
 
