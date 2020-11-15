@@ -39,6 +39,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   loading = true;
   openform = false;
   hideFormButton = false;
+  firstDayBox: any;
+  lastDayBox: any;
 
   cachedMonth: any = this.cookieService.get('cachedMonth');
   cachedYear: any = this.cookieService.get('cachedYear');
@@ -121,6 +123,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       worker.onmessage = ({ data }) => {
         this.getAllEvents = JSON.parse(data);
         // console.log(this.getAllEvents);
+        this.filterEvents();
         this.loading = false;
         console.log('Get events task finished.');
       }
@@ -147,6 +150,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         }
         this.getAllEvents = eventlist;
         // console.log(this.getAllEvents);
+        this.filterEvents();
         this.loading = false;
         console.log('Get events task finished.');
       });
@@ -155,18 +159,27 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   filterEvents() {
     console.log('Filter events task started.');
+    for (var n = 0; n < this.month.length; n++) {
+      if (this.month[n].month == this.selectedMonth && this.month[n].year == $('#year').val() && this.month[n].day == 1) {
+        this.firstDayBox = this.month[n].date;
+      } 
+
+      if (this.month[n].month == this.selectedMonth && this.month[n].year == $('#year').val() && 
+      this.month[n].day == MONTHS[this.selectedMonth - 1].days) {
+        this.lastDayBox = this.month[n].date;
+      }
+    }
+
     let i;
     let singleMonthEvents = [];
-    let prevDays = $('.prev-month-days').length;
-    let nextDays = $('.next-month-days').length;
-    const lastDayBox = $('.last-day-box .transactions').attr('date');
-    const firstDayBox = $('.first-day-box .transactions').attr('date');
+    // let prevDays = $('.prev-month-days').length;
+    // let nextDays = $('.next-month-days').length;
 
-    prevDays = prevDays + 1;
-    nextDays = nextDays + 1;
+    // prevDays = prevDays + 1;
+    // nextDays = nextDays + 1;
 
-    const lastDay = moment(lastDayBox).add(13, 'days');
-    const firstDay = moment(firstDayBox).subtract(8, 'days');
+    const lastDay = moment(this.lastDayBox).add(13, 'days');
+    const firstDay = moment(this.firstDayBox).subtract(8, 'days');
 
     for (i = 0; i < this.getAllEvents.length; i++) {
       let forecast_date = moment(this.getAllEvents[i].eventstart_date);
@@ -188,7 +201,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     } 
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
-    console.log(this.singleMonthEvents);
     console.log('Filter events task finsihed.');
   }
 
@@ -350,6 +362,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     // Save the current viewing month and year
     this.cookieService.set('cachedMonth', $(document).find('#month').val(), 1);
     this.cookieService.set('cachedYear', $(document).find('#year').val(), 1);
+    this.filterEvents();
   }
 
   changeCalSelectors() {

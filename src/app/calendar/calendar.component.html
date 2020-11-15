@@ -53,7 +53,7 @@
                 </button>
 
                 <div class="transactions" [attr.date]="day.date" [attr.date1]="day.date1" (swipeleft)="swipeDayLeft($event)" (swiperight)="swipeDayRight($event)">
-                    <ng-container *ngFor="let event of getAllEvents">
+                    <ng-container *ngFor="let event of singleMonthEvents">
                         <div class="event" *ngIf="day.date === event.eventstart_date" (click)="selectEvent($event)" [attr.startDate]="event.eventstart_date"  [attr.endDate]="event.eventend_date" [attr.frequency]="event.eventfrequency">
                             <p class="event-details title">
                                 {{event.eventtitle}}
