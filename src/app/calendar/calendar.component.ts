@@ -412,6 +412,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.add-item-button, .add-item-container').removeClass('moved');
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
+      this.loading = false;
       if (!$('.day-box').hasClass('day-opened')) {
         $('.day-box').removeClass('selected-day');
         $('.current-day').addClass('selected-day');
