@@ -725,7 +725,8 @@
         border-radius: 100%;
         color: transparent;
         overflow: hidden;
-        animation-name: circularClose;
+        transition: all .2s linear;
+        // animation-name: circularClose;
         animation-duration: .2s;
         animation-timing-function: linear;
 
@@ -747,7 +748,7 @@
             overflow: hidden;
             border-radius: 100%;
             max-width: 800px;
-            animation-name: circularCloseDesktop;
+            // animation-name: circularCloseDesktop;
             &.moved {
                 bottom: 12.5%;
             }
@@ -866,19 +867,10 @@
 
         .animate-events-two {
             display: block;
-
-            @media screen and (min-width: $end-small) {
-                display: flex;
-                flex-wrap: wrap;
-            }
         }
 
         .input-wrapper {
             margin: 0 4%;
-
-            @media screen and (min-width: $end-small) {
-                width: 42%;
-            }
 
             &.invisible {
                 visibility: hidden;
@@ -999,7 +991,7 @@
         &.closed {
             position: fixed;
             top: 110% !important;
-            transition: all 0.2s linear;
+            transition: all .1s linear;
 
             @media screen and (min-width: $end-small) {
                 top: 0 !important;
@@ -1034,11 +1026,11 @@
             }
 
             @media screen and (min-width: $end-small) {
-                top: 40px;
-                right: 0;
-                border-radius: 0 5px 5px 0;
-                height: calc(100% - 40px);
-                width: 50%;
+                top: 10%;
+                right: 10%;
+                border-radius: 10px;
+                height: 80%;
+                width: 80%;
                 animation-name: slideOut;
                 animation-duration: .2s;
                 animation-timing-function: ease;
@@ -1054,7 +1046,7 @@
 
                     @media screen and (min-width: $end-small) {
                         margin: 0 4% 15px 4%;
-                        padding: 0 13px 4%;
+                        padding: 13px 4%;
                     }
 
                     input {
@@ -1094,10 +1086,6 @@
                     border: 0;
                     cursor: pointer;
                     color: $textwht;
-
-                    @media screen and (min-width: $end-small) {
-                        top: 5px;
-                    }
 
                     .material-icons {
                         @media screen and (min-width: $end-small) {
@@ -1345,13 +1333,9 @@
 }
 
 @keyframes grow {
-    from {
-        transform: scale(.5, .5);
-    }
+    from { transform: scale(.5, .5); }
 
-    to {
-        transform: scale(1, 1);
-    }
+    to { transform: scale(1, 1); }
 }
 
 @keyframes shrink {
@@ -1365,6 +1349,12 @@
     100% { top: 0 }
 }
 
+@keyframes slideDown {
+    0% { top: 0; }
+
+    100% { top: 110%; }
+}
+
 @keyframes slideOut {
     0%   { right: -100% }
     30%  { right: 0 }
@@ -1372,13 +1362,15 @@
     100% { right: 0 }
 }
 
+@keyframes slideBack {
+    0% { right: 0 } 
+
+    100% { right: -110% }
+}
+
 @keyframes noticeMe {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: .3;
-    }
+    0% { opacity: 1; }
+    100% { opacity: .3; }
 }
 
 @keyframes circularOpen {
