@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl('')
   });
-  userName: string = '';
-  loading: boolean = false;
+  userName = '';
+  loading = false;
   constructor(private cookieService: CookieService, private dataService: UserDataService, private router: Router) { }
 
   ngOnInit(): void {

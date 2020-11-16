@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit {
         $('html, body').animate({ scrollTop: 0 }, 500);
         this.dataService.getUser()
             .subscribe((response) => {
-                let res = Object.values(response);
+                const res = Object.values(response);
                 this.userName = (res[3]);
                 this.firstName = (res[1]);
                 this.lastName = (res[2]);
@@ -50,8 +50,8 @@ export class SettingsComponent implements OnInit {
         this.loading = true;
         this.dataService.updatedUser(this.updateForm.value)
             .subscribe((response) => {
-                let res = Object.values(response);
-                let data = Object.values(res[1]);
+                const res = Object.values(response);
+                const data = Object.values(res[1]);
                 console.log(data);
                 this.updateForm = new FormGroup({
                     firstname: new FormControl(data[1]),

@@ -129,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "my-forecast-app"
+    }
+  },
+  "defaultProject": "my-forecast-app",
+  "cli": {
+    "analytics": "f63af34e-2437-4edb-8f08-4281fe5f2e5f"
+  }
 }

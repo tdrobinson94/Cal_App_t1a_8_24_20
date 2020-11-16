@@ -21,5 +21,5 @@ export class GuestGuard implements CanActivate {
     this.router.navigate(['/calendar']);
     return false;
   }
-  
+
 }

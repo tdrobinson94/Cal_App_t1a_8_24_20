@@ -25,14 +25,14 @@ export class ProfileComponent implements OnInit {
 
   // Gesture Vibration
   gestureVibration = 2;
-  
+
   constructor(private dataService: UserDataService, private router: Router) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.dataService.getUser()
       .subscribe((response) => {
-        let res = Object.values(response);
+        const res = Object.values(response);
         this.userName = (res[3]);
         this.firstName = (res[1]);
         this.lastName = (res[2]);
@@ -53,8 +53,8 @@ export class ProfileComponent implements OnInit {
     this.loading = true;
     this.dataService.updatedUser(this.updateForm.value)
       .subscribe((response) => {
-        let res = Object.values(response);
-        let data = Object.values(res[1]);
+        const res = Object.values(response);
+        const data = Object.values(res[1]);
         console.log(data);
         this.updateForm = new FormGroup({
           firstname: new FormControl(data[1]),

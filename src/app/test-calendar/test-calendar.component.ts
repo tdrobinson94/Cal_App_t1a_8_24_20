@@ -14,7 +14,7 @@ import 'hammerjs';
 })
 export class TestCalendarComponent implements OnInit, AfterViewInit {
 
-  constructor(private dataService: EventDataService) { 
+  constructor(private dataService: EventDataService) {
     this.getEvents();
   }
 
@@ -58,7 +58,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
 
 
-  //Forms
+  // Forms
    // Delete event form
    deleteItemForm = new FormGroup({
     id: new FormControl(''),
@@ -102,7 +102,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     this.createNavBar();
   }
 
-  //Handling events
+  // Handling events
   getEvents() {
     console.log('Get events task started');
 
@@ -119,13 +119,13 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         this.getAllEvents = JSON.parse(data);
         // console.log(this.getAllEvents);
         console.log('Get events task finished.');
-      }
+      };
     } else {
       // Web workers are not supported in this environment.
       this.dataService.getEvents()
       .subscribe((response) => {
         let i;
-        let eventlist = [];
+        const eventlist = [];
         for (i = 0; i < response.length; i++) {
           eventlist[i] = {
             eventid: response[i].id.toString(),
@@ -227,8 +227,8 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
   createCalendarGrid() {
     MONTHS[1].days = Number($('#year').val()) % 4 == 0 ? 29 : 28;
-    let selectedMonth = $(document).find('#month').val();
-    let selectedYear = $(document).find('#year').val();
+    const selectedMonth = $(document).find('#month').val();
+    const selectedYear = $(document).find('#year').val();
     const startOfMonth = new Date(selectedYear, selectedMonth, 1).getDay();
     const monthDays = MONTHS[selectedMonth].days;
     let nextMonthDayCount = 0;
@@ -246,47 +246,47 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       nextMonthDayCount = (42 - monthDays);
       prevMonthDayCount = 0;
     } else {
-      nextMonthDayCount = (42 - monthDays - startOfMonth)
+      nextMonthDayCount = (42 - monthDays - startOfMonth);
       prevMonthDayCount = (42 - (monthDays + nextMonthDayCount));
     }
 
-    for (var i:any = 1; i <= prevMonthDayCount + monthDays + nextMonthDayCount; i++) {
+    for (let i: any = 1; i <= prevMonthDayCount + monthDays + nextMonthDayCount; i++) {
       if (i < 10) {
         i = '0' + i;
         this.month.push({
-          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
-          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
-          "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
-          "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
+          date: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
+          day: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
+          month: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
+          year: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
         });
       } else if (i >= 10 && i <= monthDays) {
         this.month.push({
-          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
-          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
-          "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
-          "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
+          date: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
+          day: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('D'),
+          month: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('M'),
+          year: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format('Y')
         });
       } else if (i > monthDays && i <= (monthDays + nextMonthDayCount)) {
         this.month.push({
-          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
-          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).format('D'),
-          "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('M'),
-          "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('Y')
+          date: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
+          day: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).format('D'),
+          month: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('M'),
+          year: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + (i - monthDays)).add((1), 'month').format('Y')
         });
-      } 
+      }
 
       if (i === monthDays) {
         this.lastDay = monthDays;
       }
     }
 
-    for (var i:any = 1; i <= prevMonthDayCount; i++) {
+    for (let i: any = 1; i <= prevMonthDayCount; i++) {
       if (prevMonthDayCount > 0) {
         this.month.unshift({
-          "date": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((i), 'days').format().substring(0, 10), 
-          "day": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((i), 'days').format().substring(8, 10),
-          "month": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((1), 'days').format('M'),
-          "year": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((1), 'days').format('Y')
+          date: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((i), 'days').format().substring(0, 10),
+          day: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((i), 'days').format().substring(8, 10),
+          month: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((1), 'days').format('M'),
+          year: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + 1).subtract((1), 'days').format('Y')
         });
       }
     }
@@ -303,8 +303,8 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   // Calendar Navigation
   prevClick() {
     this.loading = true;
-    let year = $(document).find('#year');
-    let month = $(document).find('#month');
+    const year = $(document).find('#year');
+    const month = $(document).find('#month');
     if (year.val() < (this.currentYear - 5)) {
       year.val(this.currentYear - 5).change();
       month.val(0).change();
@@ -324,8 +324,8 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   }
 
   currentClick() {
-    let year = $(document).find('#year');
-    let month = $(document).find('#month');
+    const year = $(document).find('#year');
+    const month = $(document).find('#month');
     $('.add-item-button, .add-item-container').removeClass('moved');
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
@@ -345,14 +345,14 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
       setTimeout(() => {
         this.changeCalSelectors();
-      },)
+      }, );
     }
   }
 
   nextClick() {
-    this.loading = true
-    let year = $(document).find('#year');
-    let month = $(document).find('#month');
+    this.loading = true;
+    const year = $(document).find('#year');
+    const month = $(document).find('#month');
     if (year.val() > (this.currentYear + 5) && month.val() == 11) {
       year.val(this.currentYear + 5).change();
       month.val(11).change();
@@ -379,7 +379,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     $('.event').removeClass('selected');
     if ($(e.target).hasClass('prev-day-icon')) {
       $('.update-event-form').removeClass('show-update-form');
-      //show popup background because we are in day view
+      // show popup background because we are in day view
       $('.opened-background').show();
       if (!$(e.currentTarget).prev().hasClass('disabled')) {
         this.removeClassesForDayBox();
@@ -399,7 +399,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
     } else if ($(e.target).hasClass('next-day-icon')) {
       $('.update-event-form').removeClass('show-update-form');
-      //show popup background because we are in day view
+      // show popup background because we are in day view
       $('.opened-background').show();
       // window.navigator.vibrate(this.gestureVibration);
       if (!$(e.currentTarget).next().hasClass('disabled')) {
@@ -456,11 +456,11 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         } else {
           $(e.target).parent().parent().addClass('selected');
         }
-      }, 20)
+      }, 20);
 
 
       setTimeout(() => {
-        $('.transactions, .close-day').addClass('update-form-opened')
+        $('.transactions, .close-day').addClass('update-form-opened');
         $('.update-event-form').addClass('show-update-form').removeClass('closed');
       }, 200);
       $('.update-event-form').animate({ scrollTop: 0 }, 300);
@@ -554,7 +554,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
       }
       console.log(this.updateItemForm.value);
     }
-    
+
   }
 
 
@@ -570,7 +570,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         } else {
           this.nextClick();
         }
-      } 
+      }
     }
   }
 
@@ -709,14 +709,14 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.event').removeClass('selected');
       if (!$('.day-box').hasClass('day-opened') || $('.update-event-form').hasClass('show-update-form')) {
-        // do nothing 
+        // do nothing
       } else {
         if ($('.transactions').scrollTop() === 0) {
           if ($(e.target).hasClass('event') || $(e.target).hasClass('transactions') || $(e.target).hasClass('event-details')) {
             this.closeDay();
           } else {
             this.closeDay();
-          } 
+          }
         }
       }
     }
@@ -734,7 +734,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   closeEventUpdateForm() {
     // window.navigator.vibrate(this.gestureVibration);
     $('.event').removeClass('selected');
-    $('.transactions, .close-day').removeClass('update-form-opened')
+    $('.transactions, .close-day').removeClass('update-form-opened');
     $('.update-event-form').addClass('closed');
     // Delay for the Close animation
     setTimeout(() => {
@@ -746,7 +746,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   }
 
   openForm() {
-    //show popup background because we are in day view
+    // show popup background because we are in day view
     $('.opened-background').show();
     $('.add-item-container').animate({ scrollTop: 0 }, 300);
     this.openform = true;
@@ -930,7 +930,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
         location: new FormControl(this.updateItemForm.value.location),
       });
     } else {
-      let i = 1;
+      const i = 1;
       const groupID = i;
       $('.date-input-end, .date-input-end-update').show();
       this.addItemForm = new FormGroup({
@@ -1009,7 +1009,7 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
 
 
-  //Helper functions
+  // Helper functions
   removeClassesForDayBox() {
     $('.day-box').removeClass('selected-day day-opened swipe-left swipe-right bounce-right bounce-left');
   }

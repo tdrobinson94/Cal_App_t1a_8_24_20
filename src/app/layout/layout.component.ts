@@ -55,14 +55,14 @@ export class LayoutComponent implements OnInit, OnDestroy {
     if ($(window).width() < 800) {
       $('.hamburger').toggleClass('is-active');
       $('.wrapper ul').slideToggle();
-    } 
+    }
   }
 
   bounceUp() {
     $('.container').addClass('bounce-up');
     setTimeout(() => {
       $('.container').removeClass('bounce-up');
-    }, 1000)
+    }, 1000);
   }
 
   clickFooterLink() {

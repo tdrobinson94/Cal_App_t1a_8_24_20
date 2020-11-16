@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl('')
   });
-  loading: boolean = false;
+  loading = false;
   constructor(private dataService: UserDataService, private router: Router) { }
 
   ngOnInit(): void {

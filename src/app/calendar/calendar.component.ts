@@ -15,7 +15,7 @@ import 'hammerjs';
 })
 export class CalendarComponent implements OnInit, AfterViewInit {
 
-  constructor(private dataService: EventDataService, private cookieService: CookieService) { 
+  constructor(private dataService: EventDataService, private cookieService: CookieService) {
     this.getEvents();
   }
 
@@ -44,7 +44,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   cachedMonth: any = this.cookieService.get('cachedMonth');
   cachedYear: any = this.cookieService.get('cachedYear');
-  cachedDate: any = this.cookieService.get('cachedDate').replace(/%2F/g, "/");
+  cachedDate: any = this.cookieService.get('cachedDate').replace(/%2F/g, '/');
   cachedDay: any = this.cookieService.get('cachedDay');
 
   singleMonthEvents = [];
@@ -63,7 +63,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   getAllEvents = [];
 
-  //Forms
+  // Forms
    // Delete event form
    deleteItemForm = new FormGroup({
     id: new FormControl(''),
@@ -107,7 +107,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.createNavBar();
   }
 
-  //Handling events
+  // Handling events
   getEvents() {
     console.log('Get events task started');
 
@@ -126,19 +126,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.filterEvents();
         this.loading = false;
         console.log('Get events task finished.');
-      }
+      };
     } else {
       // Web workers are not supported in this environment.
       this.dataService.getEvents()
       .subscribe((response) => {
         let i;
-        let eventlist = [];
+        const eventlist = [];
         for (i = 0; i < response.length; i++) {
           eventlist[i] = {
             eventid: response[i].id.toString(),
             eventtitle: response[i].title,
-            eventstart_date: response[i].start_date.substring(0, 10).replace(/-/g, "/"),
-            eventend_date: response[i].end_date.substring(0, 10).replace(/-/g, "/"),
+            eventstart_date: response[i].start_date.substring(0, 10).replace(/-/g, '/'),
+            eventend_date: response[i].end_date.substring(0, 10).replace(/-/g, '/'),
             eventdesc: response[i].description,
             eventlocation: response[i].location,
             eventfrequency: response[i].frequency,
@@ -159,19 +159,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   filterEvents() {
     console.log('Filter events task started.');
-    for (var n = 0; n < this.month.length; n++) {
+    for (let n = 0; n < this.month.length; n++) {
       if (this.month[n].month == this.selectedMonth && this.month[n].year == $('#year').val() && this.month[n].day == 1) {
         this.firstDayBox = this.month[n].date;
-      } 
+      }
 
-      if (this.month[n].month == this.selectedMonth && this.month[n].year == $('#year').val() && 
+      if (this.month[n].month == this.selectedMonth && this.month[n].year == $('#year').val() &&
       this.month[n].day == MONTHS[this.selectedMonth - 1].days) {
         this.lastDayBox = this.month[n].date;
       }
     }
 
     let i;
-    let singleMonthEvents = [];
+    const singleMonthEvents = [];
     // let prevDays = $('.prev-month-days').length;
     // let nextDays = $('.next-month-days').length;
 
@@ -182,7 +182,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     const firstDay = moment(this.firstDayBox).subtract(8, 'days');
 
     for (i = 0; i < this.getAllEvents.length; i++) {
-      let forecast_date = moment(this.getAllEvents[i].eventstart_date);
+      const forecast_date = moment(this.getAllEvents[i].eventstart_date);
       if (forecast_date.isBefore(lastDay) && forecast_date.isAfter(firstDay)) {
         singleMonthEvents[i] = {
           eventid: this.getAllEvents[i].eventid,
@@ -196,9 +196,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           eventend_time: moment(this.getAllEvents[i].eventend_time, 'HH:mm:ss').format('h:mm A'),
           eventcreatedAt: moment(this.getAllEvents[i].eventcreated_at).format(),
           itemtype: this.getAllEvents[i].itemtype
-        }
+        };
       }
-    } 
+    }
 
     this.singleMonthEvents = singleMonthEvents.filter(event => event);
     console.log('Filter events task finsihed.');
@@ -257,7 +257,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     if (this.cachedMonth && this.cachedYear) {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
-    } 
+    }
     this.createCalendarGrid();
     this.mobileHideElements();
     console.log(this.cachedDate);
@@ -290,8 +290,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   createCalendarGrid() {
     this.loading = true;
     MONTHS[1].days = Number($('#year').val()) % 4 == 0 ? 29 : 28;
-    let selectedMonth = $(document).find('#month').val();
-    let selectedYear = $(document).find('#year').val();
+    const selectedMonth = $(document).find('#month').val();
+    const selectedYear = $(document).find('#year').val();
     const startOfMonth = new Date(selectedYear, selectedMonth, 1).getDay();
     const monthDays = MONTHS[selectedMonth].days;
     let nextMonthDayCount = 0;
@@ -309,56 +309,56 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       nextMonthDayCount = (42 - monthDays);
       prevMonthDayCount = 0;
     } else {
-      nextMonthDayCount = (42 - monthDays - startOfMonth)
+      nextMonthDayCount = (42 - monthDays - startOfMonth);
       prevMonthDayCount = (42 - (monthDays + nextMonthDayCount));
     }
 
-    for (var i:any = 1; i <= prevMonthDayCount + monthDays + nextMonthDayCount; i++) {
+    for (let i: any = 1; i <= prevMonthDayCount + monthDays + nextMonthDayCount; i++) {
       if (i < 10) {
         i = '0' + i;
         this.month.push({
-          "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, "/"),
-          "date1": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10), 
-          "day": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
-          "month": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
-          "year": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
+          date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, '/'),
+          date1: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
+          day: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
+          month: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
+          year: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
         });
       } else if (i >= 10 && i <= monthDays) {
         this.month.push({
-          "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, "/"), 
-          "date1": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
-          "day": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
-          "month": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
-          "year": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
+          date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, '/'),
+          date1: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
+          day: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
+          month: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
+          year: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
         });
       } else if (i > monthDays && i <= (monthDays + nextMonthDayCount)) {
         this.month.push({
-          "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + monthDays).add((i - monthDays), 'days').format().substring(0, 10).replace(/-/g, "/"),
-          "date1": moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
-          "day": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).format('D'),
-          "month": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('M'),
-          "year": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('Y')
+          date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + monthDays).add((i - monthDays), 'days').format().substring(0, 10).replace(/-/g, '/'),
+          date1: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
+          day: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).format('D'),
+          month: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('M'),
+          year: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('Y')
         });
-      } 
+      }
 
       if (i === monthDays) {
         this.lastDay = monthDays;
       }
     }
 
-    for (var i:any = 1; i <= prevMonthDayCount; i++) {
+    for (let i: any = 1; i <= prevMonthDayCount; i++) {
       if (prevMonthDayCount > 0) {
         this.month.unshift({
-          "date": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((i), 'days').format().substring(0, 10).replace(/-/g, "/"), 
-          "day": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((i), 'days').format().substring(8, 10),
-          "month": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((1), 'days').format('M'),
-          "year": moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((1), 'days').format('Y')
+          date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((i), 'days').format().substring(0, 10).replace(/-/g, '/'),
+          day: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((i), 'days').format().substring(8, 10),
+          month: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((1), 'days').format('M'),
+          year: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((1), 'days').format('Y')
         });
       }
     }
     // console.log(this.month);
 
-    const exp = this.time + (60 * 60 * 24 * 1000 * 1)
+    const exp = this.time + (60 * 60 * 24 * 1000 * 1);
     // Save the current viewing month and year
     this.cookieService.set('cachedMonth', $(document).find('#month').val(), 1);
     this.cookieService.set('cachedYear', $(document).find('#year').val(), 1);
@@ -379,15 +379,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
       const date = $('#year').val() + '/' + this.selectedMonth + '/' + $('.selected-day').attr('day');
       this.cookieService.set('cachedDate', date.toString(), 1);
-      this.cookieService.set('cachedDay', $('.selected-day').attr('day'))
-    }, 250)
+      this.cookieService.set('cachedDay', $('.selected-day').attr('day'));
+    }, 250);
   }
 
   // Calendar Navigation
   prevClick() {
     this.loading = true;
-    let year = $(document).find('#year');
-    let month = $(document).find('#month');
+    const year = $(document).find('#year');
+    const month = $(document).find('#month');
     if (year.val() < (this.currentYear - 5)) {
       year.val(this.currentYear - 5).change();
       month.val(0).change();
@@ -402,13 +402,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.calendar-container').addClass('cal-swipe-left');
     setTimeout(() => {
       this.changeCalSelectors();
-    }, 120)
+    }, 120);
   }
 
   currentClick() {
     this.loading = true;
-    let year = $(document).find('#year');
-    let month = $(document).find('#month');
+    const year = $(document).find('#year');
+    const month = $(document).find('#month');
     $('.add-item-button, .add-item-container').removeClass('moved');
     // if Current month is in view just update to current day, else Change the month to current
     if (Number(month.val()) === this.currentMonth && Number(year.val()) === this.currentYear) {
@@ -428,14 +428,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
       setTimeout(() => {
         this.changeCalSelectors();
-      }, 20)
+      }, 20);
     }
   }
 
   nextClick() {
-    this.loading = true
-    let year = $(document).find('#year');
-    let month = $(document).find('#month');
+    this.loading = true;
+    const year = $(document).find('#year');
+    const month = $(document).find('#month');
     if (year.val() > (this.currentYear + 5) && month.val() == 11) {
       year.val(this.currentYear + 5).change();
       month.val(11).change();
@@ -451,19 +451,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.calendar-container').addClass('cal-swipe-right');
     setTimeout(() => {
       this.changeCalSelectors();
-    }, 120)
+    }, 120);
   }
 
 
   // Calendar Gestures
   selectDay(e) {
-    this.mobileHideElements()
+    this.mobileHideElements();
 
     $('.add-item-form').removeClass('show-form');
     $('.event').removeClass('selected');
     if ($(e.target).hasClass('prev-day-icon')) {
       $('.update-event-form').removeClass('show-update-form');
-      //show popup background because we are in day view
+      // show popup background because we are in day view
       $('.opened-background').show();
       if (!$(e.currentTarget).prev().hasClass('disabled')) {
         this.removeClassesForDayBox();
@@ -483,7 +483,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     } else if ($(e.target).hasClass('next-day-icon')) {
       $('.update-event-form').removeClass('show-update-form');
-      //show popup background because we are in day view
+      // show popup background because we are in day view
       $('.opened-background').show();
       // window.navigator.vibrate(this.gestureVibration);
       if (!$(e.currentTarget).next().hasClass('disabled')) {
@@ -510,7 +510,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $(e.currentTarget).addClass('selected-day');
       const date = $('#year').val() + '/' + this.selectedMonth + '/' + $('.selected-day').attr('day');
       this.cookieService.set('cachedDate', date.toString(), 1);
-      this.cookieService.set('cachedDay', $('.selected-day').attr('day'))
+      this.cookieService.set('cachedDay', $('.selected-day').attr('day'));
     } else if ($(e.currentTarget).hasClass('selected-day')) {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
@@ -546,11 +546,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         } else {
           $(e.target).parent().parent().addClass('selected');
         }
-      }, 20)
+      }, 20);
 
 
       setTimeout(() => {
-        $('.transactions, .close-day').addClass('update-form-opened')
+        $('.transactions, .close-day').addClass('update-form-opened');
         $('.update-event-form').addClass('show-update-form').removeClass('closed');
       }, 200);
       $('.update-event-form').animate({ scrollTop: 0 }, 300);
@@ -644,7 +644,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
       console.log(this.updateItemForm.value);
     }
-    
+
   }
 
 
@@ -660,7 +660,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         } else {
           this.nextClick();
         }
-      } 
+      }
     }
   }
 
@@ -799,7 +799,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.event').removeClass('selected');
       if (!$('.day-box').hasClass('day-opened')) {
-        // do nothing 
+        // do nothing
         this.getEvents();
       }
     }
@@ -808,7 +808,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   closeEventUpdateForm() {
     // window.navigator.vibrate(this.gestureVibration);
     $('.event').removeClass('selected');
-    $('.transactions, .close-day').removeClass('update-form-opened')
+    $('.transactions, .close-day').removeClass('update-form-opened');
     $('.update-event-form').addClass('closed');
     // Delay for the Close animation
     setTimeout(() => {
@@ -820,7 +820,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   openForm() {
-    //show popup background because we are in day view
+    // show popup background because we are in day view
     $('.opened-background').show();
     $('.add-item-container').animate({ scrollTop: 0 }, 300);
     this.openform = true;
@@ -1004,7 +1004,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         location: new FormControl(this.updateItemForm.value.location),
       });
     } else {
-      let i = 1;
+      const i = 1;
       const groupID = i;
       $('.date-input-end, .date-input-end-update').show();
       this.addItemForm = new FormGroup({
@@ -1083,7 +1083,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
 
 
-  //Helper functions
+  // Helper functions
   removeClassesForDayBox() {
     $('.day-box').removeClass('selected-day day-opened swipe-left swipe-right bounce-right bounce-left');
   }
