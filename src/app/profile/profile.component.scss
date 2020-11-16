@@ -68,17 +68,7 @@
         align-items: flex-start;
         
         &::-webkit-scrollbar {
-            width: 2px;
-        }
-        &::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        &::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, .2);
-            border-radius: 50px;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-            background: rgba(126, 93, 93, 0.7); 
+            width: 0px;
         }
 
         .profile-image-wrapper {
@@ -121,9 +111,9 @@
 
         .input-wrapper.delete {
           div.delete {
-            background-color: #121212;
+            background-color: $primary;
             color: #fff;
-            padding: 20px 0;
+            padding: 10px 0;
             border: 0;
             font-size: 20px;
             width: 100%;
@@ -140,8 +130,8 @@
             }
 
             &:hover, &:focus {
-                background-color: $primary-contrast;
-                color: $background;
+                background-color: $background;
+                color: $textwht;
                 opacity: 1;
                 transition: all .3s ease;
             }
@@ -173,19 +163,25 @@
 
             .input-wrapper {
               margin-top: 20px;
+              display: flex;
+              justify-content: space-evenly;
             }
 
             button {
-              background-color: $background;
+              background-color: $primary-contrast;
               color: $textwht;
-              padding: 20px 0;
+              padding: 10px 0;
               border: 0;
               font-size: 20px;
-              width: 50%;
               transition: all .3s ease-in-out;
               cursor: pointer;
               border-radius: 5px;
-              margin: 10px 0px;
+              margin: 10px 0;
+              width: 45%;
+
+              &.delete {
+                background-color: $primary;
+              }
 
               &:disabled {
                 opacity: .3 !important;
@@ -195,8 +191,8 @@
               }
 
               &:hover, &:focus {
-                  background-color: $primary-contrast;
-                  color: $background;
+                  background-color: $background;
+                  color: $textwht;
                   opacity: 1;
                   transition: all .3s ease;
               }
@@ -218,15 +214,16 @@
           width: 100%;
 
           button {
-            background-color: $background;
+            background-color: $primary-contrast;
             color: $textwht;
-            padding: 20px 0;
+            padding: 10px 0;
             border: 0;
             font-size: 20px;
             width: 100%;
             text-align: center;
             transition: all .3s ease-in-out;
             cursor: pointer;
+            border-radius: 5px;
 
             &:disabled {
               opacity: .3 !important;
@@ -236,8 +233,8 @@
             }
 
             &:hover, &:focus {
-                background-color: $primary-contrast;
-                color: $background;
+                background-color: $background;
+                color: $textwht;
                 opacity: 1;
                 transition: all .3s ease;
             }
@@ -296,9 +293,10 @@
             }
 
             .update, .delete, .logout, div.logout {
-                background-color: $background;
+                background-color: $primary-contrast;
                 color: $textwht;
-                padding: 20px 0;
+                padding: 10px 0;
+                margin: 10px 0;
                 border: 0;
                 font-size: 20px;
                 width: 100%;
@@ -307,6 +305,7 @@
                 border-radius: 5px;
                 @media screen and (min-width: 600px) {
                   width: 50%;
+                  max-width: 400px;
                 }
 
                 &:disabled {
@@ -317,11 +316,15 @@
                 }
 
                 &:hover, &:focus {
-                    background-color: $primary-contrast;
-                    color: $background;
+                    background-color: $background;
+                    color: $textwht;
                     opacity: 1;
                     transition: all .3s ease;
                 }
+            }
+
+            .logout {
+              background-color: $primary;
             }
         }
       }

@@ -38,6 +38,7 @@
           height: auto;
           border: 1px solid white;
           border-radius: 5px;
+          padding-bottom: 0;
         }
 
         img {
@@ -76,7 +77,7 @@
 
           &:focus, &:active {
               border: 0;
-              border-bottom: 1px solid $primary;
+              border-bottom: 1px solid $primary-contrast;
               outline: 0;
               transition: all .3s ease-in-out;
               font-size: 16px;
@@ -102,13 +103,15 @@
           }
 
           .login {
-              background-color: $background;
+              background-color: $primary-contrast;
               color: $textwht;
-              padding: 20px 0;
+              padding: 10px 0;
+              margin: 10px 0;
               border: 0;
               font-size: 20px;
               width: 100%;
               transition: all .3s ease-in-out;
+              border-radius: 5px;
 
               &:disabled {
                 opacity: .3 !important;
@@ -118,8 +121,8 @@
               }
 
               &:hover, &:focus {
-                  background-color: $primary-contrast;
-                  color: $background;
+                  background-color: $background;
+                  color: $textwht;
                   opacity: 1;
                   transition: all .3s ease;
               }

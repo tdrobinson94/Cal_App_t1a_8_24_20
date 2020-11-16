@@ -704,19 +704,20 @@
                             position: sticky;
                             flex-direction: row-reverse;
                             display: flex;
-                            justify-content: center;
+                            justify-content: space-evenly;
                             bottom: 0px;
                             background: $background;
                             width: 100%;
                             margin: 0;
 
                             .submit-form, .delete-event {
-                                background-color: $background;
+                                background-color: $primary-contrast;
                                 color: $textwht;
-                                padding: 20px 0;
+                                padding: 10px 0;
+                                margin: 10px 0;
                                 border: 0;
                                 font-size: 20px;
-                                width: 50%;
+                                width: 45%;
                                 transition: all .3s ease;
                                 border-radius: 5px;
 
@@ -728,11 +729,15 @@
                                 }
                 
                                 &:hover, &:focus {
-                                    background-color: $primary-contrast;
-                                    color: $background;
+                                    background-color: $background;
+                                    color: $textwht;
                                     opacity: 1;
                                     transition: all .3s ease;
                                 }
+                            }
+
+                            .delete-event {
+                                background-color: $primary;
                             }
                         }
 
@@ -759,7 +764,7 @@
                     }
 
                     &.selected {
-                        background: rgba(255,0,0,.7);
+                        background: $primary;
                         border-radius: 5px;
                         transition: all .3s ease;
                     }
@@ -1180,14 +1185,17 @@
             background: $background;
             width: 100%;
             margin: 0;
+            display: flex;
 
             .submit-form {
-                background-color: $background;
+                background-color: $primary-contrast;
                 color: $textwht;
-                padding: 20px 0;
+                padding: 10px 0;
+                margin: 10px 0;
                 border: 0;
                 font-size: 20px;
-                width: 100%;
+                width: 50%;
+                max-width: 400px;
                 opacity: 1;
                 transition: all .3s ease;
                 display: flex;
@@ -1202,8 +1210,8 @@
                 }
 
                 &:hover, &:focus {
-                    background-color: $primary-contrast;
-                    color: $background;
+                    background-color: $background;
+                    color: $textwht;
                     opacity: 1;
                     transition: all .3s ease;
                 }
