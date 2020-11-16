@@ -828,7 +828,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.form-nav-bar, .add-item-form').addClass('animate-events-one');
     setTimeout(() => {
       $('.form-nav-bar, .add-item-form').addClass('animate-events-two');
-      // $('input[name=title]').focus();
+      $('input[name=title]').focus();
     }, 450);
 
     const day = $('.selected-day .transactions').attr('date1');
