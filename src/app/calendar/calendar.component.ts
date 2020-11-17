@@ -603,7 +603,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       } else {
         $('.date-input-end-update').show();
       }
-      
+
       // Update the form with the time values defined above
 
       if (eCurrentTime === '00:00' && eEndTime === '23:59') {
@@ -803,6 +803,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       } else {
         if ($(e.target).hasClass('number') || $(e.target).hasClass('beg') || $(e.target).hasClass('close-day') || $(e.target).hasClass('material-icons')) {
           this.closeDay();
+        } else {
+          // do nothing
         }
       }
     }
