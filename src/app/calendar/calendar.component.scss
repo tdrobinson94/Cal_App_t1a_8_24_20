@@ -256,6 +256,7 @@
                 right: 0;
                 bottom: 25px;
                 top: 26px;
+                overscroll-behavior: none;
 
                 &.normal-scrolling {
                     touch-action: pan-y !important;
@@ -364,6 +365,7 @@
                 .number {
                     color: $primary-contrast;
                     font-weight: 700;
+                    text-decoration: underline;
 
                     &.notice-me {
                         animation-name: noticeMe;

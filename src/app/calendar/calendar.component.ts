@@ -794,18 +794,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   swipeDayDown(e) {
+    e.preventDefault();
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.event').removeClass('selected');
-      if (!$('.day-box').hasClass('day-opened')) {
-        // do nothing
-        // this.getEvents();
+      if ($(e.target).hasClass('number') || $(e.target).hasClass('beg') || $(e.target).hasClass('close-day') || $(e.target).hasClass('material-icons')) {
+        this.closeDay();
       } else {
-        if ($(e.target).hasClass('number') || $(e.target).hasClass('beg') || $(e.target).hasClass('close-day') || $(e.target).hasClass('material-icons')) {
-          this.closeDay();
-        } else {
-          // do nothing
-        }
+        // do nothing
       }
     }
   }
