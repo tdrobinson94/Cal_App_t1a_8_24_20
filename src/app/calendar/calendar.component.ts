@@ -798,7 +798,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.event').removeClass('selected');
-      this.closeDay();
+      if ($(e.target).hasClass('number') || $(e.target).hasClass('beg') || $(e.target).hasClass('close-day') || $(e.target).hasClass('material-icons')) {
+        this.closeDay();
+      } else {
+        // do nothing
+      }
     }
   }
 
