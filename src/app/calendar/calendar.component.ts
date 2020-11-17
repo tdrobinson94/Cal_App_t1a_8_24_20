@@ -829,6 +829,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }, 100);
     $('.add-item-button, .add-item-container').show();
     $('.prev-day, .next-day').removeClass('hide');
+    this.mobileHideElements();
   }
 
   openForm() {
@@ -895,6 +896,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.hideFormButton = false;
     }, 200);
+    this.mobileHideElements();
   }
 
 
