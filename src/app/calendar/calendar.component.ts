@@ -260,7 +260,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
     this.createCalendarGrid();
     this.mobileHideElements();
-    console.log(this.cachedDate);
   }
 
   createNavBar() {
@@ -604,8 +603,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       } else {
         $('.date-input-end-update').show();
       }
-
-      console.log(e.currentTarget.childNodes[6].value);
+      
       // Update the form with the time values defined above
 
       if (eCurrentTime === '00:00' && eEndTime === '23:59') {
@@ -803,7 +801,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         // do nothing
         // this.getEvents();
       } else {
-        this.closeDay();
+        if ($(e.target).hasClass('number') || $(e.target).hasClass('beg') || $(e.target).hasClass('close-day') || $(e.target).hasClass('material-icons')) {
+          this.closeDay();
+        }
       }
     }
   }
