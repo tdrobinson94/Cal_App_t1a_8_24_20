@@ -57,7 +57,7 @@ html {
   height: 100%;
   width: 100%;
   background: $background;
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-text-size-adjust: none;
 
     &::-webkit-scrollbar {
@@ -80,7 +80,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
-
+  overflow: hidden;
   width: 100%;
   margin: auto;
   height: 100%;
