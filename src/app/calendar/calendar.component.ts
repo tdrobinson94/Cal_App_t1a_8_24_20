@@ -801,8 +801,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $('.event').removeClass('selected');
       if (!$('.day-box').hasClass('day-opened')) {
         // do nothing
-        this.getEvents();
+        // this.getEvents();
+      } else {
+        this.closeDay();
       }
+    }
+  }
+
+  swipeFormDown(e) {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.event').removeClass('selected');
+      this.closeEventUpdateForm();
+      this.closeForm();
     }
   }
 
