@@ -605,6 +605,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         $('.date-input-end-update').show();
       }
 
+      console.log(e.currentTarget.childNodes[6].value);
       // Update the form with the time values defined above
 
       if (eCurrentTime === '00:00' && eEndTime === '23:59') {
@@ -1025,6 +1026,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.updateItemForm = new FormGroup({
         user_id: new FormControl(this.updateItemForm.value.user_id),
         group_id: new FormControl(groupID),
+        id: new FormControl(this.updateItemForm.value.id),
         item_type: new FormControl(this.updateItemForm.value.item_type),
         frequency: new FormControl(this.updateItemForm.value.frequency),
         title: new FormControl(this.updateItemForm.value.title),

@@ -717,56 +717,42 @@
 
     .add-item-container {
         position: absolute;
-        bottom: 17px;
-        right: 17px;
-        height: 40px;
-        width: 40px;
+        transform: translateY(100%);
+        height: 100%;
+        width: 100%;
         z-index: 99;
-        border-radius: 100%;
         color: transparent;
         overflow: hidden;
         transition: all .2s linear;
-        // animation-name: circularClose;
-        animation-duration: .2s;
-        animation-timing-function: linear;
-
 
         &::-webkit-scrollbar {
             width: 0px;
         }
 
-        @media screen and (max-width: $end-small) {
-            &.moved {
-                bottom: 12%;
-                right: 13.5%;
-            }
-        }
-
         @media screen and (min-width: $end-small) {
             right: 50% !important;
-            transform: translateX(50%);
+            transform: translate(50%, 150%);
+            height: 80%;
+            width: 80%;
             overflow: hidden;
-            border-radius: 100%;
             max-width: 800px;
-            // animation-name: circularCloseDesktop;
-            &.moved {
-                bottom: 12.5%;
-            }
+            border: 1px solid;
         }
 
         &.show-form {
             height: 100%;
             width: 100%;
             background: #121212;
+            transform: translateY(0);
             right: 0%;
             bottom: 0%;
             z-index: 99999;
             border-radius: 0px;
             color: #fff;
             overflow-y: auto;
-            animation-name: circularOpen;
+            animation-name: slideUp;
             animation-duration: .2s;
-            animation-timing-function: linear;
+            animation-timing-function: ease;
 
             @media screen and (min-width: $end-small) {
                 bottom: 50%;
@@ -774,9 +760,8 @@
                 height: 80%;
                 width: 80%;
                 border-radius: 10px;
-                border: 1px solid;
                 transform: translate(50%, 50%);
-                animation-name: circularOpenDesktop;
+                animation-name: slideUp;
                 max-width: 800px;
                 box-shadow: 5px 5px 40px black;
             }
@@ -987,14 +972,15 @@
 
     form.delete-event-form, form.update-event-form {
         display: none;
+        z-index: 99999;
 
         &.closed {
-            top: 110% !important;
+            transform: translateY(100%);
             transition: all .2s linear;
 
             @media screen and (min-width: $end-small) {
-                top: 0 !important;
-                right: -110% !important;
+                top: 10% !important;
+                transform: translateX(100%);
             }
 
             .submit-buttons {
@@ -1018,7 +1004,6 @@
             animation-duration: .2s;
             animation-timing-function: ease;
             overscroll-behavior: none;
-            z-index: 99;
 
             &::-webkit-scrollbar {
                 width: 0px;
@@ -1026,7 +1011,7 @@
 
             @media screen and (min-width: $end-small) {
                 top: 10%;
-                right: 10%;
+                transform: translateX(0);
                 border-radius: 10px;
                 height: 80%;
                 width: 80%;

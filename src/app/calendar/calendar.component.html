@@ -86,10 +86,6 @@
                     </ng-container>
                 </div>
 
-                <form class="delete-event-form" [formGroup]="deleteItemForm">
-                    <input formControlName="id" type="text" name="id" class="event_input" />
-                </form>
-
                 <p class="balance end">End Bal</p>
             </div>
         </ng-container>
@@ -185,6 +181,10 @@
                 </div> 
             </form>
         </div>
+
+        <form class="delete-event-form" [formGroup]="deleteItemForm">
+            <input formControlName="id" type="text" name="id" class="event_input" />
+        </form>
 
         <form class="update-event-form" [formGroup]="updateItemForm">
             <div class="form-nav-bar">
