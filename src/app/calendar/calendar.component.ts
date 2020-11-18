@@ -64,7 +64,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   getAllEvents = [];
 
   // Gesture Vibration
-  gestureVibration = 200;
+  gestureVibration = 20;
 
   // Forms
    // Delete event form
@@ -411,7 +411,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if ($('.day-box')[i].childNodes[5].children.length !== 0) {
         day.find('.event-count').html($('.day-box')[i].childNodes[5].children.length).show();
       } else {
-        console.log('zero');
         day.find('.event-count').hide();
       }
 
