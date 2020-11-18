@@ -387,7 +387,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.loading = true;
     const year = $(document).find('#year');
     const month = $(document).find('#month');
-    if (year.val() < (this.currentYear - 5)) {
+    if (year.val() <= (this.currentYear - 5)) {
       year.val(this.currentYear - 5).change();
       month.val(0).change();
     } else {
@@ -435,7 +435,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.loading = true;
     const year = $(document).find('#year');
     const month = $(document).find('#month');
-    if (year.val() > (this.currentYear + 5) && month.val() == 11) {
+    if (year.val() >= (this.currentYear + 5) && month.val() == 11) {
       year.val(this.currentYear + 5).change();
       month.val(11).change();
     } else {
@@ -714,6 +714,22 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           } else {
             this.swipeNextMonthAnimationOne();
           }
+        } else if ($(e.target).hasClass('time-child')) {
+          if (!$(e.target).parent().parent().parent().parent().next().hasClass('disabled')) {
+            this.removeClassesForDayBox();
+            if ($(e.target).parent().parent().parent().parent().hasClass('last-day-box')) {
+              this.removeClassesForDayBox();
+            } else if ($(e.target).parent().parent().parent().parent().next().length === 0) {
+              $(e.target).parent().parent().parent().parent().parent().next()
+              .children().eq(0).addClass('selected-day day-opened swipe-left');
+              this.swipeNextEndOfRow();
+            } else {
+              $(e.target).parent().parent().parent().parent().next().addClass('selected-day day-opened swipe-left');
+              this.swipeNextDay();
+            }
+          } else {
+            this.swipeNextMonthAnimationOne();
+          }
         }
       }
       // this.enableDefaultScrolling();
@@ -782,6 +798,21 @@ export class CalendarComponent implements OnInit, AfterViewInit {
               this.swipePrevEndOfRow();
             } else {
               $(e.target).parent().parent().parent().prev().addClass('selected-day day-opened swipe-right');
+              this.swipePrevDay();
+            }
+          } else {
+            this.swipePrevMonthAnimationOne();
+          }
+        } else if ($(e.target).hasClass('time-child')) {
+          if (!$(e.target).parent().parent().parent().parent().prev().hasClass('disabled')) {
+            this.removeClassesForDayBox();
+            if ($(e.target).parent().parent().parent().parent().hasClass('first-day-box')) {
+              this.swipePrevMonthAnimationOne();
+            } else if ($(e.target).parent().parent().parent().parent().prev().length === 0) {
+              $(e.target).parent().parent().parent().parent().parent().prev().children().eq(0).addClass('selected-day day-opened swipe-right');
+              this.swipePrevEndOfRow();
+            } else {
+              $(e.target).parent().parent().parent().parent().prev().addClass('selected-day day-opened swipe-right');
               this.swipePrevDay();
             }
           } else {
