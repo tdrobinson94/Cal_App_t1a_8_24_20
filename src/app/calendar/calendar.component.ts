@@ -412,6 +412,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         day.find('.event-count').html($('.day-box')[i].childNodes[5].children.length).show();
       } else {
         console.log('zero');
+        day.find('.event-count').hide();
       }
 
     }
