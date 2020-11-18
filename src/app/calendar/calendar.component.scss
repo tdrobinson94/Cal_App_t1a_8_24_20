@@ -235,7 +235,7 @@
             .event-count {
                 position: absolute;
                 font-size: 8px;
-                left: 5px;
+                left: 6%;
                 top: 3px;
                 border-radius: 2px;
                 color: #fff;
@@ -365,7 +365,6 @@
                 .number {
                     color: $primary-contrast;
                     font-weight: 700;
-                    text-decoration: underline;
 
                     &.notice-me {
                         animation-name: noticeMe;

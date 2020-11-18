@@ -408,11 +408,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     const days = $(document).find('.day-box');
     for (i = 0; i < 42; i++) {
       const day = $(days[i]);
-      if ($('.day-box')[i].childNodes[5].children.length !== 0 && $('.day-box')[i].childNodes[5].children.length <= 9) {
-        console.log($('.day-box')[i].childNodes[5].children.length);
-        day.find('.event-count').html($('.day-box')[i].childNodes[5].children.length).show();
-      } else if ($('.day-box')[i].childNodes[5].children.length !== 0) {
-        console.log($('.day-box')[i].childNodes[5].children.length);
+      if ($('.day-box')[i].childNodes[5].children.length !== 0) {
         day.find('.event-count').html($('.day-box')[i].childNodes[5].children.length).show();
       } else {
         console.log('zero');
