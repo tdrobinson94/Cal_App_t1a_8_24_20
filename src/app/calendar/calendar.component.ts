@@ -390,7 +390,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.loading = true;
     const year = $(document).find('#year');
     const month = $(document).find('#month');
-    if (year.val() <= (this.currentYear - 5)) {
+    if (year.val() <= (this.currentYear - 5) && month.val() == 0) {
       window.navigator.vibrate(this.gestureVibration);
       year.val(this.currentYear - 5).change();
       month.val(0).change();
