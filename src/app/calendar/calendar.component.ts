@@ -64,7 +64,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   getAllEvents = [];
 
   // Gesture Vibration
-  gestureVibration = 2;
+  gestureVibration = 200;
 
   // Forms
    // Delete event form
