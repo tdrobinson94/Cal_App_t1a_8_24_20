@@ -257,12 +257,45 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const dayBox = $('.day-box');
+    const currentDayBox = dayBox.find('.current-day');
+    setInterval(() => {
+      this.clock = new Date();
+      if (this.currentDay !== this.clock.getDate()) {
+        this.currentDay = this.clock.getDate();
+        this.currentDayofWeek = this.clock.getDay();
+        this.currentMonth = this.clock.getMonth();
+        this.currentYear = this.clock.getFullYear();
+
+        if (currentDayBox.parent().next().length === 0) {
+          setTimeout(() => {
+            currentDayBox.parent().parent().next().find('.num-box').eq(0).addClass('current-day');
+            currentDayBox.eq(0).removeClass('current-day');
+          }, 200);
+        } else {
+          setTimeout(() => {
+            currentDayBox.parent().next().find('.num-box').addClass('current-day');
+            currentDayBox.eq(0).removeClass('current-day');
+          }, 200);
+        }
+      }
+    }, 10 * 1000);
+
     if (this.cachedMonth && this.cachedYear) {
       $(document).find('#month').val(this.cachedMonth);
       $(document).find('#year').val(this.cachedYear);
     }
     this.createCalendarGrid();
     this.mobileHideElements();
+
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+      $('.prev, .next').hide();
+      $('.close-form').addClass('mobile');
+    } else {
+      $('.prev, .next').show();
+      $('.close-form').removeClass('mobile');
+    }
   }
 
   createNavBar() {
@@ -520,6 +553,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
       $('.add-item-button, .add-item-container').addClass('moved');
+
+      if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
+        $('.close-day').addClass('mobile');
+      } else {
+        $('.close-day').removeClass('mobile');
+      }
       this.enableDefaultScrolling();
     }
   }
