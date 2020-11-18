@@ -141,23 +141,27 @@
                 </div>
     
                 <div class="input-wrapper date-input">
-                    <label>Start Date</label>
-                    <input type="date" formControlName="start_date" (change)="onStartDateChange($event)" required />
+                    <div class="split">
+                        <label>Start Date</label>
+                        <input type="date" formControlName="start_date" (change)="onStartDateChange($event)" required />
+                    </div>
+                    <div class="split">
+                        <label class="time-label">Start Time</label>
+                        <input type="time" formControlName="start_time" (change)="onStartTimeChange($event)" required />
+                    </div>
                 </div>
                 
                 <div class="input-wrapper date-input-end">
-                    <label>End Date</label>
-                    <input type="date" formControlName="end_date" required />
-                </div>
-                
-                <div class="input-wrapper time-input" [ngClass]="{invisible: allDay}">
-                    <label class="time-label">Start Time</label>
-                    <input type="time" formControlName="start_time" (change)="onStartTimeChange($event)" required />
-                </div>
-                
-                <div class="input-wrapper time-input-end" [ngClass]="{invisible: allDay}">
-                    <label class="time-label">End Time</label>
-                    <input type="time" formControlName="end_time" required />
+                    <div class="split">
+                        <label>End Date</label>
+                        <input type="date" formControlName="end_date" required 
+                        />
+                    </div>
+                    <div class="split">
+                        <label class="time-label">End Time</label>
+                        <input type="time" formControlName="end_time" required 
+                        />
+                    </div>
                 </div>
     
                 <div class="input-wrapper time-all-day">
@@ -219,29 +223,31 @@
                 </select>
             </div>
         
-            <div class="input-wrapper date-input-update">
-                <label>Start Date</label>
-                <input type="date" formControlName="start_date" (change)="onStartDateChange($event)" required />
+            <div class="input-wrapper date-input">
+                <div class="split">
+                    <label>Start Date</label>
+                    <input type="date" formControlName="start_date" (change)="onStartDateChange($event)" required />
+                </div>
+                <div class="split">
+                    <label class="time-label">Start Time</label>
+                    <input type="time" formControlName="start_time" (change)="onStartTimeChange($event)" required />
+                </div>
             </div>
-        
-            <div class="input-wrapper date-input-end-update">
-                <label>End Date</label>
-                <input type="date" formControlName="end_date" required />
+            
+            <div class="input-wrapper date-input-end">
+                <div class="split">
+                    <label>End Date</label>
+                    <input type="date" formControlName="end_date" required />
+                </div>
+                <div class="split">
+                    <label class="time-label">End Time</label>
+                    <input type="time" formControlName="end_time" required />
+                </div>
             </div>
         
             <div class="input-wrapper time-all-day">
                 <input type="checkbox" (change)="allDaySelected($event)" formControlName="all_day" />
                 <label for="all-day">All day</label>
-            </div>
-        
-            <div class="input-wrapper time-input-update" [ngClass]="{invisible: allDay}">
-                <label class="time-label">Start Time</label>
-                <input type="time" formControlName="start_time" (change)="onStartTimeChange($event)" required />
-            </div>
-        
-            <div class="input-wrapper time-input-end-update" [ngClass]="{invisible: allDay}">
-                <label class="time-label">End Time</label>
-                <input type="time" formControlName="end_time" required />
             </div>
         
             <div class="input-wrapper event-description-update">

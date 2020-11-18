@@ -914,6 +914,21 @@
             }
         }
 
+        .date-input, .date-input-end {
+            display: flex;
+            justify-content: space-between;
+
+            .split {
+                &:first-child {
+                    width: 55%;
+
+                    @media screen and (min-width: $end-small) {
+                        width: 70%;
+                    }
+                }
+            }
+        }
+
         .input-wrapper {
             &.time-all-day {
                 display: block;
@@ -1160,6 +1175,21 @@
                 }
                 &:-internal-autofill-selected {
                     box-shadow: inset 0 0 0 100px transparent;
+                }
+            }
+
+            .date-input, .date-input-end {
+                display: flex;
+                justify-content: space-between;
+
+                .split {
+                    &:first-child {
+                        width: 55%;
+
+                        @media screen and (min-width: $end-small) {
+                            width: 70%;
+                        }
+                    }
                 }
             }
 
