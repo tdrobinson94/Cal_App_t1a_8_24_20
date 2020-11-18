@@ -1079,7 +1079,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   frequencyChange(e) {
     console.log(this.addItemForm.value.frequency);
     if (this.addItemForm.value.frequency == 2) {
-      $('.date-input-end, .date-input-end-update').hide();
+      // $('.date-input-end, .date-input-end-update').hide();
       this.addItemForm = new FormGroup({
         user_id: new FormControl(this.addItemForm.value.user_id),
         group_id: new FormControl(''),
@@ -1113,7 +1113,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     } else {
       const i = 1;
       const groupID = i;
-      $('.date-input-end, .date-input-end-update').show();
+      // $('.date-input-end, .date-input-end-update').show();
       this.addItemForm = new FormGroup({
         user_id: new FormControl(this.addItemForm.value.user_id),
         group_id: new FormControl(groupID),
