@@ -111,7 +111,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   // Handling events
-  getEvents() {
+  getEvents(): void {
     console.log('Get events task started');
 
     if (typeof Worker !== 'undefined') {
@@ -129,6 +129,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.filterEvents();
         this.loading = false;
         console.log('Get events task finished.');
+        setTimeout(() => {
+          this.eachDayEventsCount();
+        }, 1);
       };
     } else {
       // Web workers are not supported in this environment.
@@ -400,6 +403,24 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.filterEvents();
   }
 
+  eachDayEventsCount() {
+    let i;
+    const days = $(document).find('.day-box');
+    for (i = 0; i < 42; i++) {
+      const day = $(days[i]);
+      if ($('.day-box')[i].childNodes[5].children.length !== 0 && $('.day-box')[i].childNodes[5].children.length <= 9) {
+        console.log($('.day-box')[i].childNodes[5].children.length);
+        day.find('.event-count').html($('.day-box')[i].childNodes[5].children.length).show();
+      } else if ($('.day-box')[i].childNodes[5].children.length !== 0) {
+        console.log($('.day-box')[i].childNodes[5].children.length);
+        day.find('.event-count').html($('.day-box')[i].childNodes[5].children.length).show();
+      } else {
+        console.log('zero');
+      }
+
+    }
+  }
+
   changeCalSelectors() {
     this.loading = true;
     $('.calendar-container').removeClass('cal-swipe-left cal-swipe-right');
@@ -415,6 +436,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       const date = $('#year').val() + '/' + this.selectedMonth + '/' + $('.selected-day').attr('day');
       this.cookieService.set('cachedDate', date.toString(), 1);
       this.cookieService.set('cachedDay', $('.selected-day').attr('day'));
+      this.eachDayEventsCount();
     }, 250);
   }
 
