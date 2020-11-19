@@ -198,8 +198,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           eventdesc: this.getAllEvents[i].eventdesc,
           eventlocation: this.getAllEvents[i].eventlocation,
           eventfrequency: this.getAllEvents[i].eventfrequency,
-          eventstart_time: moment(this.getAllEvents[i].eventstart_time, 'HH:mm:ss').format('h:mm A'),
-          eventend_time: moment(this.getAllEvents[i].eventend_time, 'HH:mm:ss').format('h:mm A'),
+          eventstart_time: this.getAllEvents[i].eventstart_time,
+          eventend_time: this.getAllEvents[i].eventend_time,
           eventcreatedAt: moment(this.getAllEvents[i].eventcreated_at).format(),
           itemtype: this.getAllEvents[i].itemtype
         };
