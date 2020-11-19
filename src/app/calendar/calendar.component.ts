@@ -127,11 +127,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.getAllEvents = JSON.parse(data);
         // console.log(this.getAllEvents);
         this.filterEvents();
-        this.loading = false;
         console.log('Get events task finished.');
         setTimeout(() => {
           this.eachDayEventsCount();
         }, 1);
+        this.loading = false;
       };
     } else {
       // Web workers are not supported in this environment.
@@ -157,8 +157,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.getAllEvents = eventlist;
         // console.log(this.getAllEvents);
         this.filterEvents();
-        this.loading = false;
         console.log('Get events task finished.');
+        setTimeout(() => {
+          this.eachDayEventsCount();
+        }, 1);
+        this.loading = false;
       });
     }
   }
@@ -911,10 +914,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
     || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)) {
       $('.event').removeClass('selected');
-      if ($(e.target).hasClass('number') || $(e.target).hasClass('beg') || $(e.target).hasClass('close-day') || $(e.target).hasClass('material-icons')) {
-        this.closeDay();
+      if (!$('.day-box').hasClass('day-opened')) {
+        this.loading = true;
+        this.getEvents();
       } else {
-        // do nothing
+        if ($(e.target).hasClass('number') || $(e.target).hasClass('beg') || $(e.target).hasClass('close-day') || $(e.target).hasClass('material-icons')) {
+          this.closeDay();
+        } else {
+          // do nothing
+        }
       }
     }
   }
