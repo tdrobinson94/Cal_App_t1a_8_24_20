@@ -103,6 +103,12 @@
                         transform: translate(-50%, -42%);
                     }
 
+                    &.reload {
+                        span {
+                            font-size: 35px !important;
+                        }
+                    }
+
                     &.current {
                         span {
                             padding: 2px;

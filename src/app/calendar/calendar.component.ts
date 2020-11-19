@@ -64,7 +64,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   getAllEvents = [];
 
   // Gesture Vibration
-  gestureVibration = 20;
+  gestureVibration = 15;
 
   // Forms
    // Delete event form
@@ -455,6 +455,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.cookieService.set('cachedDay', $('.selected-day').attr('day'));
       this.eachDayEventsCount();
     }, 250);
+  }
+
+  reloadClick() {
+    window.navigator.vibrate(this.gestureVibration);
+    this.loading = true;
+    this.getEvents();
   }
 
   // Calendar Navigation
