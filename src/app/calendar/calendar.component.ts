@@ -211,24 +211,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   submitEvent() {
-    // const combineStart = this.addItemForm.value.start_date + 'T' + this.addItemForm.value.start_time;
-    // const combineEnd = this.addItemForm.value.end_date + 'T' + this.addItemForm.value.end_time;
-
-    // this.addItemForm = new FormGroup({
-    //   user_id: new FormControl(this.addItemForm.value.user_id),
-    //   group_id: new FormControl(this.updateItemForm.value.group_id),
-    //   item_type: new FormControl(this.addItemForm.value.item_type),
-    //   frequency: new FormControl(this.addItemForm.value.frequency),
-    //   title: new FormControl(this.addItemForm.value.title),
-    //   description: new FormControl(this.addItemForm.value.description),
-    //   start_date: new FormControl(combineStart),
-    //   end_date: new FormControl(combineEnd),
-    //   start_time: new FormControl(this.addItemForm.value.start_time),
-    //   end_time: new FormControl(this.addItemForm.value.end_time),
-    //   all_day: new FormControl(this.addItemForm.value.all_day),
-    //   location: new FormControl(this.addItemForm.value.location),
-    // });
-
     console.log(this.addItemForm.value);
 
     this.dataService.createEvent(this.addItemForm.value)
@@ -242,6 +224,22 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   updateEvent() {
+    this.updateItemForm = new FormGroup({
+      user_id: new FormControl(this.updateItemForm.value.user_id),
+      group_id: new FormControl(this.updateItemForm.value.group_id),
+      id: new FormControl(this.updateItemForm.value.id),
+      item_type: new FormControl(this.updateItemForm.value.item_type),
+      frequency: new FormControl(2),
+      title: new FormControl(this.updateItemForm.value.title),
+      description: new FormControl(this.updateItemForm.value.description),
+      start_date: new FormControl(this.updateItemForm.value.start_date),
+      end_date: new FormControl(this.updateItemForm.value.end_date),
+      start_time: new FormControl(this.updateItemForm.value.start_time),
+      end_time: new FormControl(this.updateItemForm.value.end_time),
+      all_day: new FormControl(''),
+      location: new FormControl(this.updateItemForm.value.location),
+    });
+
     console.log(this.updateItemForm.value);
     this.dataService.updatedEvent(this.updateItemForm.value)
       .subscribe((response) => {
