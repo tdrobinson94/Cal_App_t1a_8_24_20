@@ -263,8 +263,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const dayBox = $('.day-box');
-    const currentDayBox = dayBox.find('.current-day');
+    const currentDayBox = $('.current-day');
     setInterval(() => {
       this.clock = new Date();
       if (this.currentDay !== this.clock.getDate()) {
@@ -273,15 +272,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.currentMonth = this.clock.getMonth();
         this.currentYear = this.clock.getFullYear();
 
-        if (currentDayBox.parent().next().length === 0) {
+        if (currentDayBox.next().length === 0) {
           setTimeout(() => {
-            currentDayBox.parent().parent().next().find('.num-box').eq(0).addClass('current-day');
-            currentDayBox.eq(0).removeClass('current-day');
+            currentDayBox.next().addClass('current-day');
+            currentDayBox.prev().removeClass('current-day');
           }, 200);
         } else {
           setTimeout(() => {
-            currentDayBox.parent().next().find('.num-box').addClass('current-day');
-            currentDayBox.eq(0).removeClass('current-day');
+            currentDayBox.next().addClass('current-day');
+            currentDayBox.prev().removeClass('current-day');
           }, 200);
         }
       }
