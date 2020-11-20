@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
   }
 
   clickLogout() {
-    window.navigator.vibrate(this.gestureVibration);
+    // window.navigator.vibrate(this.gestureVibration);
     console.log('User has logged out');
     this.dataService.logout();
     this.router.navigate(['/login']);

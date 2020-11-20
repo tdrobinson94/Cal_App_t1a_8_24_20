@@ -43,13 +43,13 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   clickNavButton() {
-    window.navigator.vibrate(this.gestureVibration);
+    // window.navigator.vibrate(this.gestureVibration);
     $('.hamburger').toggleClass('is-active');
     $('.wrapper ul').slideToggle();
   }
 
   clickLink() {
-    window.navigator.vibrate(this.gestureVibration);
+    // window.navigator.vibrate(this.gestureVibration);
     $('html, body').animate({ scrollTop: 0 }, 500);
     // this.bounceUp();
     if ($(window).width() < 800) {
@@ -66,12 +66,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   clickFooterLink() {
-    window.navigator.vibrate(this.gestureVibration);
+    // window.navigator.vibrate(this.gestureVibration);
     // this.bounceUp();
   }
 
   clickLogo() {
-    window.navigator.vibrate(this.gestureVibration);
+    // window.navigator.vibrate(this.gestureVibration);
     if ($(window).width() < 800) {
       $('.hamburger').removeClass('is-active');
       $('.wrapper ul').slideToggle().hide();
@@ -82,7 +82,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   clickLogout(){
-    window.navigator.vibrate(this.gestureVibration);
+    // window.navigator.vibrate(this.gestureVibration);
     console.log('User has logged out');
     this.clickLink();
     this.dataService.logout();
