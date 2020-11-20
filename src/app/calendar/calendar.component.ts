@@ -41,6 +41,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   hideFormButton = false;
   firstDayBox: any;
   lastDayBox: any;
+  prevMonthDays: any;
+  nextMonthDays: any;
 
   cachedMonth: any = this.cookieService.get('cachedMonth');
   cachedYear: any = this.cookieService.get('cachedYear');
@@ -171,49 +173,28 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     for (let n = 0; n < this.month.length; n++) {
       if (this.month[n].month == this.selectedMonth && this.month[n].year == $('#year').val() && this.month[n].day == 1) {
         this.firstDayBox = this.month[n].date;
+        this.prevMonthDays = n + 1;
       }
 
       if (this.month[n].month == this.selectedMonth && this.month[n].year == $('#year').val() &&
       this.month[n].day == MONTHS[this.selectedMonth - 1].days) {
         this.lastDayBox = this.month[n].date;
+        this.nextMonthDays = 42 - n;
       }
     }
 
-    let i;
-    const singleMonthEvents = [];
-    // let prevDays = $('.prev-month-days').length;
-    // let nextDays = $('.next-month-days').length;
+    const lastDay = moment(this.lastDayBox).add(this.nextMonthDays, 'days');
+    const firstDay = moment(this.firstDayBox).subtract(this.prevMonthDays, 'days');
 
-    // prevDays = prevDays + 1;
-    // nextDays = nextDays + 1;
-
-    const lastDay = moment(this.lastDayBox).add(13, 'days');
-    const firstDay = moment(this.firstDayBox).subtract(8, 'days');
-
-    for (i = 0; i < this.getAllEvents.length; i++) {
-      const forecast_date = moment(this.getAllEvents[i].eventstart_date);
-      if (forecast_date.isBefore(lastDay) && forecast_date.isAfter(firstDay)) {
-        singleMonthEvents[i] = {
-          eventid: this.getAllEvents[i].eventid,
-          eventtitle: this.getAllEvents[i].eventtitle,
-          eventstart_date: this.getAllEvents[i].eventstart_date,
-          eventend_date: this.getAllEvents[i].eventend_date,
-          eventdesc: this.getAllEvents[i].eventdesc,
-          eventlocation: this.getAllEvents[i].eventlocation,
-          eventfrequency: this.getAllEvents[i].eventfrequency,
-          eventstart_time: this.getAllEvents[i].eventstart_time,
-          eventend_time: this.getAllEvents[i].eventend_time,
-          eventcreatedAt: moment(this.getAllEvents[i].eventcreated_at).format(),
-          itemtype: this.getAllEvents[i].itemtype
-        };
-      }
-    }
-
-    this.singleMonthEvents = singleMonthEvents.filter(event => event);
+    this.singleMonthEvents = this.getAllEvents.filter(event => {
+      const date = moment(event.eventstart_date);
+      return (date.isBefore(lastDay) && date.isAfter(firstDay));
+    });
     console.log('Filter events task finsihed.');
   }
 
   submitEvent() {
+    this.loading = true;
     console.log(this.addItemForm.value);
 
     this.dataService.createEvent(this.addItemForm.value)
@@ -221,12 +202,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.addItemForm.reset();
         this.closeForm();
         this.getEvents();
-        console.log(this.getAllEvents);
         this.mobileHideElements();
       });
   }
 
   updateEvent() {
+    this.loading = true;
     this.updateItemForm = new FormGroup({
       user_id: new FormControl(this.updateItemForm.value.user_id),
       group_id: new FormControl(this.updateItemForm.value.group_id),
@@ -253,6 +234,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   deleteEvent(e) {
+    this.loading = true;
     // On click set the value of the form with the value of the button
     this.updateItemForm = new FormGroup({
       user_id: new FormControl(''),
