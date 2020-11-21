@@ -84,6 +84,10 @@
                             <p class="event-details item-type">
                                 {{event.itemtype}}
                             </p>
+
+                            <p class="event-details group-id">
+                                {{event.eventgroup_id}}
+                            </p>
                         </div>
                     </ng-container>
                 </div>
@@ -268,6 +272,7 @@
                     (click)="updateEvent()">Update</button>
         
                 <button class="delete-event" (click)="deleteEvent($event)">Delete</button>
+                <!-- <button class="delete-event" (click)="deleteGroup($event)">Delete All</button> -->
             </div>
         
         </form>

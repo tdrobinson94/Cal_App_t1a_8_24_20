@@ -45,4 +45,9 @@ export class EventDataService {
         return this.http.delete(this.apiUrl + '/delete/event/' + eventId.id, { params: param });
     }
 
+    deleteGroup(groupId): Observable<any> {
+        const param = { groupId: groupId.group_id };
+        return this.http.delete(this.apiUrl + '/deletegroup/event/' + groupId.group_id, { params: param });
+    }
+
 }

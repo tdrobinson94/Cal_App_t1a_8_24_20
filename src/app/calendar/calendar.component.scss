@@ -583,7 +583,7 @@
                             }
                         }
 
-                        &.item-type {
+                        &.item-type, &.group-id {
                             display: none;
                         }
 
@@ -1036,7 +1036,7 @@
             animation-name: slideUp;
             animation-duration: .2s;
             animation-timing-function: ease;
-            overscroll-behavior: none;
+            // overscroll-behavior: none;
 
             &::-webkit-scrollbar {
                 width: 0px;

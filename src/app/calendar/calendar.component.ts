@@ -127,7 +127,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
       worker.onmessage = ({ data }) => {
         this.getAllEvents = JSON.parse(data);
-        // console.log(this.getAllEvents);
+        console.log(this.getAllEvents);
         this.filterEvents();
         console.log('Get events task finished.');
         setTimeout(() => {
@@ -145,6 +145,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           eventlist[i] = {
             eventid: response[i].id.toString(),
             eventtitle: response[i].title,
+            eventgroup_id: response[i].group_id,
             eventstart_date: response[i].start_date.substring(0, 10).replace(/-/g, '/'),
             eventend_date: response[i].end_date.substring(0, 10).replace(/-/g, '/'),
             eventdesc: response[i].description,
@@ -255,6 +256,35 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.closeForm();
     // Delete the event
     this.dataService.deleteEvent(this.updateItemForm.value)
+      .subscribe((response) => {
+        this.closeEventUpdateForm();
+        this.getEvents();
+        this.mobileHideElements();
+      });
+  }
+
+  deleteGroup(e) {
+    this.loading = true;
+
+    this.updateItemForm = new FormGroup({
+      user_id: new FormControl(''),
+      group_id: new FormControl(this.updateItemForm.value.group_id),
+      id: new FormControl(''),
+      item_type: new FormControl(''),
+      frequency: new FormControl(''),
+      title: new FormControl(''),
+      description: new FormControl(''),
+      start_date: new FormControl(''),
+      end_date: new FormControl(''),
+      start_time: new FormControl(''),
+      end_time: new FormControl(''),
+      all_day: new FormControl(''),
+      location: new FormControl(''),
+    });
+
+    this.closeForm();
+    // Delete the event
+    this.dataService.deleteGroup(this.updateItemForm.value)
       .subscribe((response) => {
         this.closeEventUpdateForm();
         this.getEvents();
@@ -682,7 +712,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.allDay = true;
         this.updateItemForm = new FormGroup({
           user_id: new FormControl(userID),
-          group_id: new FormControl(''),
+          group_id: new FormControl(e.currentTarget.childNodes[8].innerHTML.trim()),
           id: new FormControl(e.currentTarget.childNodes[6].value),
           item_type: new FormControl(Number(e.currentTarget.childNodes[7].innerHTML.trim())),
           frequency: new FormControl(Number(e.currentTarget.childNodes[3].innerHTML.trim())),
@@ -699,7 +729,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.allDay = false;
         this.updateItemForm = new FormGroup({
           user_id: new FormControl(userID),
-          group_id: new FormControl(''),
+          group_id: new FormControl(e.currentTarget.childNodes[8].innerHTML.trim()),
           id: new FormControl(e.currentTarget.childNodes[6].value),
           item_type: new FormControl(Number(e.currentTarget.childNodes[7].innerHTML.trim())),
           frequency: new FormControl(Number(e.currentTarget.childNodes[3].innerHTML.trim())),
@@ -1010,7 +1040,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     this.addItemForm = new FormGroup({
       user_id: new FormControl(this.addItemForm.value.user_id),
-      group_id: new FormControl(this.updateItemForm.value.group_id),
+      group_id: new FormControl(this.addItemForm.value.group_id),
       item_type: new FormControl(this.addItemForm.value.item_type),
       frequency: new FormControl(this.addItemForm.value.frequency),
       title: new FormControl(this.addItemForm.value.title),
@@ -1059,7 +1089,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     this.addItemForm = new FormGroup({
         user_id: new FormControl(this.addItemForm.value.user_id),
-        group_id: new FormControl(this.updateItemForm.value.group_id),
+        group_id: new FormControl(this.addItemForm.value.group_id),
         item_type: new FormControl(this.addItemForm.value.item_type),
         frequency: new FormControl(this.addItemForm.value.frequency),
         title: new FormControl(this.addItemForm.value.title),
@@ -1090,7 +1120,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   frequencyChange(e) {
-    console.log(this.addItemForm.value.frequency);
     if (this.addItemForm.value.frequency == 2) {
       // $('.date-input-end, .date-input-end-update').hide();
       this.addItemForm = new FormGroup({
@@ -1124,8 +1153,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         location: new FormControl(this.updateItemForm.value.location),
       });
     } else {
-      const i = 1;
-      const groupID = i;
+      const groupID = Number(('' + ((this.clock.getTime() + (Math.random() * 10000)) * 10000) + '').substr(5, 9));
+
       // $('.date-input-end, .date-input-end-update').show();
       this.addItemForm = new FormGroup({
         user_id: new FormControl(this.addItemForm.value.user_id),
@@ -1158,6 +1187,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         location: new FormControl(this.updateItemForm.value.location),
       });
     }
+    console.log(this.addItemForm.value);
   }
 
   allDaySelected(e) {
@@ -1172,7 +1202,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     this.addItemForm = new FormGroup({
       user_id: new FormControl(this.addItemForm.value.user_id),
-      group_id: new FormControl(''),
+      group_id: new FormControl(this.addItemForm.value.group_id),
       item_type: new FormControl(this.addItemForm.value.item_type),
       frequency: new FormControl(this.addItemForm.value.frequency),
       title: new FormControl(this.addItemForm.value.title),
@@ -1187,7 +1217,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     this.updateItemForm = new FormGroup({
       user_id: new FormControl(this.updateItemForm.value.user_id),
-      group_id: new FormControl(''),
+      group_id: new FormControl(this.updateItemForm.value.group_id),
       id: new FormControl(this.updateItemForm.value.id),
       item_type: new FormControl(this.updateItemForm.value.item_type),
       frequency: new FormControl(this.updateItemForm.value.frequency),
