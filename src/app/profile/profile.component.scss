@@ -122,6 +122,12 @@
             border-radius: 5px;
             margin: 10px 0px;
 
+            @media screen and (min-width: 600px) {
+              width: calc(50% + 20px);
+              margin: 10px auto;
+              max-width: 400px;
+            }
+
             &:disabled {
                 opacity: .3 !important;
                 color: $textwht !important;
@@ -212,6 +218,7 @@
         padding: 20px 0;
         .input-wrapper {
           width: 100%;
+          text-align: center;
 
           button {
             background-color: $primary-contrast;
@@ -224,6 +231,12 @@
             transition: all .3s ease-in-out;
             cursor: pointer;
             border-radius: 5px;
+
+            @media screen and (min-width: 600px) {
+              width: calc(50% + 20px);
+              margin: 10px auto;
+              max-width: 400px;
+            }
 
             &:disabled {
               opacity: .3 !important;
@@ -268,7 +281,7 @@
 
             &:focus, &:active {
                 border: 0;
-                border-bottom: 1px solid $primary;
+                border-bottom: 1px solid $primary-contrast;
                 outline: 0;
                 transition: all .3s ease-in-out;
                 font-size: 21px;

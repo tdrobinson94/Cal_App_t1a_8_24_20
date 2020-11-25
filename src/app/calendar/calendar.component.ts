@@ -304,17 +304,17 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.currentMonth = this.clock.getMonth();
         this.currentYear = this.clock.getFullYear();
 
-        if (currentDayBox.next().length === 0) {
-          setTimeout(() => {
-            currentDayBox.next().addClass('current-day');
-            currentDayBox.prev().removeClass('current-day');
-          }, 200);
-        } else {
-          setTimeout(() => {
-            currentDayBox.next().addClass('current-day');
-            currentDayBox.prev().removeClass('current-day');
-          }, 200);
-        }
+        // if (currentDayBox.next().length === 0) {
+        //   setTimeout(() => {
+        //     currentDayBox.next().addClass('current-day');
+        //     currentDayBox.prev().removeClass('current-day');
+        //   }, 200);
+        // } else {
+        //   setTimeout(() => {
+        //     currentDayBox.next().addClass('current-day');
+        //     currentDayBox.prev().removeClass('current-day');
+        //   }, 200);
+        // }
       }
     }, 10 * 1000);
 
