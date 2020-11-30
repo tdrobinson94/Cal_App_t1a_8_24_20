@@ -1,6 +1,6 @@
 @import '..//..//variables';
 
-@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Kaushan+Script&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Courgette&family=Kaushan+Script&family=Permanent+Marker&family=Russo+One&display=swap');
 
 .content-container {
     width: 100%;
@@ -79,9 +79,9 @@
             animation-duration: 1s;
             animation-timing-function: linear;
             animation-iteration-count: 1;
-            animation-delay: 1s;
-            font-family: 'Kaushan Script', cursive;
-            text-shadow: 2px 2px #ff0000;
+            animation-delay: 1.85s;
+            font-family: 'Carter One', cursive;
+            // text-shadow: 2px 2px #ff0000;
         }
     }
 
@@ -90,7 +90,7 @@
             width: 100%;
             text-align: center;
             margin: auto;
-            font-size: 18vw;
+            font-size: 22vw;
 
             @media screen and (min-width: 600px) {
                 font-size: 7em
@@ -101,12 +101,13 @@
                 animation-duration: 1s;
                 animation-timing-function: ease-in-out;
                 animation-iteration-count: 1;
-                transform: translateY(250%);
-                font-family: 'Kaushan Script', cursive;
+                transform: translateY(500%);
+                animation-delay: 1s;
+                font-family: 'Carter One', cursive;
             }
 
             &.animate {
-                transform: translateY(0px);
+                transform: translateY(0%);
             }
         }
     }
@@ -115,17 +116,23 @@
 @keyframes slideRight {
     0% { transform: translateX(-200%); }
 
+    75% { transform: translateX(10px); }
+
     100% { transform: translateX(0px); }
 }
 
 @keyframes slideLeft {
     0% { transform: translateX(200%); }
 
+    75% { transform: translateX(-10px); }
+
     100% { transform: translateX(0px); }
 }
 
 @keyframes slideUp {
-    0% { transform: translateY(250%); }
+    0% { transform: translateY(500%); }
+    
+    75% { transform: translateY(-10px); }
 
     100% { transform: translateY(0px); }
 }

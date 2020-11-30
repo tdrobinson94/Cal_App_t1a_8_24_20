@@ -11,11 +11,16 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
   }
 
   animating = false;
+  slideUp = false;
 
   ngOnInit(): void {
     setTimeout(() => {
       this.animating = true;
     }, 1000);
+
+    setTimeout(() => {
+      this.slideUp = true;
+    }, 2000);
   }
 
   ngAfterViewInit(): void {
