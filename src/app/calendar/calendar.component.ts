@@ -43,6 +43,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   lastDayBox: any;
   prevMonthDays: any;
   nextMonthDays: any;
+  dayOpened = false;
 
   cachedMonth: any = this.cookieService.get('cachedMonth');
   cachedYear: any = this.cookieService.get('cachedYear');
@@ -386,13 +387,16 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
 
     for (let i: any = 1; i <= prevMonthDayCount + monthDays + nextMonthDayCount; i++) {
+      // Current Month
       if (i < 10) {
         i = '0' + i;
         this.month.push({
           date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, '/'),
           date1: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
           day: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
+          dayOfWeek: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('ddd'),
           month: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
+          monthName: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('MMM'),
           year: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
         });
       } else if (i >= 10 && i <= monthDays) {
@@ -400,13 +404,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format().substring(0, 10).replace(/-/g, '/'),
           date1: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + i).format().substring(0, 10),
           day: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('D'),
+          dayOfWeek: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('ddd'),
           month: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('M'),
+          monthName: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('MMM'),
           year: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + i).format('Y')
         });
-      } else if (i > monthDays && i <= (monthDays + nextMonthDayCount)) {
+      }
+      // Next Month
+      else if (i > monthDays && i <= (monthDays + nextMonthDayCount)) {
         this.month.push({
-          date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + monthDays).add((i - monthDays), 'days').format().substring(0, 10).replace(/-/g, '/'),
-          date1: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format().substring(0, 10),
+          date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + monthDays).add((i - monthDays), 'days').format()
+          .substring(0, 10).replace(/-/g, '/'),
+          date1: moment(selectedYear + '-' + (Number(selectedMonth) + 1) + '-' + monthDays).add((i - monthDays), 'days').format()
+          .substring(0, 10),
           day: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).format('D'),
           month: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('M'),
           year: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + (i - monthDays)).add((1), 'month').format('Y')
@@ -419,6 +429,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
 
     for (let i: any = 1; i <= prevMonthDayCount; i++) {
+      // Prev Month
       if (prevMonthDayCount > 0) {
         this.month.unshift({
           date: moment(selectedYear + '/' + (Number(selectedMonth) + 1) + '/' + 1).subtract((i), 'days').format().substring(0, 10).replace(/-/g, '/'),
@@ -618,6 +629,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     } else if ($(e.currentTarget).hasClass('selected-day')) {
       $('.opened-background').show();
       $(e.currentTarget).addClass('day-opened');
+      this.dayOpened = true;
       $('.add-item-button, .add-item-container').addClass('moved');
 
       if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i)
@@ -634,6 +646,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     $('.opened-background').hide();
     $('.day-box').removeClass('day-opened swipe-left swipe-right');
     $('.add-item-button, .add-item-container').removeClass('moved');
+    this.dayOpened = false;
     $('.transactions').removeClass('normal-scrolling');
     setTimeout(() => {
       $('.transactions').animate({ scrollTop: 0 }, 200);

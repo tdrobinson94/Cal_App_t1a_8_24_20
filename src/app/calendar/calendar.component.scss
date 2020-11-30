@@ -142,6 +142,10 @@
             flex-direction: row;
             align-items: center;
 
+            &.hidden {
+                visibility: hidden;
+            }
+
             .day-of-week-label {
 
                 width: 14.285714285714286%;
@@ -504,6 +508,10 @@
                     padding-bottom: 20px;
                     font-weight: bold;
                     font-size: 16px;
+
+                    .month {
+                        display: inline;
+                    }
                 }
 
                 .balance {
@@ -658,6 +666,10 @@
             -ms-user-select: none;
             user-select: none;
             outline: none !important;
+
+            .month {
+                display: none;
+            }
         }
 
         .balance {
