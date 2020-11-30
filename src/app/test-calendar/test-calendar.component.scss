@@ -25,6 +25,8 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+        max-width: 575px;
+        max-height: 575px;
 
         &.animate {
             border: 5px solid black;
