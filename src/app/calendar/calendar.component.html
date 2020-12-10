@@ -23,7 +23,7 @@
                 </button>
             </div>
         </div>
-        <div class="weekday-initials" [ngClass]="{'hidden': dayOpened}">
+        <div class="weekday-initials">
             <div class="day-of-week-label" *ngFor="let weekday of weekDayAbbrv"
                 [ngClass]="{'show-current-weekday': currentDayofWeek === weekday.num}">{{weekday.name}}</div>
         </div>
@@ -39,14 +39,15 @@
                 'last-day-box': lastDay == day.day && selectedMonth == day.month,
                 'prev-month-days': prevMonth == day.month,
                 'next-month-days': nextMonth == day.month,
-                'selected-day': currentDay == day.day && currentMonthCheck == day.month || firstDay == day.day && currentMonthCheck != selectedMonth && selectedMonth == day.month
+                'selected-day': selectedMonth == day.month && currentDay == day.day && currentMonthCheck == day.month || firstDay == day.day && currentMonthCheck != selectedMonth && selectedMonth == day.month
             }">
                 <span class="event-count"></span>
                 <button class="close-day">
                     <span class="material-icons close-day-icon">keyboard_arrow_down</span>
                 </button>
                 <span class="number" [ngClass]="{'notice-me': currentDay == day.day && currentMonthCheck == day.month && currentYearCheck == day.year}">
-                    <span class="month">({{day.dayOfWeek}}) {{day.monthName}} </span>{{day.day}}<span class="month">, {{day.year}}</span>
+                    <span class="month">{{day.dayOfWeek}}</span>
+                    <span class="month"> {{day.monthName}}</span> {{day.day}}
                 </span>
 
                 <button class="prev-day">

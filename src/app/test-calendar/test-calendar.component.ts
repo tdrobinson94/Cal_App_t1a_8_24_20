@@ -27,5 +27,11 @@ export class TestCalendarComponent implements OnInit, AfterViewInit {
 
   }
 
+  containerClick(): void {
+    this.animating = false;
+    this.slideUp = false;
+
+    this.ngOnInit();
+  }
+
 }
- 
